@@ -1,0 +1,37 @@
+[
+  {
+    "doc_id": "invoice_001",
+    "type": "invoice",
+    "source_url": "https://filedone.ai/sample-files/sample-invoice.pdf",
+    "source_page": "https://filedone.ai/sample-files/sample-invoice-pdf",
+    "note": "Fictional, CC0 sample invoice; one original page."
+  },
+  {
+    "doc_id": "statement_001",
+    "type": "bank statement",
+    "source_url": "https://filedone.ai/sample-files/sample-bank-statement.pdf",
+    "source_page": "https://filedone.ai/sample-files/sample-bank-statement-pdf",
+    "note": "Fictional, CC0 sample statement; two original pages."
+  },
+  {
+    "doc_id": "w2_001",
+    "type": "tax form",
+    "source_url": "https://epaystubs.net/pdfs/W2_ORD6AEC6730533E5.pdf",
+    "source_page": "https://www.epaystubs.net/w2-form-generator",
+    "note": "Fictional sample W-2 with five repeated copies; use page 1 for facts."
+  },
+  {
+    "doc_id": "filing_001",
+    "type": "SEC filing excerpt",
+    "source_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/m/NASDAQ_MAMA_2023.pdf",
+    "source_page": "https://www.annualreports.com/HostedData/AnnualReportArchive/m/NASDAQ_MAMA_2023.pdf",
+    "note": "Two-page excerpt from Mama's Creations FY2024 Form 10-K. Excerpt page 1 is original PDF page 1; excerpt page 2 is original PDF page 36. All truth page numbers refer to excerpt pages."
+  },
+  {
+    "doc_id": "form_001",
+    "type": "application form",
+    "source_url": "https://www.mdot.maryland.gov/OPCP/06_MDOTPrioritization_SampleCompletedApplicationTOD_2025.01.15.pdf",
+    "source_page": "https://www.mdot.maryland.gov/OPCP/06_MDOTPrioritization_SampleCompletedApplicationTOD_2025.01.15.pdf",
+    "note": "Maryland DOT sample completed application; 15 original pages."
+  }
+]

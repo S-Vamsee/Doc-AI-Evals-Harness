@@ -1,0 +1,11 @@
+{
+  "doc_id": "w2_001",
+  "source_url": "https://epaystubs.net/pdfs/W2_ORD6AEC6730533E5.pdf",
+  "fields": [
+    {"field": "employer_name", "value": null, "page": null},
+    {"field": "employee_name", "value": null, "page": null},
+    {"field": "social_security_wages", "value": null, "page": null},
+    {"field": "wages", "value": null, "page": null},
+    {"field": "federal_income_tax_withheld", "value": null, "page": null}
+  ]
+}

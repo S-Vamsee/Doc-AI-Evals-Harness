@@ -1,0 +1,11 @@
+{
+  "doc_id": "w2_001",
+  "source_url": "https://epaystubs.net/pdfs/W2_ORD6AEC6730533E5.pdf",
+  "fields": [
+    {"field": "employer_name", "value": "Northstar Demo Payroll LLC", "page": 1},
+    {"field": "employee_name", "value": "Alex Q Sample Jr.", "page": 1},
+    {"field": "social_security_wages", "value": 80000.0, "page": 1},
+    {"field": "wages", "value": 80000.0, "page": 1},
+    {"field": "federal_income_tax_withheld", "value": 9200.0, "page": 1}
+  ]
+}

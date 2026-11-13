@@ -1,0 +1,40 @@
+{
+  "doc_id": "w2_001",
+  "model": "deepseek-flash",
+  "fields": [
+    {
+      "field": "employer_name",
+      "value": "Northstar Demo Payroll LLC",
+      "source_page": 1
+    },
+    {
+      "field": "employee_name",
+      "value": "Alex Q Sample Jr.",
+      "source_page": 1
+    },
+    {
+      "field": "social_security_wages",
+      "value": 80000.0,
+      "source_page": 1
+    },
+    {
+      "field": "wages",
+      "value": 80000.0,
+      "source_page": 1
+    },
+    {
+      "field": "federal_income_tax_withheld",
+      "value": 9200.0,
+      "source_page": 1
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1433,
+    "completion_tokens": 104,
+    "total_tokens": 1537,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": null
+  },
+  "latency_seconds": 2.637,
+  "api_created_at": 1794569633
+}

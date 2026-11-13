@@ -1,0 +1,12 @@
+{
+  "doc_id": "form_001",
+  "source_url": "https://www.mdot.maryland.gov/OPCP/06_MDOTPrioritization_SampleCompletedApplicationTOD_2025.01.15.pdf",
+  "fields": [
+    {"field": "applicant_name", "value": null, "page": null},
+    {"field": "applicant_role", "value": null, "page": null},
+    {"field": "applicant_organization", "value": null, "page": null},
+    {"field": "project_name", "value": null, "page": null},
+    {"field": "project_type", "value": null, "page": null},
+    {"field": "application_due_date", "value": null, "page": null}
+  ]
+}

@@ -1,0 +1,1 @@
+{"fields":[{"field":"employer_name","value":"Northstar Demo Payroll LLC","source_page":1},{"field":"employee_name","value":"Alex Q Sample Jr.","source_page":1},{"field":"social_security_wages","value":80000.00,"source_page":1},{"field":"wages","value":80000.00,"source_page":1},{"field":"federal_income_tax_withheld","value":9200.00,"source_page":1}]}

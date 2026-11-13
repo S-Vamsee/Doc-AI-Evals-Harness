@@ -1,0 +1,10 @@
+{
+  "doc_id": "filing_001",
+  "source_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/m/NASDAQ_MAMA_2023.pdf",
+  "fields": [
+    {"field": "company_name", "value": "MAMA'S CREATIONS, INC.", "page": 1},
+    {"field": "fiscal_year_end_date", "value": "2024-01-31", "page": 1},
+    {"field": "gross_profit_2024_thousands", "value": 30333, "page": 2},
+    {"field": "net_income_2024_thousands", "value": 6561, "page": 2}
+  ]
+}

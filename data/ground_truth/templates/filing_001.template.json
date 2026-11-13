@@ -1,0 +1,11 @@
+{
+  "doc_id": "filing_001",
+  "source_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/m/NASDAQ_MAMA_2023.pdf",
+  "fields": [
+    {"field": "company_name", "value": null, "page": null},
+    {"field": "fiscal_year_end_date", "value": null, "page": null},
+    {"field": "net_sales_2024_thousands", "value": null, "page": null},
+    {"field": "gross_profit_2024_thousands", "value": null, "page": null},
+    {"field": "net_income_2024_thousands", "value": null, "page": null}
+  ]
+}
