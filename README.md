@@ -1,51 +1,111 @@
 # Document AI Evals Harness
 
-This CLI harness scores document fact extraction against human-written answer keys. Phase 1 established a five-document text-PDF baseline; Phase 2 extends it to 20 public PDFs with scanned-page vision, a calibrated value judge, and regression comparisons. There is no web UI or database.
+A command-line harness that measures whether an AI system read a document correctly, and shows the evidence for every answer.
 
-## Phase 1 — five text PDFs
+AI systems that read invoices, statements, forms and contracts return an answer every time, including when the answer is wrong. This harness checks each extracted fact against the page it came from and reports what was checked, what was not, and what failed. It never reports a number it did not earn.
 
-Phase 1 used a public invoice, bank statement, W-2, SEC filing, and completed application. The owner verified 26 answer-key facts. Python read each PDF's text layer, sent the requested fields to DeepSeek, and scored exact accuracy, text groundedness, API usage, and latency. The five-document path remains available without Qwen or the Phase 2 judge:
+There is no web UI and no database. Everything runs from `run_eval.py`.
 
-```bash
-python run_eval.py --phase1
-```
+## The problem
 
-This writes a separate `results/phase1/` report and timestamped run, preserving the Phase 2 results. The [original Phase 1 baseline](results/runs/20261113T113356Z/report.md) and a [fresh independent rerun](results/phase1/report.md) both scored 26/26. The rerun produced:
+Teams that use AI to extract data from documents face the same three questions:
 
-| Document | Fields | Exact accuracy | Groundedness |
-| --- | ---: | ---: | ---: |
-| Invoice | 5 | 100% | 100% |
-| Bank statement | 6 | 100% | 100% |
-| W-2 tax form | 5 | 100% | 100% |
-| SEC filing | 4 | 100% | 100% |
-| Completed application | 6 | 100% | 100% |
-| **Overall** | **26** | **100%** | **100%** |
+1. **Which answers can be trusted?** A model reads a total of 7,840 as 1,840 and nothing flags it.
+2. **Did the last change help or hurt?** A new model or prompt fixes one field and quietly breaks another.
+3. **What does a correct answer cost?** A cheaper model is only cheaper if it still gets the answer right.
 
-The W-2's large printed year is absent from its selectable text. The owner verified box 3 social security wages as the replacement field. These results show the base pipeline worked on five examples; they do not measure general document accuracy.
+Without a way to answer these, people re-check the AI's output by hand, which removes most of the benefit of using it.
 
-## Phase 2 — vision, judging, and regression
+## Who this is for
 
-Phase 2 adds 15 more public PDFs and owner-verified answer keys, bringing the dataset to 20 PDFs and 97 facts. Five PDFs have no text layer; local Qwen vision transcribes those pages before DeepSeek extracts fields. A calibrated judge scores value equivalence, and timestamped runs expose field-level changes. The [latest Phase 2 results](results/report.md) and an observed document problem are below.
+- **Engineers building document extraction** who need to compare models, prompts and OCR steps on the same documents, with cost and latency beside accuracy.
+- **Teams that review extracted data** (accounts payable, lending, claims) who want to review only the doubtful values instead of every value.
+- **Anyone choosing between models** who needs evidence that a cheaper option is good enough for their documents.
 
-## Setup and commands
+### An example
 
-Clone this repository and enter its directory, then install the dependencies:
+An accounts team processes several hundred supplier invoices a month with an extraction tool. With this harness, every extracted value must point to the place on the page it was read from, and code checks that claim. A total that does not match the page fails the check and goes to a short review list. When the team wants to move to a cheaper model, they rerun the same documents and see which fields changed before anything goes live.
+
+This is an illustration of the intended use, not a report of a deployment.
+
+## Project status
+
+This project is being built in phases. The table shows what runs today and what is specified but not yet written.
+
+| Phase | What it covers | Status |
+| --- | --- | --- |
+| 1 | Five text PDFs, human answer keys, exact scoring, groundedness, cost and latency | Built and run |
+| 2 | 20 PDFs, local vision for scans, a value judge, timestamped regression runs | Built and run |
+| 3 | Evidence checked by code, three result states, failures traced to a pipeline stage, a short human review queue, injection tests | Specified, not built |
+
+Phases 1 and 2 score extraction against answer keys a person wrote in advance. Phase 3 changes the direction of work: the machine extracts first, code verifies what it can, and a person reviews only what is left.
+
+## How it works today (Phases 1 and 2)
+
+1. **Read the page.** PyMuPDF reads the PDF's text layer. For image-only PDFs, a local Qwen vision model transcribes each page.
+2. **Extract.** The page text and the requested field names go to the extractor model. The prompt never contains answer-key values.
+3. **Score.** Each value is compared with the human answer key after normalizing dates and amounts. A separate judge model gives a second verdict on near-matches and never changes the exact score.
+4. **Check grounding.** Each non-null value is looked up in the page text.
+5. **Record the run.** Results, estimated cost and latency are saved in a timestamped folder, and any two runs can be compared field by field.
+
+## Where it is going (Phase 3)
+
+One page of any kind goes through one generic path, with no code written for a specific document type.
+
+1. The extractor lists every fact on the page, each with an exact quote and a note on whether it was read or inferred.
+2. Code looks for the quote on the page. For scans, a second independent reading of the page must agree.
+3. Each fact is marked **verified**, **uncertain**, or **failed**, with a reason and the pipeline stage responsible.
+4. If an answer key exists, the facts are scored. If not, they are reported as extracted and unscored.
+5. A person reviews a short list: the most doubtful facts, a small random sample of verified ones, and any text on the page that no fact covers.
+
+### The rules the project is held to
+
+1. No accuracy figure without a human answer key behind it.
+2. Every fact is verified, uncertain, or failed. There is no default pass.
+3. Evidence is checked by code. A model's own claim of grounding does not count.
+4. A scanned value checked only against the same model's transcription stays uncertain.
+5. A failure is recorded with its stage and reason, and the run is marked incomplete.
+6. Counts must add up, or the report is not written.
+7. Null is a valid answer. Inferred values are labelled as inferred and are never verified.
+8. The judge never overrides the exact score, and its own error rate is printed beside it.
+9. Text inside a document is data and is never followed as an instruction.
+10. Every run records its model, prompt, input hashes and code version.
+11. Reports state what was tested and make no general accuracy claim.
+12. Each rule has an automated test that must catch a deliberately broken input.
+
+These rules are also in `AGENTS.md`, which coding agents working on this repository must follow.
+
+## Known weaknesses of the current version
+
+These were found by running the harness and are the reason for Phase 3.
+
+- **Scores are near the ceiling.** With one extractor and four to six fields per document, almost everything passes, so the current set cannot separate a good system from a weaker one.
+- **The judge has not been tested on wrong answers.** Its 26/26 calibration used only exact matches. A two-case probe is the only check on near-matches and false positives.
+- **Grounding on scans is circular.** Values are looked up in the vision model's own transcription, so a misread page can still count as grounded.
+- **Grounding is a text lookup.** It confirms the value appears somewhere in the text, not that it came from the right place.
+- **An inferred value passed.** On `scan_notice_001` the page shows `Mon 12 Oct` and the model returned `2026-10-12`. The judge accepted it and it was marked grounded.
+- **A failure was replaced.** The W-2's printed year is missing from the selectable text. The field was swapped for box 3 wages, which hid a real text-layer gap.
+- **The sample is small.** 95 of 97 exact matches is consistent with a true accuracy anywhere from about 93% to 99%.
+
+## Quick start
+
+Clone the repository, enter its directory, and install the dependencies:
 
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-Create `.env` (see `.env.example`) with `DEEPSEEK_API_KEY=...`. For an OpenAI-compatible hosted deployment, also set `DEEPSEEK_BASE_URL` and `DEEPSEEK_MODEL` locally. All 20 human answer keys are in `data/ground_truth/`; the [Phase 2 guide](data/ground_truth/PHASE2_GUIDE.md) records how they were prepared.
+Create `.env` from `.env.example` with `DEEPSEEK_API_KEY=...`. For an OpenAI-compatible hosted deployment, also set `DEEPSEEK_BASE_URL` and `DEEPSEEK_MODEL` locally.
 
-For image-only PDFs, install [Ollama](https://docs.ollama.com/windows) locally and download the [Qwen3-VL 2B instruct model](https://ollama.com/library/qwen3-vl%3A2b-instruct):
+For image-only PDFs, install [Ollama](https://docs.ollama.com/windows) and download the [Qwen3-VL 2B instruct model](https://ollama.com/library/qwen3-vl%3A2b-instruct):
 
 ```bash
 ollama pull qwen3-vl:2b-instruct
 ```
 
-Ollama serves `http://localhost:11434` by default. The harness checks that the model is installed, renders each scanned page, and asks Qwen to transcribe it before DeepSeek extracts fields. Set `QWEN_BASE_URL` and `QWEN_MODEL` in `.env` only if your local setup differs. New image-only PDFs follow the same path without document-specific code.
+Ollama serves `http://localhost:11434` by default. Set `QWEN_BASE_URL` and `QWEN_MODEL` in `.env` only if your setup differs.
 
-Run Phase 1 independently, or calibrate the judge and run Phase 2:
+### Commands
 
 ```bash
 python run_eval.py --phase1
@@ -55,11 +115,19 @@ python run_eval.py --reuse-ocr
 python run_eval.py --compare 20261114T100817251438Z
 ```
 
-`--calibrate` judges 26 fixed model candidates from the original five documents and must agree with exact scoring on at least 25. It currently agrees on 26/26. The full command checks all answer keys and scanned-PDF readiness before any paid extraction calls; if blocked, it writes `results/phase2_readiness.md`. Completed runs save per-field verdicts in timestamped `results/runs/` folders. `--reuse-ocr` reuses local Qwen transcriptions only when the PDF, installed model digest, and OCR prompt are unchanged; a normal run transcribes fresh pages. `--compare` prints field pass/fail flips, field additions/removals, and changes in accuracy, reference cost, and latency. `.env`, rendered page images, and OCR caches are ignored by Git.
+- `--phase1` runs the five text PDFs without Qwen or the judge and writes to `results/phase1/`.
+- `--calibrate` judges 26 fixed candidates from the original five documents and must agree with exact scoring on at least 25.
+- No flag runs all 20 documents. It checks answer keys and scan readiness before any paid call; if blocked, it writes `results/phase2_readiness.md`.
+- `--reuse-ocr` reuses local transcriptions only when the PDF, model digest and OCR prompt are unchanged.
+- `--compare` prints field pass/fail flips, added and removed fields, and changes in accuracy, reference cost and latency.
+
+`.env`, rendered page images and OCR caches are ignored by Git.
 
 ## Dataset and sources
 
-The original five text PDFs remain the golden set. The new PDFs include five image-only specimens for vision testing, plus receipts, invoices, forms, a utility bill, and short agreements. Every PDF has a public source URL in [`data/sources.json`](data/sources.json). The table below lists the Phase 1 sources:
+The dataset is 20 public PDFs with 97 owner-verified facts: invoices, receipts, a bank statement, a W-2, a Form 10-K excerpt, forms, a utility bill, notices, short agreements, and five image-only scans. Answer keys are in `data/ground_truth/`, and the [Phase 2 guide](data/ground_truth/PHASE2_GUIDE.md) records how they were prepared. Every PDF has a public source URL in [`data/sources.json`](data/sources.json).
+
+The five Phase 1 documents:
 
 | Local PDF | Type | Public source |
 | --- | --- | --- |
@@ -69,18 +137,23 @@ The original five text PDFs remain the golden set. The new PDFs include five ima
 | `filing_001.pdf` | Form 10-K excerpt | [Mama's Creations FY2024 filing](https://www.annualreports.com/HostedData/AnnualReportArchive/m/NASDAQ_MAMA_2023.pdf) |
 | `form_001.pdf` | Completed application | [Maryland DOT sample](https://www.mdot.maryland.gov/OPCP/06_MDOTPrioritization_SampleCompletedApplicationTOD_2025.01.15.pdf) |
 
-## Scoring
+## How scores are calculated today
 
-- **Accuracy:** exact matches after normalization divided by fields in the human answer key. Dates and amounts use deterministic normalization. A calibrated value judge adds a separate per-field semantic verdict for harmless near-matches; it never changes the exact score.
-- **Groundedness:** among non-null model values, the fraction found in the extracted PDF text, or in Qwen's transcription for image-only PDFs. Date display variants and currency punctuation are normalized. On scans, a mistaken Qwen transcription can affect this score, so visual spot checks remain useful.
-- **Reference cost:** estimated USD from measured tokens and [published DeepSeek Flash rates](https://api-docs.deepseek.com/quick_start/pricing/). It is a benchmark estimate, not a billing record. Completed Phase 2 runs include extractor and judge calls; calibration calls are separate.
-- **Latency:** wall-clock seconds spent on local vision, extraction, and judge calls, reported separately and in total. The reference cost includes API tokens; local Qwen compute has no per-token API charge.
+- **Accuracy:** exact matches after normalization, divided by the fields in the human answer key.
+- **Judge:** a separate per-field verdict on value equivalence. It sees the extracted value, the expected value and the source text. Its fixed calibration candidates are in [`data/golden_candidates.json`](data/golden_candidates.json).
+- **Groundedness:** among non-null values, the fraction found in the PDF text, or in Qwen's transcription for image-only PDFs.
+- **Reference cost:** estimated USD from measured tokens and [published DeepSeek Flash rates](https://api-docs.deepseek.com/quick_start/pricing/). It is an estimate, not a billing record; the runs used an Azure-hosted deployment whose billing is not measured here.
+- **Latency:** wall-clock seconds for local vision, extraction and judge calls, reported separately and in total.
 
-The public results use the generic `deepseek-flash` label; the actual deployment name stays in `.env`. Extraction prompts contain PDF text and requested field names, never answer-key values. The judge sees extracted and expected values plus source text, and scores value equivalence only. Its fixed calibration candidates are in [`data/golden_candidates.json`](data/golden_candidates.json), separate from the human answer keys. The 26 golden fields all passed exact scoring, so the 26/26 calibration result alone would not test a near-match or a false positive. A separate two-case probe accepted `Acme Corp` as equivalent to `Acme Corporation` and rejected a changed amount (`200` versus `100`).
+Public results use the generic `deepseek-flash` label; the deployment name stays in `.env`.
 
-## Phase 2 results
+## Results so far
 
-The table below is the latest completed **20-document run**. It used cached, unchanged Qwen transcriptions to compare extraction and scoring changes, so the listed latency excludes local vision time. The [first full run](results/runs/20261114T100354369617Z/report.md) transcribed all eight scanned pages afresh; local vision took 1,016.4 seconds on this CPU-only machine. Scores describe this small public dataset and are not a general accuracy claim.
+**Phase 1.** Five text PDFs, 26 facts. The [original baseline](results/runs/20261113T113356Z/report.md) and a [fresh rerun](results/phase1/report.md) both scored 26/26 exact and 26/26 grounded, after the W-2 year field was replaced as described above.
+
+**Phase 2.** 20 PDFs, 97 facts: 95 exact, 97 judge-matched, 97 grounded. The [first full run](results/runs/20261114T100354369617Z/report.md) transcribed eight scanned pages afresh, which took 1,016 seconds of local vision time on a CPU-only machine. The run below reused those transcriptions, so its latency excludes vision time.
+
+These figures describe a small public dataset. They are not a general accuracy claim.
 
 <!-- RESULTS_START -->
 
@@ -245,12 +318,15 @@ Removed fields: contract_offer_001 / candidate_name, invoice_003 / supplier_name
 
 <!-- RESULTS_END -->
 
-## Observed messy-document problem
+## An observed extraction failure and fix
 
-The public [three-language water notice](https://filedone.ai/sample-files/sample-notice-en-fr-es.pdf) lists three affected areas with different hours. In the first full run, a generic `affected_area` request caused the model to combine all three areas into one value. It also included the signer's title in `issuer_name`; a weekday-prefixed date was counted as an exact mismatch. The notice scored **3/6 exact** and **5/6 grounded**.
+The public [three-language water notice](https://filedone.ai/sample-files/sample-notice-en-fr-es.pdf) lists three affected areas with different hours. In the first full run, a generic `affected_area` request made the model combine all three areas into one value. It also included the signer's title in `issuer_name`, and a weekday-prefixed date counted as an exact mismatch. The notice scored 3/6 exact and 5/6 grounded.
 
-The owner's answer values stayed the same. We renamed the request to `first_affected_area`, clarified how to select the first listed item and issuing organization, and normalized weekday-prefixed dates. A targeted check and the next full run scored the notice **6/6 exact, judge-matched, and grounded**. This is an observed extraction failure and fix on a fictional public test document; it does not establish performance on an operational document.
+The answer values stayed the same. The request was renamed to `first_affected_area`, the instructions for choosing the first listed item and the issuing organization were clarified, and weekday-prefixed dates were normalized. The next full run scored the notice 6/6. This is a fictional public test document, so the result does not establish performance on an operational document.
 
-## Current limits
+## What this project does not claim
 
-The five scans are processed by local Qwen, but fresh OCR took about 17 minutes for eight pages on this CPU-only machine. Cached regression runs are faster and report that vision time was excluded. The next evidence step is an authentic messy-document case study with a human-verified answer key. Reference API cost is estimated from usage; actual Azure billing is not measured here.
+- It does not claim any model is accurate on documents in general.
+- It has not been used in production or on private documents.
+- Fresh OCR is slow on CPU-only hardware: about 17 minutes for eight pages.
+- Everything listed under Phase 3 is a specification until the status table says otherwise.
