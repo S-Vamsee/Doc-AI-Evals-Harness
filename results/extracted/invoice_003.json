@@ -1,0 +1,40 @@
+{
+  "doc_id": "invoice_003",
+  "model": "deepseek-flash",
+  "fields": [
+    {
+      "field": "supplier_name_with_id",
+      "value": "Harbour Food Supply (SUP-02)",
+      "source_page": 1
+    },
+    {
+      "field": "buyer_name",
+      "value": "Harbour Kitchen Group",
+      "source_page": 1
+    },
+    {
+      "field": "invoice_date",
+      "value": "2026-08-14",
+      "source_page": 1
+    },
+    {
+      "field": "due_date",
+      "value": "2026-09-13",
+      "source_page": 1
+    },
+    {
+      "field": "total_amount",
+      "value": 325.41,
+      "source_page": 1
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 599,
+    "completion_tokens": 106,
+    "total_tokens": 705,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": null
+  },
+  "latency_seconds": 1.119,
+  "api_created_at": 1794651217
+}

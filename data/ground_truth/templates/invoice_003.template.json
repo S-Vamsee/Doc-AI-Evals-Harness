@@ -3,7 +3,7 @@
   "source_url": "https://www.testaroo.com/files/data/restaurant-procure-to-pay-v1/restaurant-group/invoice.pdf",
   "fields": [
     {
-      "field": "supplier_name",
+      "field": "supplier_name_with_id",
       "value": null,
       "page": null
     },

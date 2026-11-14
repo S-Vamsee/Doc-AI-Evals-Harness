@@ -14,27 +14,27 @@
     },
     {
       "field": "social_security_wages",
-      "value": 80000.0,
+      "value": 80000,
       "source_page": 1
     },
     {
       "field": "wages",
-      "value": 80000.0,
+      "value": 80000,
       "source_page": 1
     },
     {
       "field": "federal_income_tax_withheld",
-      "value": 9200.0,
+      "value": 9200,
       "source_page": 1
     }
   ],
   "usage": {
-    "prompt_tokens": 1433,
-    "completion_tokens": 104,
-    "total_tokens": 1537,
+    "prompt_tokens": 1491,
+    "completion_tokens": 98,
+    "total_tokens": 1589,
     "prompt_cache_hit_tokens": 0,
     "prompt_cache_miss_tokens": null
   },
-  "latency_seconds": 2.637,
-  "api_created_at": 1794569633
+  "latency_seconds": 1.317,
+  "api_created_at": 1794651279
 }

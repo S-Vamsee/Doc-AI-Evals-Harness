@@ -21,14 +21,15 @@ from src.extract import extract_facts, read_pdf_pages
 from src.judge import judge_document
 from src.regression import compare_runs, format_comparison
 from src.report import make_report
-from src.score import score_document
-from src.vision import has_usable_text, render_pages
+from src.score import normalize, score_document
+from src.vision import has_usable_text, read_scanned_pdf_pages, render_pages, vision_readiness
 
 PDF_DIR = ROOT / "data" / "pdfs"
 TRUTH_DIR = ROOT / "data" / "ground_truth"
 RESULT_DIR = ROOT / "results"
 RUNS_DIR = RESULT_DIR / "runs"
 GOLDEN_IDS = ("filing_001", "form_001", "invoice_001", "statement_001", "w2_001")
+GOLDEN_CANDIDATES = ROOT / "data" / "golden_candidates.json"
 
 
 def load_truth(path: Path, doc_id: str, page_count: int) -> dict:
@@ -58,32 +59,32 @@ def aggregate(documents: list[dict]) -> dict:
     successful = [doc for doc in documents if doc["status"] == "ok"]
     fields = sum(doc["fields"] for doc in successful)
     facts = sum(doc["extracted_facts"] for doc in successful)
+    judge_correct = sum(doc.get("judge_correct", 0) for doc in successful)
     return {
         "documents_ok": len(successful), "documents_failed": len(documents) - len(successful),
         "fields": fields, "correct": sum(doc["correct"] for doc in successful),
         "accuracy": round(sum(doc["correct"] for doc in successful) / fields * 100, 2) if fields else 0,
+        "judge_correct": judge_correct,
+        "judge_accuracy": round(judge_correct / fields * 100, 2) if fields else 0,
         "extracted_facts": facts, "grounded": sum(doc["grounded"] for doc in successful),
         "groundedness": round(sum(doc["grounded"] for doc in successful) / facts * 100, 2) if facts else None,
         "cost_usd_estimate": round(sum(doc["cost_usd_estimate"] for doc in successful), 8),
         "mean_latency_seconds": round(sum(doc["latency_seconds"] for doc in successful) / len(successful), 3) if successful else 0,
+        "vision_documents": sum("vision_model" in doc for doc in successful),
+        "vision_cached_documents": sum(doc.get("vision_cached", False) for doc in successful),
     }
 
 
 def calibration_signature() -> str:
-    """Invalidate calibration when the judge, model, or golden inputs change."""
-    code = (ROOT / "src" / "judge.py").read_bytes()
+    """Invalidate calibration when scoring, the judge, model, or fixed inputs change."""
+    code = (ROOT / "src" / "judge.py").read_bytes() + (ROOT / "src" / "score.py").read_bytes()
     config = (
         os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
         + "\n"
         + os.getenv("DEEPSEEK_MODEL", "deepseek-flash")
     ).encode("utf-8")
-    golden = b"".join(
-        (TRUTH_DIR / f"{doc_id}.json").read_bytes()
-        + json.dumps(
-            json.loads((RESULT_DIR / "extracted" / f"{doc_id}.json").read_text(encoding="utf-8"))["fields"],
-            sort_keys=True,
-        ).encode("utf-8")
-        for doc_id in GOLDEN_IDS
+    golden = GOLDEN_CANDIDATES.read_bytes() + b"".join(
+        (TRUTH_DIR / f"{doc_id}.json").read_bytes() for doc_id in GOLDEN_IDS
     )
     return hashlib.sha256(code + b"\n" + config + b"\n" + golden).hexdigest()
 
@@ -92,24 +93,28 @@ def calibrate() -> int:
     if not os.getenv("DEEPSEEK_API_KEY"):
         print("Set DEEPSEEK_API_KEY in .env before calibrating.", file=sys.stderr)
         return 2
+    candidates = json.loads(GOLDEN_CANDIDATES.read_text(encoding="utf-8"))
     verdicts = []
     for doc_id in GOLDEN_IDS:
         pdf = PDF_DIR / f"{doc_id}.pdf"
         pages = read_pdf_pages(pdf)
         truth = load_truth(TRUTH_DIR / f"{doc_id}.json", doc_id, len(pages))
-        extracted_path = RESULT_DIR / "extracted" / f"{doc_id}.json"
-        if not extracted_path.exists():
-            raise FileNotFoundError(f"Run the golden set before calibrating: {extracted_path.name}")
-        extracted = json.loads(extracted_path.read_text(encoding="utf-8"))
-        scored = score_document(extracted, truth, pages)
+        extracted = {"fields": candidates[doc_id]}
+        if [item["field"] for item in extracted["fields"]] != [item["field"] for item in truth["fields"]]:
+            raise ValueError(f"Golden candidate fields differ from answer key for {doc_id}")
         judged = judge_document(extracted, truth, pages)
-        for exact, judge in zip(scored["field_scores"], judged["verdicts"], strict=True):
+        for expected, candidate, judge in zip(
+            truth["fields"], extracted["fields"], judged["verdicts"], strict=True
+        ):
+            exact_match = normalize(expected["field"], candidate["value"], expected["value"]) == normalize(
+                expected["field"], expected["value"], expected["value"]
+            )
             verdicts.append({
                 "doc_id": doc_id,
-                "field": exact["field"],
-                "exact_match": exact["exact_match"],
+                "field": expected["field"],
+                "exact_match": exact_match,
                 "judge_match": judge["match"],
-                "agree": exact["exact_match"] == judge["match"],
+                "agree": exact_match == judge["match"],
                 "reason": judge["reason"],
             })
         print(f"Calibrated {doc_id}: {sum(item['agree'] for item in verdicts if item['doc_id'] == doc_id)}/{len(truth['fields'])} agreement")
@@ -200,10 +205,9 @@ def dataset_preflight(pdfs: list[Path]) -> bool:
     if missing_truth:
         issues.append("Human answer keys missing for: " + ", ".join(missing_truth) + ".")
     if scanned:
-        issues.append(
-            "Vision blocked: no local Qwen server configuration has been provided for "
-            + ", ".join(scanned) + "."
-        )
+        blocker = vision_readiness()
+        if blocker:
+            issues.append("Vision blocked: " + blocker + ".")
         for doc_id in scanned:
             render_pages(PDF_DIR / f"{doc_id}.pdf", RESULT_DIR / "rendered" / doc_id)
     lines = [
@@ -225,6 +229,7 @@ def main() -> int:
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--calibrate", action="store_true", help="Calibrate the judge on the five golden PDFs")
     mode.add_argument("--compare", metavar="RUN_ID", help="Compare the latest run with a saved run")
+    parser.add_argument("--reuse-ocr", action="store_true", help="Reuse Qwen transcriptions when PDF, model, and OCR prompt are unchanged")
     args = parser.parse_args()
     load_dotenv(ROOT / ".env")
     if args.compare:
@@ -251,7 +256,15 @@ def main() -> int:
         doc_id = pdf.stem
         print(f"Evaluating {doc_id}...", flush=True)
         try:
-            pages = read_pdf_pages(pdf)
+            vision = None
+            if has_usable_text(pdf):
+                pages = read_pdf_pages(pdf)
+            else:
+                vision = read_scanned_pdf_pages(
+                    pdf, RESULT_DIR / "rendered" / doc_id, RESULT_DIR / "ocr",
+                    reuse_cache=args.reuse_ocr,
+                )
+                pages = vision["pages"]
             truth_path = TRUTH_DIR / f"{doc_id}.json"
             if not truth_path.exists():
                 raise FileNotFoundError(f"Missing human ground truth: {truth_path.name}")
@@ -264,6 +277,8 @@ def main() -> int:
             for exact, verdict in zip(scored["field_scores"], judged["verdicts"], strict=True):
                 exact["judge_match"] = verdict["match"]
                 exact["judge_reason"] = verdict["reason"]
+            scored["judge_correct"] = sum(item["match"] for item in judged["verdicts"])
+            scored["judge_accuracy"] = round(scored["judge_correct"] / scored["fields"] * 100, 2)
             scored["extraction_cost_usd_estimate"] = scored["cost_usd_estimate"]
             scored["judge_cost_usd_estimate"] = judged["cost_usd_estimate"]
             scored["cost_usd_estimate"] = round(
@@ -271,10 +286,16 @@ def main() -> int:
             )
             scored["extraction_latency_seconds"] = scored["latency_seconds"]
             scored["judge_latency_seconds"] = judged["latency_seconds"]
+            scored["vision_latency_seconds"] = vision["latency_seconds"] if vision else 0
             scored["latency_seconds"] = round(
-                scored["latency_seconds"] + judged["latency_seconds"], 3
+                scored["latency_seconds"] + judged["latency_seconds"]
+                + scored["vision_latency_seconds"], 3
             )
             scored["judge_usage"] = judged["usage"]
+            if vision:
+                scored["vision_model"] = vision["model"]
+                scored["vision_usage"] = vision["usage"]
+                scored["vision_cached"] = vision["cache_hit"]
             documents.append(scored)
         except Exception as exc:
             print(f"  failed: {exc}", file=sys.stderr)

@@ -1,0 +1,1 @@
+{"fields":[{"field":"invoice_number","value":"INV-SAMPLE-1042","source_page":1},{"field":"vendor_name","value":"Meridian Supply Co.","source_page":1},{"field":"customer_name","value":"Riverside High School","source_page":1},{"field":"total_amount","value":329.4,"source_page":1}]}

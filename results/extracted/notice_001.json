@@ -1,0 +1,45 @@
+{
+  "doc_id": "notice_001",
+  "model": "deepseek-flash",
+  "fields": [
+    {
+      "field": "notice_date",
+      "value": "2026-10-06",
+      "source_page": 1
+    },
+    {
+      "field": "first_affected_area",
+      "value": "Market Road and Station Lane",
+      "source_page": 1
+    },
+    {
+      "field": "interruption_date",
+      "value": "2026-10-13",
+      "source_page": 1
+    },
+    {
+      "field": "start_time",
+      "value": "08:00",
+      "source_page": 1
+    },
+    {
+      "field": "end_time",
+      "value": "16:00",
+      "source_page": 1
+    },
+    {
+      "field": "issuer_name",
+      "value": "Sampleton Water Board",
+      "source_page": 1
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1293,
+    "completion_tokens": 115,
+    "total_tokens": 1408,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": null
+  },
+  "latency_seconds": 1.049,
+  "api_created_at": 1794651220
+}

@@ -1,0 +1,40 @@
+{
+  "doc_id": "contract_amendment_001",
+  "model": "deepseek-flash",
+  "fields": [
+    {
+      "field": "amendment_reference",
+      "value": "AMD-2026-01",
+      "source_page": 1
+    },
+    {
+      "field": "effective_date",
+      "value": "2026-09-01",
+      "source_page": 1
+    },
+    {
+      "field": "old_expense_cap",
+      "value": 250.0,
+      "source_page": 1
+    },
+    {
+      "field": "new_expense_cap",
+      "value": 400.0,
+      "source_page": 1
+    },
+    {
+      "field": "acceptance_window_days",
+      "value": 15,
+      "source_page": 1
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 586,
+    "completion_tokens": 101,
+    "total_tokens": 687,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": null
+  },
+  "latency_seconds": 2.277,
+  "api_created_at": 1794651183
+}

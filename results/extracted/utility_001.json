@@ -1,0 +1,40 @@
+{
+  "doc_id": "utility_001",
+  "model": "deepseek-flash",
+  "fields": [
+    {
+      "field": "provider_name",
+      "value": "Brightside Energy",
+      "source_page": 1
+    },
+    {
+      "field": "account_number",
+      "value": "ACC-SAMPLE-7788",
+      "source_page": 1
+    },
+    {
+      "field": "billing_period_start",
+      "value": "2025-12-01",
+      "source_page": 1
+    },
+    {
+      "field": "billing_period_end",
+      "value": "2025-12-31",
+      "source_page": 1
+    },
+    {
+      "field": "total_due",
+      "value": 53.78,
+      "source_page": 1
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 381,
+    "completion_tokens": 102,
+    "total_tokens": 483,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": null
+  },
+  "latency_seconds": 1.278,
+  "api_created_at": 1794651275
+}

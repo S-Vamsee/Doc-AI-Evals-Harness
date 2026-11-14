@@ -1,0 +1,142 @@
+{
+  "filing_001": [
+    {
+      "field": "company_name",
+      "value": "Mama's Creations, Inc.",
+      "source_page": 1
+    },
+    {
+      "field": "fiscal_year_end_date",
+      "value": "2024-01-31",
+      "source_page": 1
+    },
+    {
+      "field": "gross_profit_2024_thousands",
+      "value": 30333,
+      "source_page": 2
+    },
+    {
+      "field": "net_income_2024_thousands",
+      "value": 6561,
+      "source_page": 2
+    }
+  ],
+  "form_001": [
+    {
+      "field": "applicant_name",
+      "value": "Jane Jacobs",
+      "source_page": 1
+    },
+    {
+      "field": "applicant_role",
+      "value": "Planner III",
+      "source_page": 2
+    },
+    {
+      "field": "applicant_organization",
+      "value": "XYZ County Department of Transportation",
+      "source_page": 2
+    },
+    {
+      "field": "project_name",
+      "value": "C Station Transit Oriented Development",
+      "source_page": 2
+    },
+    {
+      "field": "project_type",
+      "value": "Transit Oriented Development",
+      "source_page": 1
+    },
+    {
+      "field": "application_due_date",
+      "value": "2025-02-18",
+      "source_page": 1
+    }
+  ],
+  "invoice_001": [
+    {
+      "field": "invoice_number",
+      "value": "INV-2026-0142",
+      "source_page": 1
+    },
+    {
+      "field": "invoice_date",
+      "value": "2026-09-18",
+      "source_page": 1
+    },
+    {
+      "field": "due_date",
+      "value": "2026-10-18",
+      "source_page": 1
+    },
+    {
+      "field": "vendor_name",
+      "value": "Larkfield Stationers",
+      "source_page": 1
+    },
+    {
+      "field": "total_amount",
+      "value": 17348.36,
+      "source_page": 1
+    }
+  ],
+  "statement_001": [
+    {
+      "field": "bank_name",
+      "value": "Specimen Bank",
+      "source_page": 1
+    },
+    {
+      "field": "account_holder",
+      "value": "Sam Specimen",
+      "source_page": 1
+    },
+    {
+      "field": "account_number",
+      "value": "SPECIMEN-0000-4821",
+      "source_page": 1
+    },
+    {
+      "field": "period_start_date",
+      "value": "2026-08-01",
+      "source_page": 1
+    },
+    {
+      "field": "opening_balance",
+      "value": 48230.55,
+      "source_page": 1
+    },
+    {
+      "field": "closing_balance",
+      "value": 46736.38,
+      "source_page": 2
+    }
+  ],
+  "w2_001": [
+    {
+      "field": "employer_name",
+      "value": "Northstar Demo Payroll LLC",
+      "source_page": 1
+    },
+    {
+      "field": "employee_name",
+      "value": "Alex Q Sample Jr.",
+      "source_page": 1
+    },
+    {
+      "field": "social_security_wages",
+      "value": 80000,
+      "source_page": 1
+    },
+    {
+      "field": "wages",
+      "value": 80000,
+      "source_page": 1
+    },
+    {
+      "field": "federal_income_tax_withheld",
+      "value": 9200,
+      "source_page": 1
+    }
+  ]
+}

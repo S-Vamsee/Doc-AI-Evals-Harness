@@ -1,0 +1,1 @@
+{"fields":[{"field":"patient_name","value":"Jordan Rivera","source_page":1},{"field":"form_date","value":"2026-01-18","source_page":1},{"field":"symptoms","value":"mild headache, SAMPLE only","source_page":1},{"field":"instruction","value":"rest and hydrate — fictional clinic form","source_page":1},{"field":"signature","value":"J. Rivera (SAMPLE)","source_page":1}]}

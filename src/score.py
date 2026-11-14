@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import calendar
 import re
 import unicodedata
 from datetime import datetime, timezone
@@ -22,6 +23,12 @@ def _plain(value: object) -> str:
 
 def _date(value: object) -> str:
     text = _plain(value).replace(".", "")
+    text = re.sub(
+        r"^(?:mon(?:day)?|tue(?:sday)?|wed(?:nesday)?|thu(?:rsday)?|fri(?:day)?|sat(?:urday)?|sun(?:day)?),?\s+",
+        "", text,
+    )
+    text = re.sub(r"\b(\d{1,2})(?:st|nd|rd|th)\b", r"\1", text)
+    text = text.replace(" day of ", " ")
     for fmt in (
         "%Y-%m-%d", "%m/%d/%Y", "%m/%d/%y", "%d/%m/%Y",
         "%B %d, %Y", "%b %d, %Y", "%d %B %Y", "%d %b %Y",
@@ -30,6 +37,21 @@ def _date(value: object) -> str:
             return datetime.strptime(text, fmt).date().isoformat()
         except ValueError:
             pass
+    return text
+
+
+def _month_period(value: object) -> tuple[str, str] | str:
+    text = _plain(value)
+    iso = re.fullmatch(r"(\d{4}-\d{2})\s*(?:to|-)\s*(\d{4}-\d{2})", text)
+    if iso:
+        return iso.group(1), iso.group(2)
+    named = re.fullmatch(r"([a-z]+)\s+(\d{4})\s*(?:to|-)\s*([a-z]+)\s+(\d{4})", text)
+    if named:
+        months = {name.casefold(): number for number, name in enumerate(calendar.month_name) if name}
+        months.update({name.casefold(): number for number, name in enumerate(calendar.month_abbr) if name})
+        first, second = months.get(named.group(1)), months.get(named.group(3))
+        if first and second:
+            return f"{named.group(2)}-{first:02d}", f"{named.group(4)}-{second:02d}"
     return text
 
 
@@ -49,6 +71,8 @@ def normalize(field: str, value: object, expected: object) -> object:
         return None
     if isinstance(expected, (int, float)) and not isinstance(expected, bool):
         return _amount(value)
+    if field.endswith("_period"):
+        return _month_period(value)
     if "date" in field or "period_end" in field or "period_start" in field:
         return _date(value)
     return _plain(value)
@@ -58,6 +82,21 @@ def appears_in_text(field: str, value: object, pages: list[str]) -> bool:
     if value is None:
         return False
     text = _plain(" ".join(pages))
+    if field.endswith("_period"):
+        period = _month_period(value)
+        if isinstance(period, tuple):
+            start, end = period
+            first_year, first_month = map(int, start.split("-"))
+            last_year, last_month = map(int, end.split("-"))
+            variants = []
+            for separator in (" to ", " - "):
+                variants.extend((
+                    f"{start}{separator}{end}",
+                    f"{calendar.month_name[first_month]} {first_year}{separator}{calendar.month_name[last_month]} {last_year}",
+                    f"{calendar.month_abbr[first_month]} {first_year}{separator}{calendar.month_abbr[last_month]} {last_year}",
+                ))
+            return any(_plain(variant) in text for variant in variants)
+        return period in text
     if "date" in field or "period_end" in field or "period_start" in field:
         iso = _date(value)
         try:
@@ -73,6 +112,8 @@ def appears_in_text(field: str, value: object, pages: list[str]) -> bool:
             f"{date.strftime('%b')} {date.day}, {date.year}",
             f"{date.day} {date.strftime('%B')} {date.year}",
         ]
+        suffix = "th" if 11 <= date.day % 100 <= 13 else {1: "st", 2: "nd", 3: "rd"}.get(date.day % 10, "th")
+        variants.append(f"{date.day}{suffix} day of {date.strftime('%B')} {date.year}")
         return any(_plain(variant) in text for variant in variants)
     amount = _amount(value)
     if isinstance(amount, Decimal):

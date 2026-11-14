@@ -1,0 +1,1 @@
+{"fields":[{"field":"licensor_name","value":"Sam Specimen","source_page":1},{"field":"licensor_address","value":"7 Example Avenue, Sampleton 000 000","source_page":1},{"field":"agreement_date","value":"2026-09-25","source_page":1},{"field":"monthly_licence_fee","value":18500,"source_page":1}]}

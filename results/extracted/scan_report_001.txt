@@ -1,0 +1,1 @@
+{"fields":[{"field":"organization_name","value":"Larkfield Community Library","source_page":1},{"field":"report_period","value":"2025-04 to 2026-03","source_page":1},{"field":"days_open","value":302,"source_page":1},{"field":"annual_visits","value":41280,"source_page":1},{"field":"printed_book_loans","value":58914,"source_page":1}]}

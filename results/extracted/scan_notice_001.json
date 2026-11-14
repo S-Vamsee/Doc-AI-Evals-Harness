@@ -1,0 +1,40 @@
+{
+  "doc_id": "scan_notice_001",
+  "model": "deepseek-flash",
+  "fields": [
+    {
+      "field": "notice_date",
+      "value": "2026-10-06",
+      "source_page": 1
+    },
+    {
+      "field": "block_a_water_off_date",
+      "value": "2026-10-12",
+      "source_page": 1
+    },
+    {
+      "field": "block_a_water_off_start",
+      "value": "09:00",
+      "source_page": 1
+    },
+    {
+      "field": "block_a_water_off_end",
+      "value": "13:00",
+      "source_page": 1
+    },
+    {
+      "field": "signer_name",
+      "value": "Sam Specimen",
+      "source_page": 1
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 584,
+    "completion_tokens": 108,
+    "total_tokens": 692,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": null
+  },
+  "latency_seconds": 0.978,
+  "api_created_at": 1794651259
+}

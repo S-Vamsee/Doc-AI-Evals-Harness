@@ -1,0 +1,1 @@
+{"fields":[{"field":"supplier_name_with_id","value":"Harbour Food Supply (SUP-02)","source_page":1},{"field":"buyer_name","value":"Harbour Kitchen Group","source_page":1},{"field":"invoice_date","value":"2026-08-14","source_page":1},{"field":"due_date","value":"2026-09-13","source_page":1},{"field":"total_amount","value":325.41,"source_page":1}]}

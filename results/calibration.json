@@ -1,6 +1,6 @@
 {
-  "calibrated_at_utc": "2026-11-14T03:39:47+00:00",
-  "judge_signature": "3f00d3e5fdb132ff6bf5a34b416568da7116ff2926006deef5997b02b8a255c4",
+  "calibrated_at_utc": "2026-11-14T10:16:22+00:00",
+  "judge_signature": "c0efbd357ec19d167e936651b170bfae2683df2975c2cefbfd47d41598149040",
   "golden_fields": 26,
   "agreements": 26,
   "passed": true,
@@ -11,7 +11,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "The extracted value 'Mama's Creations, Inc.' is a harmless capitalization and punctuation variant of the expected 'MAMA'S CREATIONS, INC.' and refers to the same entity."
+      "reason": "The extracted value 'Mama's Creations, Inc.' matches the expected 'MAMA'S CREATIONS, INC.' with only harmless capitalization differences."
     },
     {
       "doc_id": "filing_001",
@@ -131,7 +131,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Extracted value 'Specimen Bank' matches expected value exactly."
+      "reason": "Extracted value 'Specimen Bank' exactly matches expected value."
     },
     {
       "doc_id": "statement_001",
@@ -139,7 +139,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Extracted value 'Sam Specimen' matches expected value exactly."
+      "reason": "Extracted value 'Sam Specimen' exactly matches expected value."
     },
     {
       "doc_id": "statement_001",
@@ -147,7 +147,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Extracted value 'SPECIMEN-0000-4821' matches expected value exactly."
+      "reason": "Extracted value 'SPECIMEN-0000-4821' exactly matches expected value."
     },
     {
       "doc_id": "statement_001",
@@ -155,7 +155,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Extracted value '2026-08-01' matches expected value exactly."
+      "reason": "Extracted value '2026-08-01' exactly matches expected value."
     },
     {
       "doc_id": "statement_001",
@@ -163,7 +163,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Extracted value 48230.55 matches expected value exactly."
+      "reason": "Extracted value 48230.55 exactly matches expected value."
     },
     {
       "doc_id": "statement_001",
@@ -171,7 +171,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Extracted value 46736.38 matches expected value exactly."
+      "reason": "Extracted value 46736.38 exactly matches expected value."
     },
     {
       "doc_id": "w2_001",
@@ -187,7 +187,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Exact match including suffix."
+      "reason": "Exact match."
     },
     {
       "doc_id": "w2_001",
@@ -195,7 +195,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Both values are 80000.0."
+      "reason": "80000 is numerically equivalent to 80000.0."
     },
     {
       "doc_id": "w2_001",
@@ -203,7 +203,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Both values are 80000.0."
+      "reason": "80000 is numerically equivalent to 80000.0."
     },
     {
       "doc_id": "w2_001",
@@ -211,7 +211,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Both values are 9200.0."
+      "reason": "9200 is numerically equivalent to 9200.0."
     }
   ]
 }

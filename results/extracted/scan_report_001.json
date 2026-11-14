@@ -1,0 +1,40 @@
+{
+  "doc_id": "scan_report_001",
+  "model": "deepseek-flash",
+  "fields": [
+    {
+      "field": "organization_name",
+      "value": "Larkfield Community Library",
+      "source_page": 1
+    },
+    {
+      "field": "report_period",
+      "value": "2025-04 to 2026-03",
+      "source_page": 1
+    },
+    {
+      "field": "days_open",
+      "value": 302,
+      "source_page": 1
+    },
+    {
+      "field": "annual_visits",
+      "value": 41280,
+      "source_page": 1
+    },
+    {
+      "field": "printed_book_loans",
+      "value": 58914,
+      "source_page": 1
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1026,
+    "completion_tokens": 97,
+    "total_tokens": 1123,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": null
+  },
+  "latency_seconds": 1.159,
+  "api_created_at": 1794651267
+}

@@ -1,0 +1,1 @@
+{"fields":[{"field":"merchant_name","value":"Corner Cafe","source_page":1},{"field":"purchase_date","value":"2026-09-18","source_page":1},{"field":"total_amount","value":380.00,"source_page":1},{"field":"payment_method","value":"card","source_page":1}]}

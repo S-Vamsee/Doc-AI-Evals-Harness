@@ -1,0 +1,1749 @@
+{
+  "run_at_utc": "2026-11-14T10:03:54.369617+00:00",
+  "documents": [
+    {
+      "doc_id": "contract_amendment_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 5,
+      "correct": 5,
+      "accuracy": 100.0,
+      "extracted_facts": 5,
+      "grounded": 5,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.0005451,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 8.971,
+      "usage": {
+        "prompt_tokens": 528,
+        "completion_tokens": 101,
+        "total_tokens": 629,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "amendment_reference",
+          "expected": "AMD-2026-01",
+          "got": "AMD-2026-01",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 'AMD-2026-01' exactly matches expected value."
+        },
+        {
+          "field": "effective_date",
+          "expected": "1 September 2026",
+          "got": "2026-09-01",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value '2026-09-01' is a standard date format representing the same date as '1 September 2026'."
+        },
+        {
+          "field": "old_expense_cap",
+          "expected": 250.0,
+          "got": 250.0,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 250.0 matches expected value 250.0."
+        },
+        {
+          "field": "new_expense_cap",
+          "expected": 400.0,
+          "got": 400.0,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 400.0 matches expected value 400.0."
+        },
+        {
+          "field": "acceptance_window_days",
+          "expected": 15,
+          "got": 15,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 15 matches expected value 15."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.0001398,
+      "judge_cost_usd_estimate": 0.0004053,
+      "extraction_latency_seconds": 7.663,
+      "judge_latency_seconds": 1.308,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 2042,
+        "completion_tokens": 165,
+        "total_tokens": 2207,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "contract_offer_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 5,
+      "correct": 4,
+      "accuracy": 80.0,
+      "extracted_facts": 5,
+      "grounded": 5,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00073515,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.697,
+      "usage": {
+        "prompt_tokens": 715,
+        "completion_tokens": 168,
+        "total_tokens": 883,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [
+        {
+          "field": "candidate_name",
+          "expected": "Team member 5 (EMP-05)",
+          "got": "Team member 5"
+        }
+      ],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "employer_name",
+          "expected": "Cobalt Operations Team",
+          "got": "Cobalt Operations Team",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact match."
+        },
+        {
+          "field": "candidate_name",
+          "expected": "Team member 5 (EMP-05)",
+          "got": "Team member 5",
+          "exact_match": false,
+          "grounded": true,
+          "judge_match": false,
+          "judge_reason": "Extracted value 'Team member 5' is missing the employee ID '(EMP-05)' that is part of the expected value."
+        },
+        {
+          "field": "start_date",
+          "expected": "10 August 2026",
+          "got": "2026-08-10",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Different date format but same date."
+        },
+        {
+          "field": "hourly_rate",
+          "expected": 28.0,
+          "got": 28.0,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact numeric match."
+        },
+        {
+          "field": "offer_expiry_date",
+          "expected": "3 August 2026",
+          "got": "2026-08-03",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Different date format but same date."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.00020805,
+      "judge_cost_usd_estimate": 0.0005271,
+      "extraction_latency_seconds": 1.198,
+      "judge_latency_seconds": 1.499,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 3022,
+        "completion_tokens": 123,
+        "total_tokens": 3145,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "filing_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 4,
+      "correct": 4,
+      "accuracy": 100.0,
+      "extracted_facts": 4,
+      "grounded": 4,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.000927,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 4.306,
+      "usage": {
+        "prompt_tokens": 1653,
+        "completion_tokens": 147,
+        "total_tokens": 1800,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "company_name",
+          "expected": "MAMA'S CREATIONS, INC.",
+          "got": "Mama's Creations, Inc.",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "The extracted value 'Mama's Creations, Inc.' is a harmless capitalization variant of the expected 'MAMA'S CREATIONS, INC.' and means the same entity."
+        },
+        {
+          "field": "fiscal_year_end_date",
+          "expected": "2024-01-31",
+          "got": "2024-01-31",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "The extracted value '2024-01-31' exactly matches the expected value."
+        },
+        {
+          "field": "gross_profit_2024_thousands",
+          "expected": 30333,
+          "got": 30333,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "The extracted value 30333 exactly matches the expected value."
+        },
+        {
+          "field": "net_income_2024_thousands",
+          "expected": 6561,
+          "got": 6561,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "The extracted value 6561 exactly matches the expected value."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.00033615,
+      "judge_cost_usd_estimate": 0.00059085,
+      "extraction_latency_seconds": 2.534,
+      "judge_latency_seconds": 1.772,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 3347,
+        "completion_tokens": 148,
+        "total_tokens": 3495,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "form_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 6,
+      "correct": 6,
+      "accuracy": 100.0,
+      "extracted_facts": 6,
+      "grounded": 6,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00152715,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.985,
+      "usage": {
+        "prompt_tokens": 6015,
+        "completion_tokens": 199,
+        "total_tokens": 6214,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "applicant_name",
+          "expected": "Jane Jacobs",
+          "got": "Jane Jacobs",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact match."
+        },
+        {
+          "field": "applicant_role",
+          "expected": "Planner III",
+          "got": "Planner III",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact match."
+        },
+        {
+          "field": "applicant_organization",
+          "expected": "XYZ County Department of Transportation",
+          "got": "XYZ County Department of Transportation",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact match."
+        },
+        {
+          "field": "project_name",
+          "expected": "C Station Transit Oriented Development",
+          "got": "C Station Transit Oriented Development",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact match."
+        },
+        {
+          "field": "project_type",
+          "expected": "Transit Oriented Development",
+          "got": "Transit Oriented Development",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact match."
+        },
+        {
+          "field": "application_due_date",
+          "expected": "2025-02-18",
+          "got": "2025-02-18",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact match."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.00102165,
+      "judge_cost_usd_estimate": 0.0005055,
+      "extraction_latency_seconds": 1.6,
+      "judge_latency_seconds": 1.385,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 2930,
+        "completion_tokens": 110,
+        "total_tokens": 3040,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "form_handwritten_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 5,
+      "correct": 5,
+      "accuracy": 100.0,
+      "extracted_facts": 5,
+      "grounded": 5,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.0002448,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.264,
+      "usage": {
+        "prompt_tokens": 235,
+        "completion_tokens": 99,
+        "total_tokens": 334,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "patient_name",
+          "expected": "Jordan Rivera",
+          "got": "Jordan Rivera",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "form_date",
+          "expected": "2026-01-18",
+          "got": "2026-01-18",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "symptoms",
+          "expected": "mild headache, SAMPLE only",
+          "got": "mild headache, SAMPLE only",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "instruction",
+          "expected": "rest and hydrate \u2014 fictional clinic form",
+          "got": "rest and hydrate \u2014 fictional clinic form",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "signature",
+          "expected": "J. Rivera (SAMPLE)",
+          "got": "J. Rivera (SAMPLE)",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        }
+      ],
+      "extraction_cost_usd_estimate": 9.465e-05,
+      "judge_cost_usd_estimate": 0.00015015,
+      "extraction_latency_seconds": 1.04,
+      "judge_latency_seconds": 1.224,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 573,
+        "completion_tokens": 107,
+        "total_tokens": 680,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "form_library_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 4,
+      "correct": 4,
+      "accuracy": 100.0,
+      "extracted_facts": 4,
+      "grounded": 4,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00038775,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.875,
+      "usage": {
+        "prompt_tokens": 386,
+        "completion_tokens": 145,
+        "total_tokens": 531,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "organization_name",
+          "expected": "Larkfield Community Library",
+          "got": "Larkfield Community Library",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value exactly matches expected value."
+        },
+        {
+          "field": "form_title",
+          "expected": "Membership application",
+          "got": "Membership application",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value exactly matches expected value."
+        },
+        {
+          "field": "membership_types",
+          "expected": "Adult, Student, Senior (65 and over)",
+          "got": "Adult, Student, Senior (65 and over)",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value exactly matches expected value."
+        },
+        {
+          "field": "interests_list",
+          "expected": "Fiction, Local history, Digital skills, Children's events",
+          "got": "Fiction, Local history, Digital skills, Children's events",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value exactly matches expected value."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.0001449,
+      "judge_cost_usd_estimate": 0.00024285,
+      "extraction_latency_seconds": 1.825,
+      "judge_latency_seconds": 1.05,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 1259,
+        "completion_tokens": 90,
+        "total_tokens": 1349,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "invoice_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 5,
+      "correct": 5,
+      "accuracy": 100.0,
+      "extracted_facts": 5,
+      "grounded": 5,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.0006222,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 3.01,
+      "usage": {
+        "prompt_tokens": 634,
+        "completion_tokens": 100,
+        "total_tokens": 734,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "invoice_number",
+          "expected": "INV-2026-0142",
+          "got": "INV-2026-0142",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "invoice_date",
+          "expected": "2026-09-18",
+          "got": "2026-09-18",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "due_date",
+          "expected": "2026-10-18",
+          "got": "2026-10-18",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "vendor_name",
+          "expected": "Larkfield Stationers",
+          "got": "Larkfield Stationers",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "total_amount",
+          "expected": 17348.36,
+          "got": 17348.36,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.0001551,
+      "judge_cost_usd_estimate": 0.0004671,
+      "extraction_latency_seconds": 1.09,
+      "judge_latency_seconds": 1.92,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 2682,
+        "completion_tokens": 108,
+        "total_tokens": 2790,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "invoice_002",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 4,
+      "correct": 4,
+      "accuracy": 100.0,
+      "extracted_facts": 4,
+      "grounded": 4,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00029805,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.287,
+      "usage": {
+        "prompt_tokens": 327,
+        "completion_tokens": 78,
+        "total_tokens": 405,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "invoice_number",
+          "expected": "INV-SAMPLE-1042",
+          "got": "INV-SAMPLE-1042",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 'INV-SAMPLE-1042' exactly matches expected value."
+        },
+        {
+          "field": "vendor_name",
+          "expected": "Meridian Supply Co.",
+          "got": "Meridian Supply Co.",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 'Meridian Supply Co.' exactly matches expected value."
+        },
+        {
+          "field": "customer_name",
+          "expected": "Riverside High School",
+          "got": "Riverside High School",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 'Riverside High School' exactly matches expected value."
+        },
+        {
+          "field": "total_amount",
+          "expected": 329.4,
+          "got": 329.4,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 329.4 exactly matches expected value 329.4."
+        }
+      ],
+      "extraction_cost_usd_estimate": 9.585e-05,
+      "judge_cost_usd_estimate": 0.0002022,
+      "extraction_latency_seconds": 1.158,
+      "judge_latency_seconds": 1.129,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 876,
+        "completion_tokens": 118,
+        "total_tokens": 994,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "invoice_003",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 5,
+      "correct": 4,
+      "accuracy": 80.0,
+      "extracted_facts": 5,
+      "grounded": 5,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00053865,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.41,
+      "usage": {
+        "prompt_tokens": 539,
+        "completion_tokens": 98,
+        "total_tokens": 637,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [
+        {
+          "field": "supplier_name",
+          "expected": "Harbour Food Supply (SUP-02)",
+          "got": "Harbour Food Supply"
+        }
+      ],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "supplier_name",
+          "expected": "Harbour Food Supply (SUP-02)",
+          "got": "Harbour Food Supply",
+          "exact_match": false,
+          "grounded": true,
+          "judge_match": false,
+          "judge_reason": "Extracted value 'Harbour Food Supply' is missing the suffix '(SUP-02)' which is part of the expected value."
+        },
+        {
+          "field": "buyer_name",
+          "expected": "Harbour Kitchen Group",
+          "got": "Harbour Kitchen Group",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "invoice_date",
+          "expected": "2026-08-14",
+          "got": "2026-08-14",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "due_date",
+          "expected": "2026-09-13",
+          "got": "2026-09-13",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "total_amount",
+          "expected": 325.41,
+          "got": 325.41,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.00013965,
+      "judge_cost_usd_estimate": 0.000399,
+      "extraction_latency_seconds": 1.122,
+      "judge_latency_seconds": 1.288,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 2140,
+        "completion_tokens": 130,
+        "total_tokens": 2270,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "notice_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 6,
+      "correct": 3,
+      "accuracy": 50.0,
+      "extracted_facts": 6,
+      "grounded": 5,
+      "groundedness": 83.33,
+      "cost_usd_estimate": 0.00068175,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.72,
+      "usage": {
+        "prompt_tokens": 1233,
+        "completion_tokens": 129,
+        "total_tokens": 1362,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [
+        {
+          "field": "affected_area",
+          "expected": "Market Road and Station Lane",
+          "got": "Market Road and Station Lane, Hill View Colony, River Side blocks 1 to 4"
+        },
+        {
+          "field": "interruption_date",
+          "expected": "Tuesday 13 October 2026",
+          "got": "2026-10-13"
+        },
+        {
+          "field": "issuer_name",
+          "expected": "Sampleton Water Board",
+          "got": "Executive Engineer, Sampleton Water Board"
+        }
+      ],
+      "ungrounded": [
+        {
+          "field": "affected_area",
+          "got": "Market Road and Station Lane, Hill View Colony, River Side blocks 1 to 4",
+          "source_page": 1
+        }
+      ],
+      "field_scores": [
+        {
+          "field": "notice_date",
+          "expected": "2026-10-06",
+          "got": "2026-10-06",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both values are '2026-10-06'."
+        },
+        {
+          "field": "affected_area",
+          "expected": "Market Road and Station Lane",
+          "got": "Market Road and Station Lane, Hill View Colony, River Side blocks 1 to 4",
+          "exact_match": false,
+          "grounded": false,
+          "judge_match": false,
+          "judge_reason": "Extracted value includes additional areas (Hill View Colony, River Side blocks 1 to 4) not in expected value."
+        },
+        {
+          "field": "interruption_date",
+          "expected": "Tuesday 13 October 2026",
+          "got": "2026-10-13",
+          "exact_match": false,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "'2026-10-13' is a standard date format equivalent to 'Tuesday 13 October 2026'."
+        },
+        {
+          "field": "start_time",
+          "expected": "08:00",
+          "got": "08:00",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both values are '08:00'."
+        },
+        {
+          "field": "end_time",
+          "expected": "16:00",
+          "got": "16:00",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both values are '16:00'."
+        },
+        {
+          "field": "issuer_name",
+          "expected": "Sampleton Water Board",
+          "got": "Executive Engineer, Sampleton Water Board",
+          "exact_match": false,
+          "grounded": true,
+          "judge_match": false,
+          "judge_reason": "Extracted value includes 'Executive Engineer,' which is not part of the expected organization name."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.00026235,
+      "judge_cost_usd_estimate": 0.0004194,
+      "extraction_latency_seconds": 1.299,
+      "judge_latency_seconds": 1.421,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 2076,
+        "completion_tokens": 180,
+        "total_tokens": 2256,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "receipt_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 4,
+      "correct": 4,
+      "accuracy": 100.0,
+      "extracted_facts": 4,
+      "grounded": 4,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00029835,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.196,
+      "usage": {
+        "prompt_tokens": 345,
+        "completion_tokens": 74,
+        "total_tokens": 419,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "merchant_name",
+          "expected": "CORNER CAFE",
+          "got": "CORNER CAFE",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both values are identical."
+        },
+        {
+          "field": "purchase_date",
+          "expected": "18/09/2026",
+          "got": "2026-09-18",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Different date format but same date (18 September 2026)."
+        },
+        {
+          "field": "total_amount",
+          "expected": 380.0,
+          "got": 380.0,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both values are identical."
+        },
+        {
+          "field": "payment_method",
+          "expected": "Card",
+          "got": "card",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Case difference only; 'Card' and 'card' mean the same."
+        }
+      ],
+      "extraction_cost_usd_estimate": 9.615e-05,
+      "judge_cost_usd_estimate": 0.0002022,
+      "extraction_latency_seconds": 1.044,
+      "judge_latency_seconds": 1.152,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 960,
+        "completion_tokens": 97,
+        "total_tokens": 1057,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "receipt_002",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 4,
+      "correct": 3,
+      "accuracy": 75.0,
+      "extracted_facts": 4,
+      "grounded": 4,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00024075,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 3.286,
+      "usage": {
+        "prompt_tokens": 244,
+        "completion_tokens": 78,
+        "total_tokens": 322,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [
+        {
+          "field": "order_number",
+          "expected": "#NV-10482",
+          "got": "NV-10482"
+        }
+      ],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "merchant_name",
+          "expected": "BRIGHTSIDE CAFE",
+          "got": "BRIGHTSIDE CAFE",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 'BRIGHTSIDE CAFE' matches expected value exactly."
+        },
+        {
+          "field": "order_number",
+          "expected": "#NV-10482",
+          "got": "NV-10482",
+          "exact_match": false,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 'NV-10482' matches expected value '#NV-10482' with harmless omission of the leading '#' symbol."
+        },
+        {
+          "field": "purchase_date",
+          "expected": "2026-01-06",
+          "got": "2026-01-06",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value '2026-01-06' matches expected value exactly."
+        },
+        {
+          "field": "total_amount",
+          "expected": 7.75,
+          "got": 7.75,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 7.75 matches expected value exactly."
+        }
+      ],
+      "extraction_cost_usd_estimate": 8.34e-05,
+      "judge_cost_usd_estimate": 0.00015735,
+      "extraction_latency_seconds": 2.033,
+      "judge_latency_seconds": 1.253,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 533,
+        "completion_tokens": 129,
+        "total_tokens": 662,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "scan_agreement_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 4,
+      "correct": 3,
+      "accuracy": 75.0,
+      "extracted_facts": 4,
+      "grounded": 4,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.0004854,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 269.154,
+      "usage": {
+        "prompt_tokens": 765,
+        "completion_tokens": 87,
+        "total_tokens": 852,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [
+        {
+          "field": "agreement_date",
+          "expected": "25th day of September 2026",
+          "got": "2026-09-25"
+        }
+      ],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "licensor_name",
+          "expected": "Sam Specimen",
+          "got": "Sam Specimen",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "licensor_address",
+          "expected": "7 Example Avenue, Sampleton 000 000",
+          "got": "7 Example Avenue, Sampleton 000 000",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "agreement_date",
+          "expected": "25th day of September 2026",
+          "got": "2026-09-25",
+          "exact_match": false,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted date '2026-09-25' is a standard date format representing the same date as '25th day of September 2026'."
+        },
+        {
+          "field": "monthly_licence_fee",
+          "expected": 18500,
+          "got": 18500,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 18500 matches expected value 18500."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.00016695,
+      "judge_cost_usd_estimate": 0.00031845,
+      "extraction_latency_seconds": 1.7,
+      "judge_latency_seconds": 1.312,
+      "vision_latency_seconds": 266.142,
+      "judge_usage": {
+        "prompt_tokens": 1623,
+        "completion_tokens": 125,
+        "total_tokens": 1748,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "vision_model": "qwen3-vl:2b-instruct",
+      "vision_usage": [
+        {
+          "prompt_tokens": 2194,
+          "completion_tokens": 353,
+          "duration_nanoseconds": 139530572000
+        },
+        {
+          "prompt_tokens": 2194,
+          "completion_tokens": 252,
+          "duration_nanoseconds": 122462253800
+        }
+      ]
+    },
+    {
+      "doc_id": "scan_invoice_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 5,
+      "correct": 5,
+      "accuracy": 100.0,
+      "extracted_facts": 5,
+      "grounded": 5,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00059055,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 80.59,
+      "usage": {
+        "prompt_tokens": 582,
+        "completion_tokens": 100,
+        "total_tokens": 682,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "invoice_number",
+          "expected": "INV-2026-0142",
+          "got": "INV-2026-0142",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "invoice_date",
+          "expected": "18 September 2026",
+          "got": "2026-09-18",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted date '2026-09-18' is a standard date format representing the same date as '18 September 2026'."
+        },
+        {
+          "field": "due_date",
+          "expected": "18 October 2026",
+          "got": "2026-10-18",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted date '2026-10-18' is a standard date format representing the same date as '18 October 2026'."
+        },
+        {
+          "field": "total_amount",
+          "expected": 17348.36,
+          "got": 17348.36,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        },
+        {
+          "field": "vendor_name",
+          "expected": "Larkfield Stationers",
+          "got": "Larkfield Stationers",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value matches expected value exactly."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.0001473,
+      "judge_cost_usd_estimate": 0.00044325,
+      "extraction_latency_seconds": 1.075,
+      "judge_latency_seconds": 1.241,
+      "vision_latency_seconds": 78.274,
+      "judge_usage": {
+        "prompt_tokens": 2355,
+        "completion_tokens": 150,
+        "total_tokens": 2505,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "vision_model": "qwen3-vl:2b-instruct",
+      "vision_usage": [
+        {
+          "prompt_tokens": 2194,
+          "completion_tokens": 483,
+          "duration_nanoseconds": 76215373500
+        }
+      ]
+    },
+    {
+      "doc_id": "scan_letter_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 5,
+      "correct": 5,
+      "accuracy": 100.0,
+      "extracted_facts": 5,
+      "grounded": 5,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00048075,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 138.578,
+      "usage": {
+        "prompt_tokens": 490,
+        "completion_tokens": 102,
+        "total_tokens": 592,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "issuer_name",
+          "expected": "Brightwater Housing Society",
+          "got": "Brightwater Housing Society",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact match."
+        },
+        {
+          "field": "letter_date",
+          "expected": "21 September 2026",
+          "got": "2026-09-21",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Different date format but same date."
+        },
+        {
+          "field": "reference_number",
+          "expected": "BHS/MC/2026/118",
+          "got": "BHS/MC/2026/118",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact match."
+        },
+        {
+          "field": "new_monthly_charge",
+          "expected": 2450,
+          "got": 2450,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact match."
+        },
+        {
+          "field": "effective_date",
+          "expected": "1 November 2026",
+          "got": "2026-11-01",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Different date format but same date."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.0001347,
+      "judge_cost_usd_estimate": 0.00034605,
+      "extraction_latency_seconds": 1.125,
+      "judge_latency_seconds": 1.067,
+      "vision_latency_seconds": 136.386,
+      "judge_usage": {
+        "prompt_tokens": 1915,
+        "completion_tokens": 98,
+        "total_tokens": 2013,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "vision_model": "qwen3-vl:2b-instruct",
+      "vision_usage": [
+        {
+          "prompt_tokens": 2194,
+          "completion_tokens": 334,
+          "duration_nanoseconds": 134322578300
+        }
+      ]
+    },
+    {
+      "doc_id": "scan_notice_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 5,
+      "correct": 4,
+      "accuracy": 80.0,
+      "extracted_facts": 5,
+      "grounded": 5,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00058785,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 144.835,
+      "usage": {
+        "prompt_tokens": 526,
+        "completion_tokens": 177,
+        "total_tokens": 703,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [
+        {
+          "field": "block_a_water_off_date",
+          "expected": "Mon 12 Oct",
+          "got": "2026-10-12"
+        }
+      ],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "notice_date",
+          "expected": "6 October 2026",
+          "got": "2026-10-06",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both refer to the same date; '6 October 2026' and '2026-10-06' are equivalent."
+        },
+        {
+          "field": "block_a_water_off_date",
+          "expected": "Mon 12 Oct",
+          "got": "2026-10-12",
+          "exact_match": false,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "'Mon 12 Oct' and '2026-10-12' represent the same date."
+        },
+        {
+          "field": "block_a_water_off_start",
+          "expected": "09:00",
+          "got": "09:00",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both are '09:00'."
+        },
+        {
+          "field": "block_a_water_off_end",
+          "expected": "13:00",
+          "got": "13:00",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both are '13:00'."
+        },
+        {
+          "field": "signer_name",
+          "expected": "Sam Specimen",
+          "got": "Sam Specimen",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both are 'Sam Specimen'."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.0001851,
+      "judge_cost_usd_estimate": 0.00040275,
+      "extraction_latency_seconds": 1.388,
+      "judge_latency_seconds": 1.394,
+      "vision_latency_seconds": 142.053,
+      "judge_usage": {
+        "prompt_tokens": 2069,
+        "completion_tokens": 154,
+        "total_tokens": 2223,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "vision_model": "qwen3-vl:2b-instruct",
+      "vision_usage": [
+        {
+          "prompt_tokens": 2194,
+          "completion_tokens": 361,
+          "duration_nanoseconds": 139978239000
+        }
+      ]
+    },
+    {
+      "doc_id": "scan_report_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 5,
+      "correct": 4,
+      "accuracy": 80.0,
+      "extracted_facts": 5,
+      "grounded": 4,
+      "groundedness": 80.0,
+      "cost_usd_estimate": 0.00057795,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 397.672,
+      "usage": {
+        "prompt_tokens": 968,
+        "completion_tokens": 97,
+        "total_tokens": 1065,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [
+        {
+          "field": "report_period",
+          "expected": "April 2025 to March 2026",
+          "got": "2025-04 to 2026-03"
+        }
+      ],
+      "ungrounded": [
+        {
+          "field": "report_period",
+          "got": "2025-04 to 2026-03",
+          "source_page": 1
+        }
+      ],
+      "field_scores": [
+        {
+          "field": "organization_name",
+          "expected": "Larkfield Community Library",
+          "got": "Larkfield Community Library",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact match."
+        },
+        {
+          "field": "report_period",
+          "expected": "April 2025 to March 2026",
+          "got": "2025-04 to 2026-03",
+          "exact_match": false,
+          "grounded": false,
+          "judge_match": true,
+          "judge_reason": "Same period expressed in different format; '2025-04 to 2026-03' is equivalent to 'April 2025 to March 2026'."
+        },
+        {
+          "field": "days_open",
+          "expected": 302,
+          "got": 302,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both values are 302."
+        },
+        {
+          "field": "annual_visits",
+          "expected": 41280,
+          "got": 41280,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both values are 41280."
+        },
+        {
+          "field": "printed_book_loans",
+          "expected": 58914,
+          "got": 58914,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both values are 58914."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.0002034,
+      "judge_cost_usd_estimate": 0.00037455,
+      "extraction_latency_seconds": 1.444,
+      "judge_latency_seconds": 2.693,
+      "vision_latency_seconds": 393.535,
+      "judge_usage": {
+        "prompt_tokens": 1969,
+        "completion_tokens": 132,
+        "total_tokens": 2101,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "vision_model": "qwen3-vl:2b-instruct",
+      "vision_usage": [
+        {
+          "prompt_tokens": 2194,
+          "completion_tokens": 385,
+          "duration_nanoseconds": 143034465600
+        },
+        {
+          "prompt_tokens": 2194,
+          "completion_tokens": 297,
+          "duration_nanoseconds": 124217200200
+        },
+        {
+          "prompt_tokens": 2194,
+          "completion_tokens": 205,
+          "duration_nanoseconds": 120046216200
+        }
+      ]
+    },
+    {
+      "doc_id": "statement_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 6,
+      "correct": 6,
+      "accuracy": 100.0,
+      "extracted_facts": 6,
+      "grounded": 6,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00110175,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.883,
+      "usage": {
+        "prompt_tokens": 1382,
+        "completion_tokens": 201,
+        "total_tokens": 1583,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "bank_name",
+          "expected": "Specimen Bank",
+          "got": "Specimen Bank",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 'Specimen Bank' exactly matches expected value."
+        },
+        {
+          "field": "account_holder",
+          "expected": "Sam Specimen",
+          "got": "Sam Specimen",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 'Sam Specimen' exactly matches expected value."
+        },
+        {
+          "field": "account_number",
+          "expected": "SPECIMEN-0000-4821",
+          "got": "SPECIMEN-0000-4821",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 'SPECIMEN-0000-4821' exactly matches expected value."
+        },
+        {
+          "field": "period_start_date",
+          "expected": "2026-08-01",
+          "got": "2026-08-01",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value '2026-08-01' exactly matches expected value."
+        },
+        {
+          "field": "opening_balance",
+          "expected": 48230.55,
+          "got": 48230.55,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 48230.55 exactly matches expected value."
+        },
+        {
+          "field": "closing_balance",
+          "expected": 46736.38,
+          "got": 46736.38,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 46736.38 exactly matches expected value."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.0003279,
+      "judge_cost_usd_estimate": 0.00077385,
+      "extraction_latency_seconds": 1.259,
+      "judge_latency_seconds": 1.624,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 4467,
+        "completion_tokens": 173,
+        "total_tokens": 4640,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "utility_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 5,
+      "correct": 5,
+      "accuracy": 100.0,
+      "extracted_facts": 5,
+      "grounded": 5,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00034665,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.562,
+      "usage": {
+        "prompt_tokens": 323,
+        "completion_tokens": 102,
+        "total_tokens": 425,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "provider_name",
+          "expected": "Brightside Energy",
+          "got": "Brightside Energy",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 'Brightside Energy' exactly matches expected value."
+        },
+        {
+          "field": "account_number",
+          "expected": "ACC-SAMPLE-7788",
+          "got": "ACC-SAMPLE-7788",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 'ACC-SAMPLE-7788' exactly matches expected value."
+        },
+        {
+          "field": "billing_period_start",
+          "expected": "2025-12-01",
+          "got": "2025-12-01",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value '2025-12-01' exactly matches expected value."
+        },
+        {
+          "field": "billing_period_end",
+          "expected": "2025-12-31",
+          "got": "2025-12-31",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value '2025-12-31' exactly matches expected value."
+        },
+        {
+          "field": "total_due",
+          "expected": 53.78,
+          "got": 53.78,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Extracted value 53.78 exactly matches expected value."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.00010965,
+      "judge_cost_usd_estimate": 0.000237,
+      "extraction_latency_seconds": 1.13,
+      "judge_latency_seconds": 1.432,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 988,
+        "completion_tokens": 148,
+        "total_tokens": 1136,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    },
+    {
+      "doc_id": "w2_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 5,
+      "correct": 5,
+      "accuracy": 100.0,
+      "extracted_facts": 5,
+      "grounded": 5,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00058455,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.764,
+      "usage": {
+        "prompt_tokens": 1433,
+        "completion_tokens": 104,
+        "total_tokens": 1537,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "employer_name",
+          "expected": "Northstar Demo Payroll LLC",
+          "got": "Northstar Demo Payroll LLC",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact match."
+        },
+        {
+          "field": "employee_name",
+          "expected": "Alex Q Sample Jr.",
+          "got": "Alex Q Sample Jr.",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Exact match including suffix."
+        },
+        {
+          "field": "social_security_wages",
+          "expected": 80000.0,
+          "got": 80000.0,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both values are 80000.0."
+        },
+        {
+          "field": "wages",
+          "expected": 80000.0,
+          "got": 80000.0,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both values are 80000.0."
+        },
+        {
+          "field": "federal_income_tax_withheld",
+          "expected": 9200.0,
+          "got": 9200.0,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": true,
+          "judge_reason": "Both values are 9200.0."
+        }
+      ],
+      "extraction_cost_usd_estimate": 0.00027735,
+      "judge_cost_usd_estimate": 0.0003072,
+      "extraction_latency_seconds": 1.187,
+      "judge_latency_seconds": 1.577,
+      "vision_latency_seconds": 0,
+      "judge_usage": {
+        "prompt_tokens": 1588,
+        "completion_tokens": 115,
+        "total_tokens": 1703,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      }
+    }
+  ],
+  "aggregate": {
+    "documents_ok": 20,
+    "documents_failed": 0,
+    "fields": 97,
+    "correct": 88,
+    "accuracy": 90.72,
+    "extracted_facts": 97,
+    "grounded": 95,
+    "groundedness": 97.94,
+    "cost_usd_estimate": 0.01180215,
+    "mean_latency_seconds": 53.952
+  }
+}

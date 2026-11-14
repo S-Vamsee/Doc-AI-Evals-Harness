@@ -8,7 +8,7 @@
       "page": 1
     },
     {
-      "field": "candidate_name",
+      "field": "candidate_name_with_id",
       "value": "Team member 5 (EMP-05)",
       "page": 1
     },

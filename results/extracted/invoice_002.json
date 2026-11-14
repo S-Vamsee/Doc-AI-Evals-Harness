@@ -1,0 +1,35 @@
+{
+  "doc_id": "invoice_002",
+  "model": "deepseek-flash",
+  "fields": [
+    {
+      "field": "invoice_number",
+      "value": "INV-SAMPLE-1042",
+      "source_page": 1
+    },
+    {
+      "field": "vendor_name",
+      "value": "Meridian Supply Co.",
+      "source_page": 1
+    },
+    {
+      "field": "customer_name",
+      "value": "Riverside High School",
+      "source_page": 1
+    },
+    {
+      "field": "total_amount",
+      "value": 329.4,
+      "source_page": 1
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 385,
+    "completion_tokens": 78,
+    "total_tokens": 463,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": null
+  },
+  "latency_seconds": 1.035,
+  "api_created_at": 1794651213
+}

@@ -1,0 +1,40 @@
+{
+  "doc_id": "contract_offer_001",
+  "model": "deepseek-flash",
+  "fields": [
+    {
+      "field": "employer_name",
+      "value": "Cobalt Operations Team",
+      "source_page": 1
+    },
+    {
+      "field": "candidate_name_with_id",
+      "value": "Team member 5 (EMP-05)",
+      "source_page": 1
+    },
+    {
+      "field": "start_date",
+      "value": "2026-08-10",
+      "source_page": 1
+    },
+    {
+      "field": "hourly_rate",
+      "value": 28.0,
+      "source_page": 1
+    },
+    {
+      "field": "offer_expiry_date",
+      "value": "2026-08-03",
+      "source_page": 1
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 775,
+    "completion_tokens": 106,
+    "total_tokens": 881,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": null
+  },
+  "latency_seconds": 1.232,
+  "api_created_at": 1794651187
+}

@@ -19,7 +19,7 @@ def read_pdf_pages(path: Path) -> list[str]:
     with pymupdf.open(path) as pdf:
         pages = [page.get_text(sort=True).strip() for page in pdf]
     if not pages or sum(len(page) for page in pages) < 100:
-        raise ValueError(f"No usable text layer in {path.name}; OCR is out of scope")
+        raise ValueError(f"No usable text layer in {path.name}; use the local vision reader")
     return pages
 
 
@@ -37,7 +37,11 @@ def extract_facts(
         "Extract facts only from the supplied document text. Return one JSON object with "
         'a "fields" array. Each item must have "field", "value", and "source_page". '
         "Use null for a missing value or source_page. Do not infer or guess. "
-        "Preserve names and IDs as printed, including any name suffix such as Jr., Sr., or III; "
+        "For fields ending in _name_with_id, include a parenthesized code attached to the name. "
+        "For fields ending in _name, return the name without an attached code. Preserve person "
+        "name suffixes such as Jr., Sr., or III. If a field starts with first_, return only "
+        "the first listed item. For issuer_name, return the issuing organization without a "
+        "signer's job title. "
         "write dates as YYYY-MM-DD and amounts as numbers. "
         'Example JSON: {"fields":[{"field":"invoice_number","value":"A-1",'
         '"source_page":1}]}.'

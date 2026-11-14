@@ -1,0 +1,35 @@
+{
+  "doc_id": "scan_agreement_001",
+  "model": "deepseek-flash",
+  "fields": [
+    {
+      "field": "licensor_name",
+      "value": "Sam Specimen",
+      "source_page": 1
+    },
+    {
+      "field": "licensor_address",
+      "value": "7 Example Avenue, Sampleton 000 000",
+      "source_page": 1
+    },
+    {
+      "field": "agreement_date",
+      "value": "2026-09-25",
+      "source_page": 1
+    },
+    {
+      "field": "monthly_licence_fee",
+      "value": 18500,
+      "source_page": 1
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 823,
+    "completion_tokens": 87,
+    "total_tokens": 910,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": null
+  },
+  "latency_seconds": 1.145,
+  "api_created_at": 1794651236
+}

@@ -29,12 +29,12 @@
     }
   ],
   "usage": {
-    "prompt_tokens": 634,
+    "prompt_tokens": 692,
     "completion_tokens": 100,
-    "total_tokens": 734,
+    "total_tokens": 792,
     "prompt_cache_hit_tokens": 0,
     "prompt_cache_miss_tokens": null
   },
-  "latency_seconds": 2.76,
-  "api_created_at": 1794569626
+  "latency_seconds": 1.506,
+  "api_created_at": 1794651209
 }

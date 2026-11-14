@@ -1,0 +1,1 @@
+{"fields":[{"field":"issuer_name","value":"Brightwater Housing Society","source_page":1},{"field":"letter_date","value":"2026-09-21","source_page":1},{"field":"reference_number","value":"BHS/MC/2026/118","source_page":1},{"field":"new_monthly_charge","value":2450,"source_page":1},{"field":"effective_date","value":"2026-11-01","source_page":1}]}

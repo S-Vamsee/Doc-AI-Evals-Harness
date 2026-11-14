@@ -1,0 +1,1 @@
+{"fields":[{"field":"provider_name","value":"Brightside Energy","source_page":1},{"field":"account_number","value":"ACC-SAMPLE-7788","source_page":1},{"field":"billing_period_start","value":"2025-12-01","source_page":1},{"field":"billing_period_end","value":"2025-12-31","source_page":1},{"field":"total_due","value":53.78,"source_page":1}]}
