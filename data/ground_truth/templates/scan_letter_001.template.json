@@ -3,7 +3,7 @@
   "source_url": "https://filedone.ai/sample-files/sample-scanned-letter.pdf",
   "fields": [
     {
-      "field": "sender_name",
+      "field": "issuer_name",
       "value": null,
       "page": null
     },
@@ -18,7 +18,17 @@
       "page": null
     },
     {
-      "field": "amount",
+      "field": "reference_number",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "new_monthly_charge",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "effective_date",
       "value": null,
       "page": null
     }

@@ -3,12 +3,12 @@
   "source_url": "https://filedone.ai/sample-files/sample-rental-agreement-scan.pdf",
   "fields": [
     {
-      "field": "landlord_name",
+      "field": "licensor_name",
       "value": null,
       "page": null
     },
     {
-      "field": "tenant_name",
+      "field": "licensee_name",
       "value": null,
       "page": null
     },
@@ -23,7 +23,7 @@
       "page": null
     },
     {
-      "field": "rent_amount",
+      "field": "monthly_licence_fee",
       "value": null,
       "page": null
     }

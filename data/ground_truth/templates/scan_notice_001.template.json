@@ -13,12 +13,22 @@
       "page": null
     },
     {
-      "field": "reference_number",
+      "field": "block_a_water_off_date",
       "value": null,
       "page": null
     },
     {
-      "field": "requested_action",
+      "field": "block_a_water_off_start",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "block_a_water_off_end",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "signer_name",
       "value": null,
       "page": null
     }
