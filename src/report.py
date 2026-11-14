@@ -6,30 +6,29 @@ from src.regression import format_comparison
 
 
 def make_report(results: dict, comparison: dict | None = None) -> str:
-    rows = [
+    show_judge = any("judge_accuracy" in doc for doc in results["documents"])
+    rows = ([
         "| Doc | Extractor | Fields | Exact | Judge | Grounded | Reference API cost (est.) | Latency |",
         "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |",
-    ]
+    ] if show_judge else [
+        "| Doc | Extractor | Fields | Exact | Grounded | Reference API cost (est.) | Latency |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: |",
+    ])
     for doc in results["documents"]:
         if doc["status"] != "ok":
-            rows.append(f'| {doc["doc_id"]} | failed | — | — | — | — | — | — |')
+            rows.append(f'| {doc["doc_id"]} | failed | ' + ('— | ' * (6 if show_judge else 5)).rstrip())
             continue
         grounded = "—" if doc["groundedness"] is None else f'{doc["groundedness"]:.1f}%'
-        judged = "—" if "judge_accuracy" not in doc else f'{doc["judge_accuracy"]:.1f}%'
-        rows.append(
-            f'| {doc["doc_id"]} | {doc["model"]} | {doc["fields"]} | '
-            f'{doc["accuracy"]:.1f}% | {judged} | {grounded} | '
-            f'${doc["cost_usd_estimate"]:.6f} | {doc["latency_seconds"]:.2f}s |'
-        )
+        judged = f'{doc["judge_accuracy"]:.1f}% | ' if show_judge else ""
+        rows.append(f'| {doc["doc_id"]} | {doc["model"]} | {doc["fields"]} | '
+                    f'{doc["accuracy"]:.1f}% | {judged}{grounded} | '
+                    f'${doc["cost_usd_estimate"]:.6f} | {doc["latency_seconds"]:.2f}s |')
     aggregate = results["aggregate"]
     grounded = "—" if aggregate["groundedness"] is None else f'{aggregate["groundedness"]:.1f}%'
-    judged = "—" if "judge_accuracy" not in aggregate else f'{aggregate["judge_accuracy"]:.1f}%'
-    rows.append(
-        f'| **Overall** | — | {aggregate["fields"]} | {aggregate["accuracy"]:.1f}% | '
-        f'{judged} | '
-        f'{grounded} | ${aggregate["cost_usd_estimate"]:.6f} total | '
-        f'{aggregate["mean_latency_seconds"]:.2f}s avg |'
-    )
+    judged = f'{aggregate["judge_accuracy"]:.1f}% | ' if show_judge else ""
+    rows.append(f'| **Overall** | — | {aggregate["fields"]} | {aggregate["accuracy"]:.1f}% | '
+                f'{judged}{grounded} | ${aggregate["cost_usd_estimate"]:.6f} total | '
+                f'{aggregate["mean_latency_seconds"]:.2f}s avg |')
     sections = ["# Evaluation results", "", f'Run: {results["run_at_utc"]}', "", *rows, "", "## Failures", ""]
     cached = aggregate.get("vision_cached_documents", 0)
     if cached:
@@ -54,17 +53,24 @@ def make_report(results: dict, comparison: dict | None = None) -> str:
             )
     sections.extend(failures or ["None."])
     if any(doc.get("field_scores") for doc in results["documents"]):
-        sections.extend([
+        sections.extend(([
             "", "## Field verdicts", "",
             "| Doc | Field | Exact | Judge | Grounded |",
             "| --- | --- | --- | --- | --- |",
-        ])
+        ] if show_judge else [
+            "", "## Field verdicts", "",
+            "| Doc | Field | Exact | Grounded |",
+            "| --- | --- | --- | --- |",
+        ]))
         for doc in results["documents"]:
             for item in doc.get("field_scores", []):
                 exact = "pass" if item["exact_match"] else "fail"
                 judge = "—" if item["judge_match"] is None else ("pass" if item["judge_match"] else "fail")
                 grounded = "—" if item["grounded"] is None else ("yes" if item["grounded"] else "no")
-                sections.append(f'| {doc["doc_id"]} | {item["field"]} | {exact} | {judge} | {grounded} |')
+                if show_judge:
+                    sections.append(f'| {doc["doc_id"]} | {item["field"]} | {exact} | {judge} | {grounded} |')
+                else:
+                    sections.append(f'| {doc["doc_id"]} | {item["field"]} | {exact} | {grounded} |')
     sections.append("")
     if comparison is not None:
         sections.extend(["", format_comparison(comparison).rstrip(), ""])

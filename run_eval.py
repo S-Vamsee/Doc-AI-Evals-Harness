@@ -59,13 +59,15 @@ def aggregate(documents: list[dict]) -> dict:
     successful = [doc for doc in documents if doc["status"] == "ok"]
     fields = sum(doc["fields"] for doc in successful)
     facts = sum(doc["extracted_facts"] for doc in successful)
-    judge_correct = sum(doc.get("judge_correct", 0) for doc in successful)
+    judged = [doc for doc in successful if "judge_correct" in doc]
+    judge_fields = sum(doc["fields"] for doc in judged)
+    judge_correct = sum(doc["judge_correct"] for doc in judged)
     return {
         "documents_ok": len(successful), "documents_failed": len(documents) - len(successful),
         "fields": fields, "correct": sum(doc["correct"] for doc in successful),
         "accuracy": round(sum(doc["correct"] for doc in successful) / fields * 100, 2) if fields else 0,
         "judge_correct": judge_correct,
-        "judge_accuracy": round(judge_correct / fields * 100, 2) if fields else 0,
+        "judge_accuracy": round(judge_correct / judge_fields * 100, 2) if judge_fields else None,
         "extracted_facts": facts, "grounded": sum(doc["grounded"] for doc in successful),
         "groundedness": round(sum(doc["grounded"] for doc in successful) / facts * 100, 2) if facts else None,
         "cost_usd_estimate": round(sum(doc["cost_usd_estimate"] for doc in successful), 8),
@@ -174,7 +176,7 @@ def show_comparison(previous_id: str) -> int:
     return 0
 
 
-def dataset_preflight(pdfs: list[Path]) -> bool:
+def dataset_preflight(pdfs: list[Path], readiness_path: Path | None = None) -> bool:
     """Stop before paid calls when answer keys or the vision server are absent."""
     sources = json.loads((ROOT / "data" / "sources.json").read_text(encoding="utf-8"))
     by_id = {item["doc_id"]: item for item in sources}
@@ -211,17 +213,61 @@ def dataset_preflight(pdfs: list[Path]) -> bool:
         for doc_id in scanned:
             render_pages(PDF_DIR / f"{doc_id}.pdf", RESULT_DIR / "rendered" / doc_id)
     lines = [
-        "# Phase 2 readiness", "",
+        "# Evaluation readiness", "",
         f"PDFs: {len(pdfs)}", f"Image-only PDFs: {len(scanned)}", "",
     ]
     lines.extend(f"- {issue}" for issue in issues)
     if not issues:
-        lines.append("Dataset and vision backend are ready.")
-    RESULT_DIR.mkdir(parents=True, exist_ok=True)
-    (RESULT_DIR / "phase2_readiness.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+        lines.append("Dataset and vision backend are ready." if scanned else "Dataset is ready.")
+    readiness_path = readiness_path or RESULT_DIR / "phase2_readiness.md"
+    readiness_path.parent.mkdir(parents=True, exist_ok=True)
+    readiness_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     for issue in issues:
         print(issue, file=sys.stderr)
     return not issues
+
+
+def run_phase1() -> int:
+    """Rerun the original five text PDFs without vision or the value judge."""
+    pdfs = [PDF_DIR / f"{doc_id}.pdf" for doc_id in GOLDEN_IDS]
+    phase_dir = RESULT_DIR / "phase1"
+    if not dataset_preflight(pdfs, phase_dir / "readiness.md"):
+        print("Read results/phase1/readiness.md for the blocked steps.", file=sys.stderr)
+        return 2
+    if not os.getenv("DEEPSEEK_API_KEY"):
+        print("Set DEEPSEEK_API_KEY in .env before running Phase 1.", file=sys.stderr)
+        return 2
+    documents = []
+    for pdf in pdfs:
+        doc_id = pdf.stem
+        print(f"Evaluating Phase 1 {doc_id}...", flush=True)
+        try:
+            pages = read_pdf_pages(pdf)
+            truth = load_truth(TRUTH_DIR / f"{doc_id}.json", doc_id, len(pages))
+            extracted = extract_facts(
+                doc_id, pages, [field["field"] for field in truth["fields"]],
+                phase_dir / "extracted",
+            )
+            documents.append(score_document(extracted, truth, pages))
+        except Exception as exc:
+            print(f"  failed: {exc}", file=sys.stderr)
+            documents.append({"doc_id": doc_id, "status": "failed", "error": str(exc)})
+    run = {
+        "phase": "phase1",
+        "run_at_utc": datetime.now(timezone.utc).isoformat(timespec="microseconds"),
+        "documents": documents,
+        "aggregate": aggregate(documents),
+    }
+    report = make_report(run)
+    phase_dir.mkdir(parents=True, exist_ok=True)
+    (phase_dir / "scores.json").write_text(json.dumps(run, indent=2) + "\n", encoding="utf-8")
+    (phase_dir / "report.md").write_text(report, encoding="utf-8")
+    snapshot = phase_dir / "runs" / run_id(run)
+    snapshot.mkdir(parents=True, exist_ok=True)
+    (snapshot / "scores.json").write_text(json.dumps(run, indent=2) + "\n", encoding="utf-8")
+    (snapshot / "report.md").write_text(report, encoding="utf-8")
+    print(report)
+    return 0 if run["aggregate"]["documents_ok"] == len(pdfs) else 1
 
 
 def main() -> int:
@@ -229,9 +275,12 @@ def main() -> int:
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--calibrate", action="store_true", help="Calibrate the judge on the five golden PDFs")
     mode.add_argument("--compare", metavar="RUN_ID", help="Compare the latest run with a saved run")
+    mode.add_argument("--phase1", action="store_true", help="Rerun the original five text PDFs without vision or the judge")
     parser.add_argument("--reuse-ocr", action="store_true", help="Reuse Qwen transcriptions when PDF, model, and OCR prompt are unchanged")
     args = parser.parse_args()
     load_dotenv(ROOT / ".env")
+    if args.phase1:
+        return run_phase1()
     if args.compare:
         return show_comparison(args.compare)
     if args.calibrate:

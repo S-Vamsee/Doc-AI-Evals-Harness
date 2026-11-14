@@ -1,8 +1,33 @@
-# Document AI Evals Harness — Phase 2
+# Document AI Evals Harness
 
-This CLI harness scores document fact extraction against human-written answer keys. It has completed runs across 20 public PDFs and 20 human-verified answer keys, including five image-only PDFs. Python runs the pipeline from one command; local Qwen vision reads scans and DeepSeek extracts and judges fields. There is no web UI or database.
+This CLI harness scores document fact extraction against human-written answer keys. Phase 1 established a five-document text-PDF baseline; Phase 2 extends it to 20 public PDFs with scanned-page vision, a calibrated value judge, and regression comparisons. There is no web UI or database.
 
-## Run
+## Phase 1 — five text PDFs
+
+Phase 1 used a public invoice, bank statement, W-2, SEC filing, and completed application. The owner verified 26 answer-key facts. Python read each PDF's text layer, sent the requested fields to DeepSeek, and scored exact accuracy, text groundedness, API usage, and latency. The five-document path remains available without Qwen or the Phase 2 judge:
+
+```bash
+python run_eval.py --phase1
+```
+
+This writes a separate `results/phase1/` report and timestamped run, preserving the Phase 2 results. The [original Phase 1 baseline](results/runs/20261113T113356Z/report.md) and a [fresh independent rerun](results/phase1/report.md) both scored 26/26. The rerun produced:
+
+| Document | Fields | Exact accuracy | Groundedness |
+| --- | ---: | ---: | ---: |
+| Invoice | 5 | 100% | 100% |
+| Bank statement | 6 | 100% | 100% |
+| W-2 tax form | 5 | 100% | 100% |
+| SEC filing | 4 | 100% | 100% |
+| Completed application | 6 | 100% | 100% |
+| **Overall** | **26** | **100%** | **100%** |
+
+The W-2's large printed year is absent from its selectable text. The owner verified box 3 social security wages as the replacement field. These results show the base pipeline worked on five examples; they do not measure general document accuracy.
+
+## Phase 2 — vision, judging, and regression
+
+Phase 2 adds 15 more public PDFs and owner-verified answer keys, bringing the dataset to 20 PDFs and 97 facts. Five PDFs have no text layer; local Qwen vision transcribes those pages before DeepSeek extracts fields. A calibrated judge scores value equivalence, and timestamped runs expose field-level changes. The [latest Phase 2 results](results/report.md) and an observed document problem are below.
+
+## Setup and commands
 
 Clone this repository and enter its directory, then install the dependencies:
 
@@ -20,9 +45,10 @@ ollama pull qwen3-vl:2b-instruct
 
 Ollama serves `http://localhost:11434` by default. The harness checks that the model is installed, renders each scanned page, and asks Qwen to transcribe it before DeepSeek extracts fields. Set `QWEN_BASE_URL` and `QWEN_MODEL` in `.env` only if your local setup differs. New image-only PDFs follow the same path without document-specific code.
 
-Calibrate the value judge before a full run:
+Run Phase 1 independently, or calibrate the judge and run Phase 2:
 
 ```bash
+python run_eval.py --phase1
 python run_eval.py --calibrate
 python run_eval.py
 python run_eval.py --reuse-ocr
@@ -31,9 +57,9 @@ python run_eval.py --compare 20261114T100817251438Z
 
 `--calibrate` judges 26 fixed model candidates from the original five documents and must agree with exact scoring on at least 25. It currently agrees on 26/26. The full command checks all answer keys and scanned-PDF readiness before any paid extraction calls; if blocked, it writes `results/phase2_readiness.md`. Completed runs save per-field verdicts in timestamped `results/runs/` folders. `--reuse-ocr` reuses local Qwen transcriptions only when the PDF, installed model digest, and OCR prompt are unchanged; a normal run transcribes fresh pages. `--compare` prints field pass/fail flips, field additions/removals, and changes in accuracy, reference cost, and latency. `.env`, rendered page images, and OCR caches are ignored by Git.
 
-## Dataset
+## Dataset and sources
 
-The original five text PDFs remain the golden set. The new PDFs include five image-only specimens for vision testing, plus receipts, invoices, forms, a utility bill, and short agreements. Every PDF has a public source URL in [`data/sources.json`](data/sources.json). The W-2's large printed year is absent from its selectable text, so the text-only golden key uses box 3 social security wages.
+The original five text PDFs remain the golden set. The new PDFs include five image-only specimens for vision testing, plus receipts, invoices, forms, a utility bill, and short agreements. Every PDF has a public source URL in [`data/sources.json`](data/sources.json). The table below lists the Phase 1 sources:
 
 | Local PDF | Type | Public source |
 | --- | --- | --- |
@@ -52,7 +78,7 @@ The original five text PDFs remain the golden set. The new PDFs include five ima
 
 The public results use the generic `deepseek-flash` label; the actual deployment name stays in `.env`. Extraction prompts contain PDF text and requested field names, never answer-key values. The judge sees extracted and expected values plus source text, and scores value equivalence only. Its fixed calibration candidates are in [`data/golden_candidates.json`](data/golden_candidates.json), separate from the human answer keys. The 26 golden fields all passed exact scoring, so the 26/26 calibration result alone would not test a near-match or a false positive. A separate two-case probe accepted `Acme Corp` as equivalent to `Acme Corporation` and rejected a changed amount (`200` versus `100`).
 
-## Results
+## Phase 2 results
 
 The table below is the latest completed **20-document run**. It used cached, unchanged Qwen transcriptions to compare extraction and scoring changes, so the listed latency excludes local vision time. The [first full run](results/runs/20261114T100354369617Z/report.md) transcribed all eight scanned pages afresh; local vision took 1,016.4 seconds on this CPU-only machine. Scores describe this small public dataset and are not a general accuracy claim.
 

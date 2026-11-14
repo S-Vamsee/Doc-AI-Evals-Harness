@@ -1,4 +1,4 @@
-# Phase 2 readiness
+# Evaluation readiness
 
 PDFs: 20
 Image-only PDFs: 5

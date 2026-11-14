@@ -1,0 +1,24 @@
+{
+  "fields": [
+    {
+      "field": "company_name",
+      "value": "Mama's Creations, Inc.",
+      "source_page": 1
+    },
+    {
+      "field": "fiscal_year_end_date",
+      "value": "2024-01-31",
+      "source_page": 1
+    },
+    {
+      "field": "gross_profit_2024_thousands",
+      "value": 30333,
+      "source_page": 2
+    },
+    {
+      "field": "net_income_2024_thousands",
+      "value": 6561,
+      "source_page": 2
+    }
+  ]
+}
