@@ -1,0 +1,36 @@
+{
+  "doc_id": "notice_001",
+  "source_url": "https://filedone.ai/sample-files/sample-notice-en-fr-es.pdf",
+  "fields": [
+    {
+      "field": "issuer_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "notice_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "affected_area",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "interruption_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "start_time",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "end_time",
+      "value": null,
+      "page": null
+    }
+  ]
+}

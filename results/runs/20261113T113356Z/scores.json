@@ -1,0 +1,350 @@
+{
+  "run_at_utc": "2026-11-13T11:33:56+00:00",
+  "documents": [
+    {
+      "doc_id": "filing_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 4,
+      "correct": 4,
+      "accuracy": 100.0,
+      "extracted_facts": 4,
+      "grounded": 4,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00033615,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 4.97,
+      "usage": {
+        "prompt_tokens": 1653,
+        "completion_tokens": 147,
+        "total_tokens": 1800,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "company_name",
+          "expected": "MAMA'S CREATIONS, INC.",
+          "got": "Mama's Creations, Inc.",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "fiscal_year_end_date",
+          "expected": "2024-01-31",
+          "got": "2024-01-31",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "gross_profit_2024_thousands",
+          "expected": 30333,
+          "got": 30333,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "net_income_2024_thousands",
+          "expected": 6561,
+          "got": 6561,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        }
+      ]
+    },
+    {
+      "doc_id": "form_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 6,
+      "correct": 6,
+      "accuracy": 100.0,
+      "extracted_facts": 6,
+      "grounded": 6,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00102165,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.339,
+      "usage": {
+        "prompt_tokens": 6015,
+        "completion_tokens": 199,
+        "total_tokens": 6214,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "applicant_name",
+          "expected": "Jane Jacobs",
+          "got": "Jane Jacobs",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "applicant_role",
+          "expected": "Planner III",
+          "got": "Planner III",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "applicant_organization",
+          "expected": "XYZ County Department of Transportation",
+          "got": "XYZ County Department of Transportation",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "project_name",
+          "expected": "C Station Transit Oriented Development",
+          "got": "C Station Transit Oriented Development",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "project_type",
+          "expected": "Transit Oriented Development",
+          "got": "Transit Oriented Development",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "application_due_date",
+          "expected": "2025-02-18",
+          "got": "2025-02-18",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        }
+      ]
+    },
+    {
+      "doc_id": "invoice_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 5,
+      "correct": 5,
+      "accuracy": 100.0,
+      "extracted_facts": 5,
+      "grounded": 5,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.0001551,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.76,
+      "usage": {
+        "prompt_tokens": 634,
+        "completion_tokens": 100,
+        "total_tokens": 734,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "invoice_number",
+          "expected": "INV-2026-0142",
+          "got": "INV-2026-0142",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "invoice_date",
+          "expected": "2026-09-18",
+          "got": "2026-09-18",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "due_date",
+          "expected": "2026-10-18",
+          "got": "2026-10-18",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "vendor_name",
+          "expected": "Larkfield Stationers",
+          "got": "Larkfield Stationers",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "total_amount",
+          "expected": 17348.36,
+          "got": 17348.36,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        }
+      ]
+    },
+    {
+      "doc_id": "statement_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 6,
+      "correct": 6,
+      "accuracy": 100.0,
+      "extracted_facts": 6,
+      "grounded": 6,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.0002787,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 3.023,
+      "usage": {
+        "prompt_tokens": 1382,
+        "completion_tokens": 119,
+        "total_tokens": 1501,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "bank_name",
+          "expected": "Specimen Bank",
+          "got": "Specimen Bank",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "account_holder",
+          "expected": "Sam Specimen",
+          "got": "Sam Specimen",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "account_number",
+          "expected": "SPECIMEN-0000-4821",
+          "got": "SPECIMEN-0000-4821",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "period_start_date",
+          "expected": "2026-08-01",
+          "got": "2026-08-01",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "opening_balance",
+          "expected": 48230.55,
+          "got": 48230.55,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "closing_balance",
+          "expected": 46736.38,
+          "got": 46736.38,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        }
+      ]
+    },
+    {
+      "doc_id": "w2_001",
+      "status": "ok",
+      "model": "deepseek-flash",
+      "fields": 5,
+      "correct": 5,
+      "accuracy": 100.0,
+      "extracted_facts": 5,
+      "grounded": 5,
+      "groundedness": 100.0,
+      "cost_usd_estimate": 0.00027735,
+      "pricing_tier": "off_peak",
+      "latency_seconds": 2.637,
+      "usage": {
+        "prompt_tokens": 1433,
+        "completion_tokens": 104,
+        "total_tokens": 1537,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": null
+      },
+      "failures": [],
+      "ungrounded": [],
+      "field_scores": [
+        {
+          "field": "employer_name",
+          "expected": "Northstar Demo Payroll LLC",
+          "got": "Northstar Demo Payroll LLC",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "employee_name",
+          "expected": "Alex Q Sample Jr.",
+          "got": "Alex Q Sample Jr.",
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "social_security_wages",
+          "expected": 80000.0,
+          "got": 80000.0,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "wages",
+          "expected": 80000.0,
+          "got": 80000.0,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        },
+        {
+          "field": "federal_income_tax_withheld",
+          "expected": 9200.0,
+          "got": 9200.0,
+          "exact_match": true,
+          "grounded": true,
+          "judge_match": null
+        }
+      ]
+    }
+  ],
+  "aggregate": {
+    "documents_ok": 5,
+    "documents_failed": 0,
+    "fields": 26,
+    "correct": 26,
+    "accuracy": 100.0,
+    "extracted_facts": 26,
+    "grounded": 26,
+    "groundedness": 100.0,
+    "cost_usd_estimate": 0.00206895,
+    "mean_latency_seconds": 3.146
+  }
+}

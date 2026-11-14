@@ -1,0 +1,26 @@
+{
+  "doc_id": "scan_notice_001",
+  "source_url": "https://filedone.ai/sample-files/sample-scanned-page.pdf",
+  "fields": [
+    {
+      "field": "issuer_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "notice_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "reference_number",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "requested_action",
+      "value": null,
+      "page": null
+    }
+  ]
+}

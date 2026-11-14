@@ -1,5 +1,7 @@
 # Human answer keys needed
 
+The 15 new Phase 2 PDFs are listed in [the human answer-key guide](PHASE2_GUIDE.md). Keep the five original golden keys unchanged.
+
 Read each PDF in `../pdfs/` and write one JSON file here with the same base name. Do not copy facts from a model output or an online answer key. The human reviewer chooses 4–8 facts that are visible in the PDF, records their page numbers, and checks the final JSON.
 
 Ready-to-fill files are in `templates/`. For each one, replace every `null` value and page with the facts you personally verify, adjust the field list if needed, and save the result in this directory as `<doc_id>.json` (remove `.template` from the filename). Template files are never used by the runner.

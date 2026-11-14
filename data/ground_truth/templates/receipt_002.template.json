@@ -1,0 +1,26 @@
+{
+  "doc_id": "receipt_002",
+  "source_url": "https://www.testaroo.com/files/documents/ocr-domain/receipt-searchable.pdf",
+  "fields": [
+    {
+      "field": "merchant_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "order_number",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "purchase_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "total_amount",
+      "value": null,
+      "page": null
+    }
+  ]
+}

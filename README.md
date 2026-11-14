@@ -1,6 +1,6 @@
-# Document AI Evals Harness — Phase 1
+# Document AI Evals Harness — Phase 2 in progress
 
-This CLI harness extracts facts from five public, text-based PDFs with one DeepSeek model and scores the results against human-written answer keys. One command writes per-document JSON, a Markdown results table, and aggregate accuracy, groundedness, cost, and latency.
+This CLI harness scores document fact extraction against human-written answer keys. The five text-PDF golden documents have a completed run. The dataset now contains 20 public PDFs, including five image-only PDFs; the 15 new answer keys and a Qwen vision setup are still needed before the 20-document run can start. [Read the current blockers](results/phase2_readiness.md).
 
 ## Run
 
@@ -10,17 +10,19 @@ Clone this repository and enter its directory, then install the dependencies:
 python -m pip install -r requirements.txt
 ```
 
-Create `.env` (see `.env.example`) with `DEEPSEEK_API_KEY=...`. For an OpenAI-compatible hosted deployment, also set `DEEPSEEK_BASE_URL` and `DEEPSEEK_MODEL` to its endpoint and deployment name. Read the five PDFs and write the matching JSON answer keys in `data/ground_truth/` using [the format guide](data/ground_truth/README.md). Then run:
+Create `.env` (see `.env.example`) with `DEEPSEEK_API_KEY=...`. For an OpenAI-compatible hosted deployment, also set `DEEPSEEK_BASE_URL` and `DEEPSEEK_MODEL` locally. The original five human answer keys are already in `data/ground_truth/`. Read each new PDF and write its answer key using the [Phase 2 guide](data/ground_truth/PHASE2_GUIDE.md). Calibrate the value judge before a full run:
 
 ```bash
+python run_eval.py --calibrate
 python run_eval.py
+python run_eval.py --compare 20261113T113356Z
 ```
 
-The command continues after a document error and exits nonzero unless all five succeed. It saves raw model text and parsed JSON in `results/extracted/`, scores in `results/scores.json`, and the table in `results/report.md`. When all five succeed, it copies the real report into this README. `.env` is ignored by Git; review the generated results before committing them.
+`--calibrate` judges the 26 original fields and must agree with exact scoring on at least 25. It currently agrees on 26/26. The full command checks all answer keys and scanned-PDF readiness before any paid extraction calls; if blocked, it writes `results/phase2_readiness.md`. Completed runs save per-field verdicts in timestamped `results/runs/` folders. `--compare` prints field pass/fail flips and changes in accuracy, reference cost, and latency. `.env` and rendered page images are ignored by Git.
 
 ## Dataset
 
-Every file has a selectable text layer; no OCR is used. The invoice and statement are fictional CC0 specimens. The W-2 is a fictional sample, the filing is a two-page excerpt of a public Form 10-K, and the application is a public sample completed Maryland DOT form. The W-2's large printed year is not in its selectable text, so the text-only evaluation uses box 3 social security wages instead. See `data/sources.json` for provenance and excerpt page mapping.
+The original five text PDFs remain the golden set. The new PDFs include five image-only specimens for vision testing, plus receipts, invoices, forms, a utility bill, and short agreements. Every PDF has a public source URL in [`data/sources.json`](data/sources.json). The W-2's large printed year is absent from its selectable text, so the text-only golden key uses box 3 social security wages.
 
 | Local PDF | Type | Public source |
 | --- | --- | --- |
@@ -32,14 +34,16 @@ Every file has a selectable text layer; no OCR is used. The invoice and statemen
 
 ## Scoring
 
-- **Accuracy:** correct fields divided by all fields in the human answer key. Strings are trimmed and case-folded; dates are converted to ISO; amounts are compared as decimal numbers. No fuzzy or judge-model scoring.
+- **Accuracy:** exact matches after normalization divided by fields in the human answer key. Dates and amounts use deterministic normalization. A calibrated value judge adds a separate per-field semantic verdict for harmless near-matches; it never changes the exact score.
 - **Groundedness:** among non-null model values, the fraction found in the extracted PDF text. Date display variants and currency punctuation are normalized. This checks whether text supports a value, but it does not prove the value belongs to the right label; the accuracy score handles that separately.
-- **Reference cost:** estimated USD from prompt cache-hit and cache-miss tokens and output tokens, using [DeepSeek's published direct Flash rates](https://api-docs.deepseek.com/quick_start/pricing/) checked 2026-11-13. Off-peak per million: $0.003 hit, $0.15 miss, $0.60 output. Peak per million: $0.006 hit, $0.30 miss, $1.20 output. Peak is 01:00–04:00 and 06:00–10:00 UTC on weekdays, excluding Chinese public holidays. This run uses an Azure-hosted DeepSeek deployment, so its billed price may differ; these figures are a reproducible direct-API rate comparison, not an Azure invoice.
-- **Latency:** wall-clock seconds spent on the API call.
+- **Reference cost:** estimated USD from measured tokens and [published DeepSeek Flash rates](https://api-docs.deepseek.com/quick_start/pricing/). It is a benchmark estimate, not a billing record. Completed Phase 2 runs include extractor and judge calls; calibration calls are separate.
+- **Latency:** wall-clock seconds spent on extraction and judge API calls, reported separately and in total.
 
-The default model is `deepseek-flash` on DeepSeek's own API, with thinking disabled, `temperature=0`, and JSON output mode. This run uses an Azure-hosted DeepSeek deployment configured locally in `.env`; public results use the generic `deepseek-flash` label. The Azure endpoint does not accept the DeepSeek-specific thinking switch, so the harness omits that parameter there. The spec's `deepseek-chat` name was [retired in July 2026](https://api-docs.deepseek.com/news/news260424/). Each prompt contains the PDF text and requested field names, never the answer-key values.
+The public results use the generic `deepseek-flash` label; the actual deployment name stays in `.env`. Extraction prompts contain PDF text and requested field names, never answer-key values. The judge sees extracted and expected values plus source text, and scores value equivalence only. The 26 golden fields all passed exact scoring, so the 26/26 calibration result alone would not test a near-match or a false positive. A separate two-case probe accepted `Acme Corp` as equivalent to `Acme Corporation` and rejected a changed amount (`200` versus `100`).
 
 ## Results
+
+The table below is the last completed **five-document golden-set run**, before the new documents and judge were added. It must not be read as a 20-document Phase 2 score.
 
 <!-- RESULTS_START -->
 
@@ -62,6 +66,6 @@ None.
 
 <!-- RESULTS_END -->
 
-## Next phase
+## Current Phase 2 blockers
 
-Expand to 20–30 documents, add LLM-as-judge scoring, OCR/vision for scans, and prompt regression runs. This phase stays CLI-only and has no database or web UI.
+The 15 new human answer keys are pending. Five image-only PDFs need a configured Qwen vision service; no local service is currently available, and the harness does not substitute another model. A public messy-document case study will be written only after a real extraction run shows a concrete problem and fix. See the [readiness report](results/phase2_readiness.md).

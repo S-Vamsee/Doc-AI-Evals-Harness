@@ -1,0 +1,31 @@
+{
+  "doc_id": "utility_001",
+  "source_url": "https://www.testaroo.com/files/documents/ocr-domain/utility-searchable.pdf",
+  "fields": [
+    {
+      "field": "provider_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "account_number",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "billing_period_start",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "billing_period_end",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "total_due",
+      "value": null,
+      "page": null
+    }
+  ]
+}

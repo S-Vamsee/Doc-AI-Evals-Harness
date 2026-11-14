@@ -1,0 +1,36 @@
+{
+  "doc_id": "invoice_003",
+  "source_url": "https://www.testaroo.com/files/data/restaurant-procure-to-pay-v1/restaurant-group/invoice.pdf",
+  "fields": [
+    {
+      "field": "supplier_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "buyer_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "invoice_number",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "invoice_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "due_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "total_amount",
+      "value": null,
+      "page": null
+    }
+  ]
+}

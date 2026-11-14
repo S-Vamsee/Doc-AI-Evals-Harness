@@ -33,5 +33,110 @@
     "source_url": "https://www.mdot.maryland.gov/OPCP/06_MDOTPrioritization_SampleCompletedApplicationTOD_2025.01.15.pdf",
     "source_page": "https://www.mdot.maryland.gov/OPCP/06_MDOTPrioritization_SampleCompletedApplicationTOD_2025.01.15.pdf",
     "note": "Maryland DOT sample completed application; 15 original pages."
+  },
+  {
+    "doc_id": "scan_notice_001",
+    "type": "scanned notice",
+    "source_url": "https://filedone.ai/sample-files/sample-scanned-page.pdf",
+    "source_page": "https://filedone.ai/sample-files",
+    "note": "Image-only CC0 fictional specimen."
+  },
+  {
+    "doc_id": "scan_report_001",
+    "type": "scanned report",
+    "source_url": "https://filedone.ai/sample-files/sample-scanned-report-3-pages.pdf",
+    "source_page": "https://filedone.ai/sample-files",
+    "note": "Image-only CC0 fictional three-page report with tables."
+  },
+  {
+    "doc_id": "scan_letter_001",
+    "type": "scanned letter",
+    "source_url": "https://filedone.ai/sample-files/sample-scanned-letter.pdf",
+    "source_page": "https://filedone.ai/sample-files",
+    "note": "Image-only CC0 fictional letter."
+  },
+  {
+    "doc_id": "scan_invoice_001",
+    "type": "scanned invoice",
+    "source_url": "https://filedone.ai/sample-files/sample-scanned-invoice.pdf",
+    "source_page": "https://filedone.ai/sample-files",
+    "note": "Image-only CC0 scan of the Phase 1 invoice specimen."
+  },
+  {
+    "doc_id": "receipt_001",
+    "type": "receipt",
+    "source_url": "https://filedone.ai/sample-files/sample-receipt.pdf",
+    "source_page": "https://filedone.ai/sample-files",
+    "note": "Text-layer CC0 fictional till receipt."
+  },
+  {
+    "doc_id": "form_library_001",
+    "type": "application form",
+    "source_url": "https://filedone.ai/sample-files/sample-fillable-form.pdf",
+    "source_page": "https://filedone.ai/sample-files",
+    "note": "Text-layer CC0 fictional library membership form."
+  },
+  {
+    "doc_id": "notice_001",
+    "type": "multilingual notice",
+    "source_url": "https://filedone.ai/sample-files/sample-notice-en-fr-es.pdf",
+    "source_page": "https://filedone.ai/sample-files",
+    "note": "Text-layer CC0 fictional notice in three languages."
+  },
+  {
+    "doc_id": "scan_agreement_001",
+    "type": "scanned agreement",
+    "source_url": "https://filedone.ai/sample-files/sample-rental-agreement-scan.pdf",
+    "source_page": "https://filedone.ai/sample-files",
+    "note": "Image-only CC0 fictional two-page rental agreement."
+  },
+  {
+    "doc_id": "invoice_002",
+    "type": "invoice",
+    "source_url": "https://www.testaroo.com/files/documents/ocr-domain/invoice-searchable.pdf",
+    "source_page": "https://www.testaroo.com/documents/ocr-domain/ocr-invoice-searchable-pdf",
+    "note": "Text-layer fictional SAMPLE invoice; Testaroo free-use fixture."
+  },
+  {
+    "doc_id": "receipt_002",
+    "type": "receipt",
+    "source_url": "https://www.testaroo.com/files/documents/ocr-domain/receipt-searchable.pdf",
+    "source_page": "https://www.testaroo.com/documents/ocr-domain/ocr-receipt-searchable-pdf",
+    "note": "Text-layer fictional SAMPLE receipt; Testaroo free-use fixture."
+  },
+  {
+    "doc_id": "utility_001",
+    "type": "utility bill",
+    "source_url": "https://www.testaroo.com/files/documents/ocr-domain/utility-searchable.pdf",
+    "source_page": "https://www.testaroo.com/documents/ocr-domain/ocr-utility-searchable-pdf",
+    "note": "Text-layer fictional SAMPLE utility bill; Testaroo free-use fixture."
+  },
+  {
+    "doc_id": "form_handwritten_001",
+    "type": "handwritten-style form",
+    "source_url": "https://www.testaroo.com/files/documents/ocr-domain/handwritten-searchable.pdf",
+    "source_page": "https://www.testaroo.com/documents/ocr-domain/ocr-handwritten-searchable-pdf",
+    "note": "Text-layer fictional SAMPLE form; Testaroo free-use fixture."
+  },
+  {
+    "doc_id": "contract_offer_001",
+    "type": "contract excerpt",
+    "source_url": "https://www.testaroo.com/files/data/commercial-documents-v1/contracts/employment-offer-EMP-05.pdf",
+    "source_page": "https://www.testaroo.com/documents/contracts-agreements/commercial-contracts-offer-v1",
+    "note": "Text-layer fictional employment offer; Testaroo free-use fixture."
+  },
+  {
+    "doc_id": "contract_amendment_001",
+    "type": "contract excerpt",
+    "source_url": "https://www.testaroo.com/files/data/commercial-documents-v1/contracts/msa-amendment-01.pdf",
+    "source_page": "https://www.testaroo.com/documents/contracts-agreements/commercial-contracts-amendment-v1",
+    "note": "Text-layer fictional agreement amendment; Testaroo free-use fixture."
+  },
+  {
+    "doc_id": "invoice_003",
+    "type": "invoice",
+    "source_url": "https://www.testaroo.com/files/data/restaurant-procure-to-pay-v1/restaurant-group/invoice.pdf",
+    "source_page": "https://www.testaroo.com/documents/procure-to-pay/restaurant-group-p2p-invoice-pdf-v1",
+    "note": "Text-layer fictional supplier invoice with a deliberate quantity discrepancy; Testaroo free-use fixture."
   }
 ]

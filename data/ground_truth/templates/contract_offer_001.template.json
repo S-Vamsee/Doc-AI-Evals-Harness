@@ -1,0 +1,31 @@
+{
+  "doc_id": "contract_offer_001",
+  "source_url": "https://www.testaroo.com/files/data/commercial-documents-v1/contracts/employment-offer-EMP-05.pdf",
+  "fields": [
+    {
+      "field": "employer_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "candidate_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "start_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "hourly_rate",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "offer_expiry_date",
+      "value": null,
+      "page": null
+    }
+  ]
+}

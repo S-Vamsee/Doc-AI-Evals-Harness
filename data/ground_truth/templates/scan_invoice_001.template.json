@@ -1,0 +1,31 @@
+{
+  "doc_id": "scan_invoice_001",
+  "source_url": "https://filedone.ai/sample-files/sample-scanned-invoice.pdf",
+  "fields": [
+    {
+      "field": "invoice_number",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "invoice_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "due_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "vendor_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "total_amount",
+      "value": null,
+      "page": null
+    }
+  ]
+}

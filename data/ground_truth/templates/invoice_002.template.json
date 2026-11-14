@@ -1,0 +1,31 @@
+{
+  "doc_id": "invoice_002",
+  "source_url": "https://www.testaroo.com/files/documents/ocr-domain/invoice-searchable.pdf",
+  "fields": [
+    {
+      "field": "invoice_number",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "invoice_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "vendor_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "customer_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "total_amount",
+      "value": null,
+      "page": null
+    }
+  ]
+}

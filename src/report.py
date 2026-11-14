@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+from src.regression import format_comparison
 
-def make_report(results: dict) -> str:
+
+def make_report(results: dict, comparison: dict | None = None) -> str:
     rows = [
         "| Doc | Model | Fields | Accuracy | Grounded | Reference cost (est.) | Latency |",
         "| --- | --- | ---: | ---: | ---: | ---: | ---: |",
@@ -42,5 +44,19 @@ def make_report(results: dict) -> str:
                 "was not found in the extracted PDF text"
             )
     sections.extend(failures or ["None."])
+    if any(doc.get("field_scores") for doc in results["documents"]):
+        sections.extend([
+            "", "## Field verdicts", "",
+            "| Doc | Field | Exact | Judge | Grounded |",
+            "| --- | --- | --- | --- | --- |",
+        ])
+        for doc in results["documents"]:
+            for item in doc.get("field_scores", []):
+                exact = "pass" if item["exact_match"] else "fail"
+                judge = "—" if item["judge_match"] is None else ("pass" if item["judge_match"] else "fail")
+                grounded = "—" if item["grounded"] is None else ("yes" if item["grounded"] else "no")
+                sections.append(f'| {doc["doc_id"]} | {item["field"]} | {exact} | {judge} | {grounded} |')
     sections.append("")
+    if comparison is not None:
+        sections.extend(["", format_comparison(comparison).rstrip(), ""])
     return "\n".join(sections)

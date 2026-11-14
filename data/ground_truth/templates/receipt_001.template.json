@@ -1,0 +1,31 @@
+{
+  "doc_id": "receipt_001",
+  "source_url": "https://filedone.ai/sample-files/sample-receipt.pdf",
+  "fields": [
+    {
+      "field": "merchant_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "receipt_number",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "purchase_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "total_amount",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "payment_method",
+      "value": null,
+      "page": null
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "doc_id": "scan_report_001",
+  "source_url": "https://filedone.ai/sample-files/sample-scanned-report-3-pages.pdf",
+  "fields": [
+    {
+      "field": "organization_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "report_period",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "days_open",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "annual_visits",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "printed_book_loans",
+      "value": null,
+      "page": null
+    }
+  ]
+}

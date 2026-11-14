@@ -1,0 +1,31 @@
+{
+  "doc_id": "contract_amendment_001",
+  "source_url": "https://www.testaroo.com/files/data/commercial-documents-v1/contracts/msa-amendment-01.pdf",
+  "fields": [
+    {
+      "field": "amendment_reference",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "effective_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "old_expense_cap",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "new_expense_cap",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "acceptance_window_days",
+      "value": null,
+      "page": null
+    }
+  ]
+}

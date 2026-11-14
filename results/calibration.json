@@ -1,0 +1,217 @@
+{
+  "calibrated_at_utc": "2026-11-14T03:39:47+00:00",
+  "judge_signature": "3f00d3e5fdb132ff6bf5a34b416568da7116ff2926006deef5997b02b8a255c4",
+  "golden_fields": 26,
+  "agreements": 26,
+  "passed": true,
+  "verdicts": [
+    {
+      "doc_id": "filing_001",
+      "field": "company_name",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "The extracted value 'Mama's Creations, Inc.' is a harmless capitalization and punctuation variant of the expected 'MAMA'S CREATIONS, INC.' and refers to the same entity."
+    },
+    {
+      "doc_id": "filing_001",
+      "field": "fiscal_year_end_date",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "The extracted value '2024-01-31' exactly matches the expected value."
+    },
+    {
+      "doc_id": "filing_001",
+      "field": "gross_profit_2024_thousands",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "The extracted value 30333 exactly matches the expected value."
+    },
+    {
+      "doc_id": "filing_001",
+      "field": "net_income_2024_thousands",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "The extracted value 6561 exactly matches the expected value."
+    },
+    {
+      "doc_id": "form_001",
+      "field": "applicant_name",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Exact match."
+    },
+    {
+      "doc_id": "form_001",
+      "field": "applicant_role",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Exact match."
+    },
+    {
+      "doc_id": "form_001",
+      "field": "applicant_organization",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Exact match."
+    },
+    {
+      "doc_id": "form_001",
+      "field": "project_name",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Exact match."
+    },
+    {
+      "doc_id": "form_001",
+      "field": "project_type",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Exact match."
+    },
+    {
+      "doc_id": "form_001",
+      "field": "application_due_date",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Exact match."
+    },
+    {
+      "doc_id": "invoice_001",
+      "field": "invoice_number",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Extracted value matches expected value exactly."
+    },
+    {
+      "doc_id": "invoice_001",
+      "field": "invoice_date",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Extracted value matches expected value exactly."
+    },
+    {
+      "doc_id": "invoice_001",
+      "field": "due_date",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Extracted value matches expected value exactly."
+    },
+    {
+      "doc_id": "invoice_001",
+      "field": "vendor_name",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Extracted value matches expected value exactly."
+    },
+    {
+      "doc_id": "invoice_001",
+      "field": "total_amount",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Extracted value matches expected value exactly."
+    },
+    {
+      "doc_id": "statement_001",
+      "field": "bank_name",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Extracted value 'Specimen Bank' matches expected value exactly."
+    },
+    {
+      "doc_id": "statement_001",
+      "field": "account_holder",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Extracted value 'Sam Specimen' matches expected value exactly."
+    },
+    {
+      "doc_id": "statement_001",
+      "field": "account_number",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Extracted value 'SPECIMEN-0000-4821' matches expected value exactly."
+    },
+    {
+      "doc_id": "statement_001",
+      "field": "period_start_date",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Extracted value '2026-08-01' matches expected value exactly."
+    },
+    {
+      "doc_id": "statement_001",
+      "field": "opening_balance",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Extracted value 48230.55 matches expected value exactly."
+    },
+    {
+      "doc_id": "statement_001",
+      "field": "closing_balance",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Extracted value 46736.38 matches expected value exactly."
+    },
+    {
+      "doc_id": "w2_001",
+      "field": "employer_name",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Exact match."
+    },
+    {
+      "doc_id": "w2_001",
+      "field": "employee_name",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Exact match including suffix."
+    },
+    {
+      "doc_id": "w2_001",
+      "field": "social_security_wages",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Both values are 80000.0."
+    },
+    {
+      "doc_id": "w2_001",
+      "field": "wages",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Both values are 80000.0."
+    },
+    {
+      "doc_id": "w2_001",
+      "field": "federal_income_tax_withheld",
+      "exact_match": true,
+      "judge_match": true,
+      "agree": true,
+      "reason": "Both values are 9200.0."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "doc_id": "scan_letter_001",
+  "source_url": "https://filedone.ai/sample-files/sample-scanned-letter.pdf",
+  "fields": [
+    {
+      "field": "sender_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "recipient_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "letter_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "amount",
+      "value": null,
+      "page": null
+    }
+  ]
+}

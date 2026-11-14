@@ -1,0 +1,26 @@
+{
+  "doc_id": "form_library_001",
+  "source_url": "https://filedone.ai/sample-files/sample-fillable-form.pdf",
+  "fields": [
+    {
+      "field": "organization_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "form_title",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "membership_types",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "interests_list",
+      "value": null,
+      "page": null
+    }
+  ]
+}

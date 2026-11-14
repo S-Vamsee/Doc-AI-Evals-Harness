@@ -1,0 +1,31 @@
+{
+  "doc_id": "form_handwritten_001",
+  "source_url": "https://www.testaroo.com/files/documents/ocr-domain/handwritten-searchable.pdf",
+  "fields": [
+    {
+      "field": "patient_name",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "form_date",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "symptoms",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "instruction",
+      "value": null,
+      "page": null
+    },
+    {
+      "field": "signature",
+      "value": null,
+      "page": null
+    }
+  ]
+}

@@ -101,20 +101,28 @@ def score_document(extracted: dict, truth: dict, pages: list[str]) -> dict:
     present = 0
     failures = []
     ungrounded = []
+    field_scores = []
     for item in truth["fields"]:
         field = item["field"]
         got = extracted_by_name[field]
         value = got["value"]
-        if normalize(field, value, item["value"]) == normalize(field, item["value"], item["value"]):
+        exact_match = normalize(field, value, item["value"]) == normalize(field, item["value"], item["value"])
+        if exact_match:
             correct += 1
         else:
             failures.append({"field": field, "expected": item["value"], "got": value})
+        is_grounded = appears_in_text(field, value, pages) if value is not None else None
         if value is not None:
             present += 1
-            if appears_in_text(field, value, pages):
+            if is_grounded:
                 grounded += 1
             else:
                 ungrounded.append({"field": field, "got": value, "source_page": got["source_page"]})
+        field_scores.append({
+            "field": field, "expected": item["value"], "got": value,
+            "exact_match": exact_match, "grounded": is_grounded,
+            "judge_match": None,
+        })
     total = len(truth["fields"])
     cost, tier = estimated_cost(extracted["usage"], extracted["api_created_at"])
     return {
@@ -124,5 +132,5 @@ def score_document(extracted: dict, truth: dict, pages: list[str]) -> dict:
         "groundedness": round(grounded / present * 100, 2) if present else None,
         "cost_usd_estimate": cost, "pricing_tier": tier,
         "latency_seconds": extracted["latency_seconds"], "usage": extracted["usage"],
-        "failures": failures, "ungrounded": ungrounded,
+        "failures": failures, "ungrounded": ungrounded, "field_scores": field_scores,
     }
