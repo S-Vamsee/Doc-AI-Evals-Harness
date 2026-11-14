@@ -1,0 +1,31 @@
+{
+  "doc_id": "form_handwritten_001",
+  "source_url": "https://www.testaroo.com/files/documents/ocr-domain/handwritten-searchable.pdf",
+  "fields": [
+    {
+      "field": "patient_name",
+      "value": "Jordan Rivera",
+      "page": 1
+    },
+    {
+      "field": "form_date",
+      "value": "2026-01-18",
+      "page": 1
+    },
+    {
+      "field": "symptoms",
+      "value": "mild headache, SAMPLE only",
+      "page": 1
+    },
+    {
+      "field": "instruction",
+      "value": "rest and hydrate — fictional clinic form",
+      "page": 1
+    },
+    {
+      "field": "signature",
+      "value": "J. Rivera (SAMPLE)",
+      "page": 1
+    }
+  ]
+}

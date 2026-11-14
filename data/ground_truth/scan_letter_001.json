@@ -1,0 +1,31 @@
+{
+  "doc_id": "scan_letter_001",
+  "source_url": "https://filedone.ai/sample-files/sample-scanned-letter.pdf",
+  "fields": [
+    {
+      "field": "issuer_name",
+      "value": "Brightwater Housing Society",
+      "page": 1
+    },
+    {
+      "field": "letter_date",
+      "value": "21 September 2026",
+      "page": 1
+    },
+    {
+      "field": "reference_number",
+      "value": "BHS/MC/2026/118",
+      "page": 1
+    },
+    {
+      "field": "new_monthly_charge",
+      "value": 2450,
+      "page": 1
+    },
+    {
+      "field": "effective_date",
+      "value": "1 November 2026",
+      "page": 1
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "doc_id": "scan_agreement_001",
+  "source_url": "https://filedone.ai/sample-files/sample-rental-agreement-scan.pdf",
+  "fields": [
+    {
+      "field": "licensor_name",
+      "value": "Sam Specimen",
+      "page": 1
+    },
+    {
+      "field": "licensor_address",
+      "value": "7 Example Avenue, Sampleton 000 000",
+      "page": 1
+    },
+    {
+      "field": "agreement_date",
+      "value": "25th day of September 2026",
+      "page": 1
+    },
+    {
+      "field": "monthly_licence_fee",
+      "value": 18500,
+      "page": 1
+    }
+  ]
+}

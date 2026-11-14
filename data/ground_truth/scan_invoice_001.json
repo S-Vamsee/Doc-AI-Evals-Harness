@@ -1,0 +1,31 @@
+{
+  "doc_id": "scan_invoice_001",
+  "source_url": "https://filedone.ai/sample-files/sample-scanned-invoice.pdf",
+  "fields": [
+    {
+      "field": "invoice_number",
+      "value": "INV-2026-0142",
+      "page": 1
+    },
+    {
+      "field": "invoice_date",
+      "value": "18 September 2026",
+      "page": 1
+    },
+    {
+      "field": "due_date",
+      "value": "18 October 2026",
+      "page": 1
+    },
+    {
+      "field": "total_amount",
+      "value": 17348.36,
+      "page": 1
+    },
+    {
+      "field": "vendor_name",
+      "value": "Larkfield Stationers",
+      "page": 1
+    }
+  ]
+}

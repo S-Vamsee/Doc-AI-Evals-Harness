@@ -1,0 +1,31 @@
+{
+  "doc_id": "utility_001",
+  "source_url": "https://www.testaroo.com/files/documents/ocr-domain/utility-searchable.pdf",
+  "fields": [
+    {
+      "field": "provider_name",
+      "value": "Brightside Energy",
+      "page": 1
+    },
+    {
+      "field": "account_number",
+      "value": "ACC-SAMPLE-7788",
+      "page": 1
+    },
+    {
+      "field": "billing_period_start",
+      "value": "2025-12-01",
+      "page": 1
+    },
+    {
+      "field": "billing_period_end",
+      "value": "2025-12-31",
+      "page": 1
+    },
+    {
+      "field": "total_due",
+      "value": 53.78,
+      "page": 1
+    }
+  ]
+}

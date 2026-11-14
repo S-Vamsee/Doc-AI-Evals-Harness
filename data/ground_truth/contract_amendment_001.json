@@ -1,0 +1,31 @@
+{
+  "doc_id": "contract_amendment_001",
+  "source_url": "https://www.testaroo.com/files/data/commercial-documents-v1/contracts/msa-amendment-01.pdf",
+  "fields": [
+    {
+      "field": "amendment_reference",
+      "value": "AMD-2026-01",
+      "page": 1
+    },
+    {
+      "field": "effective_date",
+      "value": "1 September 2026",
+      "page": 1
+    },
+    {
+      "field": "old_expense_cap",
+      "value": 250.0,
+      "page": 1
+    },
+    {
+      "field": "new_expense_cap",
+      "value": 400.0,
+      "page": 1
+    },
+    {
+      "field": "acceptance_window_days",
+      "value": 15,
+      "page": 1
+    }
+  ]
+}

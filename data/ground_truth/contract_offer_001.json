@@ -1,0 +1,31 @@
+{
+  "doc_id": "contract_offer_001",
+  "source_url": "https://www.testaroo.com/files/data/commercial-documents-v1/contracts/employment-offer-EMP-05.pdf",
+  "fields": [
+    {
+      "field": "employer_name",
+      "value": "Cobalt Operations Team",
+      "page": 1
+    },
+    {
+      "field": "candidate_name",
+      "value": "Team member 5 (EMP-05)",
+      "page": 1
+    },
+    {
+      "field": "start_date",
+      "value": "10 August 2026",
+      "page": 1
+    },
+    {
+      "field": "hourly_rate",
+      "value": 28.0,
+      "page": 1
+    },
+    {
+      "field": "offer_expiry_date",
+      "value": "3 August 2026",
+      "page": 1
+    }
+  ]
+}

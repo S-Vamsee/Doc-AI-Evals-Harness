@@ -1,0 +1,26 @@
+{
+  "doc_id": "form_library_001",
+  "source_url": "https://filedone.ai/sample-files/sample-fillable-form.pdf",
+  "fields": [
+    {
+      "field": "organization_name",
+      "value": "Larkfield Community Library",
+      "page": 1
+    },
+    {
+      "field": "form_title",
+      "value": "Membership application",
+      "page": 1
+    },
+    {
+      "field": "membership_types",
+      "value": "Adult, Student, Senior (65 and over)",
+      "page": 1
+    },
+    {
+      "field": "interests_list",
+      "value": "Fiction, Local history, Digital skills, Children's events",
+      "page": 1
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Document AI Evals Harness — Phase 2 in progress
 
-This CLI harness scores document fact extraction against human-written answer keys. The five text-PDF golden documents have a completed run. The dataset now contains 20 public PDFs, including five image-only PDFs; the 15 new answer keys and a Qwen vision setup are still needed before the 20-document run can start. [Read the current blockers](results/phase2_readiness.md).
+This CLI harness scores document fact extraction against human-written answer keys. The five text-PDF golden documents have a completed run. The dataset now contains 20 public PDFs and 20 human-verified answer keys, including five image-only PDFs. A local Qwen vision setup is still needed before the 20-document run can start. [Read the current blocker](results/phase2_readiness.md).
 
 ## Run
 
@@ -10,7 +10,7 @@ Clone this repository and enter its directory, then install the dependencies:
 python -m pip install -r requirements.txt
 ```
 
-Create `.env` (see `.env.example`) with `DEEPSEEK_API_KEY=...`. For an OpenAI-compatible hosted deployment, also set `DEEPSEEK_BASE_URL` and `DEEPSEEK_MODEL` locally. The original five human answer keys are already in `data/ground_truth/`. Read each new PDF and write its answer key using the [Phase 2 guide](data/ground_truth/PHASE2_GUIDE.md). Calibrate the value judge before a full run:
+Create `.env` (see `.env.example`) with `DEEPSEEK_API_KEY=...`. For an OpenAI-compatible hosted deployment, also set `DEEPSEEK_BASE_URL` and `DEEPSEEK_MODEL` locally. All 20 human answer keys are in `data/ground_truth/`; the [Phase 2 guide](data/ground_truth/PHASE2_GUIDE.md) records how they were prepared. Calibrate the value judge before a full run:
 
 ```bash
 python run_eval.py --calibrate
@@ -68,4 +68,4 @@ None.
 
 ## Current Phase 2 blockers
 
-The 15 new human answer keys are pending. Five image-only PDFs need a configured Qwen vision service; no local service is currently available, and the harness does not substitute another model. A public messy-document case study will be written only after a real extraction run shows a concrete problem and fix. See the [readiness report](results/phase2_readiness.md).
+All 20 human answer keys are present. Five image-only PDFs need a configured Qwen vision service; no local service is currently available, and the harness does not substitute another model. A public messy-document case study will be written only after a real extraction run shows a concrete problem and fix. See the [readiness report](results/phase2_readiness.md).

@@ -1,0 +1,26 @@
+{
+  "doc_id": "receipt_002",
+  "source_url": "https://www.testaroo.com/files/documents/ocr-domain/receipt-searchable.pdf",
+  "fields": [
+    {
+      "field": "merchant_name",
+      "value": "BRIGHTSIDE CAFE",
+      "page": 1
+    },
+    {
+      "field": "order_number",
+      "value": "#NV-10482",
+      "page": 1
+    },
+    {
+      "field": "purchase_date",
+      "value": "2026-01-06",
+      "page": 1
+    },
+    {
+      "field": "total_amount",
+      "value": 7.75,
+      "page": 1
+    }
+  ]
+}

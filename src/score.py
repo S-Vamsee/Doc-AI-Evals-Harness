@@ -7,10 +7,16 @@ import unicodedata
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 
+SMALL_NUMBER_WORDS = (
+    "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
+    "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
+    "sixteen", "seventeen", "eighteen", "nineteen", "twenty",
+)
+
 
 def _plain(value: object) -> str:
     text = unicodedata.normalize("NFKC", str(value)).casefold()
-    text = text.translate(str.maketrans({"’": "'", "‘": "'", "–": "-", "—": "-"}))
+    text = text.translate(str.maketrans({"’": "'", "‘": "'", "–": "-", "—": "-", "�": "-"}))
     return " ".join(text.split())
 
 
@@ -61,6 +67,8 @@ def appears_in_text(field: str, value: object, pages: list[str]) -> bool:
         variants = [
             iso, date.strftime("%m/%d/%Y"), date.strftime("%m/%d/%y"),
             date.strftime("%d/%m/%Y"), date.strftime("%d/%m/%y"),
+            f"{date.month}/{date.day}/{date.year}",
+            f"{date.day}/{date.month}/{date.year}",
             f"{date.strftime('%B')} {date.day}, {date.year}",
             f"{date.strftime('%b')} {date.day}, {date.year}",
             f"{date.day} {date.strftime('%B')} {date.year}",
@@ -71,7 +79,13 @@ def appears_in_text(field: str, value: object, pages: list[str]) -> bool:
         digits = re.escape(format(amount, "f").rstrip("0").rstrip(".") if amount % 1 else str(int(amount)))
         whole = f"{int(amount):,}" if amount >= 0 else f"{int(amount):,}"
         candidates = [digits, re.escape(whole), re.escape(f"{amount:,.2f}"), re.escape(f"{amount:.2f}")]
-        return any(re.search(rf"(?<![\d.,]){candidate}(?!\d|[.,]\d)", text) for candidate in candidates)
+        if any(re.search(rf"(?<![\d.,]){candidate}(?!\d|[.,]\d)", text) for candidate in candidates):
+            return True
+        if amount == int(amount) and 0 <= amount < len(SMALL_NUMBER_WORDS):
+            return bool(re.search(rf"\b{SMALL_NUMBER_WORDS[int(amount)]}\b", text))
+        return False
+    if field.endswith(("_list", "_types")) and isinstance(value, str) and "," in value:
+        return all(_plain(part) in text for part in value.split(",") if part.strip())
     return _plain(value) in text
 
 

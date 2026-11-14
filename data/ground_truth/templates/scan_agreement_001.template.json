@@ -8,17 +8,12 @@
       "page": null
     },
     {
-      "field": "licensee_name",
+      "field": "licensor_address",
       "value": null,
       "page": null
     },
     {
-      "field": "property_address",
-      "value": null,
-      "page": null
-    },
-    {
-      "field": "start_date",
+      "field": "agreement_date",
       "value": null,
       "page": null
     },

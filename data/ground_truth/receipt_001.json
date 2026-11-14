@@ -1,0 +1,26 @@
+{
+  "doc_id": "receipt_001",
+  "source_url": "https://filedone.ai/sample-files/sample-receipt.pdf",
+  "fields": [
+    {
+      "field": "merchant_name",
+      "value": "CORNER CAFE",
+      "page": 1
+    },
+    {
+      "field": "purchase_date",
+      "value": "18/09/2026",
+      "page": 1
+    },
+    {
+      "field": "total_amount",
+      "value": 380.0,
+      "page": 1
+    },
+    {
+      "field": "payment_method",
+      "value": "Card",
+      "page": 1
+    }
+  ]
+}

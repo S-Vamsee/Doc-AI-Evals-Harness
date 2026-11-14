@@ -1,8 +1,8 @@
 # Phase 2 human answer keys
 
-The 15 new PDFs are ready. Their answer keys are intentionally blank. Read each PDF yourself, select 4–8 facts visibly present on its pages, and write `data/ground_truth/<doc_id>.json` from the matching template. Do not copy a publisher's answer key or ask an extraction model to produce the values. Suggested field names in templates are optional: remove or rename any field that is not plainly visible. Use the exact printed value and a one-based page number.
+The 15 new PDFs now have answer keys supplied by the project owner after reading the documents. The matching templates remain blank as references. Each key has 4–8 facts visibly present on its PDF. No extraction model supplied the answer values. Suggested template fields are optional: the final keys retain the facts the owner provided, including four correctly relabeled facts for the rental agreement.
 
-You can also send your verified facts in chat, grouped by document ID with the page number for each fact, as you did for Phase 1. I will format your facts into the JSON files without choosing answer values for you.
+For future additions, read each PDF yourself and send verified facts grouped by document ID, with a one-based page number for each fact. The values can then be formatted into JSON without an extraction model choosing them.
 
 | Document | Type | Template |
 | --- | --- | --- |
@@ -22,4 +22,4 @@ You can also send your verified facts in chat, grouped by document ID with the p
 | [contract_amendment_001.pdf](../pdfs/contract_amendment_001.pdf) | agreement amendment | [template](templates/contract_amendment_001.template.json) |
 | [invoice_003.pdf](../pdfs/invoice_003.pdf) | supplier invoice | [template](templates/invoice_003.template.json) |
 
-For each template, replace every `null` with the fact you checked and its page number, then save it without `.template` in `data/ground_truth/`. Keep the `doc_id` and `source_url` unchanged. The runner rejects keys with fewer than four or more than eight fields, missing values, invalid pages, or a mismatched source URL. The original five answer keys remain the judge's golden set.
+When adding or revising a key, use only facts you checked, save it without `.template` in `data/ground_truth/`, and keep the `doc_id` and `source_url` unchanged. The runner rejects keys with fewer than four or more than eight fields, missing values, invalid pages, or a mismatched source URL. The original five answer keys remain the judge's golden set.

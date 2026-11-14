@@ -1,0 +1,26 @@
+{
+  "doc_id": "invoice_002",
+  "source_url": "https://www.testaroo.com/files/documents/ocr-domain/invoice-searchable.pdf",
+  "fields": [
+    {
+      "field": "invoice_number",
+      "value": "INV-SAMPLE-1042",
+      "page": 1
+    },
+    {
+      "field": "vendor_name",
+      "value": "Meridian Supply Co.",
+      "page": 1
+    },
+    {
+      "field": "customer_name",
+      "value": "Riverside High School",
+      "page": 1
+    },
+    {
+      "field": "total_amount",
+      "value": 329.4,
+      "page": 1
+    }
+  ]
+}
