@@ -15,7 +15,7 @@ def _record(relation, value):
 
 def test_money_and_written_date_normalize_without_guessing():
     key = {
-        "total_amount": {"value": 17348.36, "type": "money"},
+        "total_amount": {"value": 17348.36, "type": "money", "printed_marker": "₹"},
         "invoice_date": {"value": "2026-09-18", "type": "date"},
     }
     result = score_records([_record("total_amount", "₹17,348.36"),

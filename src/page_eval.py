@@ -16,6 +16,8 @@ from pathlib import Path
 import pymupdf
 from openai import OpenAI
 
+from src.policy import build_extraction_messages
+
 from src.vision import (
     OCR_PROMPT,
     _json_request,
@@ -141,8 +143,8 @@ def _client() -> tuple[OpenAI, str, str]:
 
 def _ask(client: OpenAI, model: str, base_url: str, work: Path, label: str,
          system: str, user: str, max_tokens: int = 5000) -> dict:
-    request = {"model": model, "messages": [{"role": "system", "content": system},
-                                             {"role": "user", "content": user}],
+    messages = build_extraction_messages(user, system)
+    request = {"model": model, "messages": messages,
                "temperature": 0, "response_format": {"type": "json_object"},
                "max_tokens": max_tokens}
     if base_url.rstrip("/") == "https://api.deepseek.com":
@@ -159,7 +161,8 @@ def _ask(client: OpenAI, model: str, base_url: str, work: Path, label: str,
         "latency_seconds": round(time.perf_counter() - started, 3),
         "prompt_tokens": response.usage.prompt_tokens if response.usage else None,
         "completion_tokens": response.usage.completion_tokens if response.usage else None,
-        "prompt_sha256": hashlib.sha256((system + "\n" + user).encode()).hexdigest(),
+        "prompt_sha256": hashlib.sha256(json.dumps(messages, ensure_ascii=False,
+                                                    sort_keys=True).encode("utf-8")).hexdigest(),
     })
     return result
 

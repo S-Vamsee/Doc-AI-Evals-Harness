@@ -10,6 +10,8 @@ from pathlib import Path
 import pymupdf
 from openai import OpenAI
 
+from src.policy import build_extraction_messages
+
 MODEL = "deepseek-flash"
 BASE_URL = "https://api.deepseek.com"
 PUBLIC_MODEL_LABEL = "deepseek-flash"
@@ -62,7 +64,7 @@ def extract_facts(
     started = time.perf_counter()
     request = dict(
         model=model,
-        messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
+        messages=build_extraction_messages(user, system),
         temperature=0,
         response_format={"type": "json_object"},
         max_tokens=1200,

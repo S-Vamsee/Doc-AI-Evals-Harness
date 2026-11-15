@@ -36,7 +36,7 @@ This project is being built in phases. The table shows what runs today and what 
 | --- | --- | --- |
 | 1 | Five text PDFs, human answer keys, exact scoring, groundedness, cost and latency | Built and run |
 | 2 | 20 PDFs, local vision for scans, a value judge, timestamped regression runs | Built and run |
-| 3 | Evidence checked by code, three result states, failures traced to a pipeline stage, a short human review queue, injection tests | Specified, not built |
+| 3 | Evidence checked by code, three result states, failures traced to a pipeline stage, a short human review queue, injection tests | Rebuild in progress on `rebuild/core-rules`; no end-to-end result yet |
 
 Phases 1 and 2 score extraction against answer keys a person wrote in advance. Phase 3 changes the direction of work: the machine extracts first, code verifies what it can, and a person reviews only what is left.
 
@@ -80,12 +80,16 @@ These rules are also in `AGENTS.md`, which coding agents working on this reposit
 These were found by running the harness and are the reason for Phase 3.
 
 - **Scores are near the ceiling.** With one extractor and four to six fields per document, almost everything passes, so the current set cannot separate a good system from a weaker one.
-- **The judge has not been tested on wrong answers.** Its 26/26 calibration used only exact matches. A two-case probe is the only check on near-matches and false positives.
+- **The old judge gate was too easy.** Its 26/26 calibration used only exact matches. The balanced check below exposed false accepts; judge scoring is disabled.
 - **Grounding on scans is circular.** Values are looked up in the vision model's own transcription, so a misread page can still count as grounded.
 - **Grounding is a text lookup.** It confirms the value appears somewhere in the text, not that it came from the right place.
 - **An inferred value passed.** On `scan_notice_001` the page shows `Mon 12 Oct` and the model returned `2026-10-12`. The judge accepted it and it was marked grounded.
 - **A failure was replaced.** The W-2's printed year is missing from the selectable text. The field was swapped for box 3 wages, which hid a real text-layer gap.
 - **The sample is small.** 95 of 97 exact matches is consistent with a true accuracy anywhere from about 93% to 99%.
+
+### Balanced judge calibration finding
+
+The local `gemma3:4b` judge was tested on 60 owner-labelled public-document value pairs: 24 equivalent and 36 different. It falsely accepted **18 of 36 different pairs** (50%) and falsely rejected **1 of 24 equivalent pairs** (4.17%). Four false accepts were plainly different amounts: `329.4` versus `$305.00`, `18500` versus `55,000`, `6561` versus `2,304`, and `30333` versus `19,418`. Other false accepts involved dropped identifiers or suffixes, an added title, and added currency markers. The prompt was not tuned against these 60 pairs. Judge scoring remains disabled. The judge percentages in the historical Phase 2 results below are retained as run history, not a validated score.
 
 ## Quick start
 
