@@ -88,6 +88,9 @@ class FactRecord(BaseModel):
     judge: Literal["pass", "fail", "unscored"]
     human_verdict: Literal["right", "wrong", "missing"] | None
     evidence_support: Literal["supported", "unsupported", "role_not_printed"] | None = None
+    source_call: Literal["keyed", "open"] | None = None
+    overlaps_keyed_field: bool = False
+    keyed_disagreement: bool | None = None
 
     @model_validator(mode="after")
     def verified_requires_evidence(self) -> FactRecord:

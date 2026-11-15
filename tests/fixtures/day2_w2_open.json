@@ -1,0 +1,232 @@
+{
+  "facts": [
+    {
+      "kind": "identifier",
+      "subject": null,
+      "relation": "social_security_number",
+      "value": "123-45-6789",
+      "origin": "extracted",
+      "quote": "123-45-6789"
+    },
+    {
+      "kind": "identifier",
+      "subject": null,
+      "relation": "employer_identification_number",
+      "value": "12-3456789",
+      "origin": "extracted",
+      "quote": "12-3456789"
+    },
+    {
+      "kind": "amount",
+      "subject": null,
+      "relation": "wages_amount",
+      "value": "80,000.00",
+      "origin": "extracted",
+      "quote": "80,000.00"
+    },
+    {
+      "kind": "amount",
+      "subject": null,
+      "relation": "tax_withheld_amount",
+      "value": "9,200.00",
+      "origin": "extracted",
+      "quote": "9,200.00"
+    },
+    {
+      "kind": "party",
+      "subject": null,
+      "relation": "employer_name",
+      "value": "Northstar Demo Payroll LLC",
+      "origin": "extracted",
+      "quote": "Northstar Demo Payroll LLC"
+    },
+    {
+      "kind": "amount",
+      "subject": null,
+      "relation": "wages_amount",
+      "value": "80,000.00",
+      "origin": "extracted",
+      "quote": "80,000.00"
+    },
+    {
+      "kind": "amount",
+      "subject": null,
+      "relation": "social_security_tax_withheld",
+      "value": "4,960.00",
+      "origin": "extracted",
+      "quote": "4,960.00"
+    },
+    {
+      "kind": "labelled_value",
+      "subject": "Northstar Demo Payroll LLC",
+      "relation": "address",
+      "value": "125 Example Plaza, Suite 210 New York, New York 10001",
+      "origin": "extracted",
+      "quote": "125 Example Plaza, Suite 210 New York, New York 10001"
+    },
+    {
+      "kind": "amount",
+      "subject": null,
+      "relation": "medicare_tax_withheld",
+      "value": "1,160.00",
+      "origin": "extracted",
+      "quote": "1,160.00"
+    },
+    {
+      "kind": "amount",
+      "subject": null,
+      "relation": "social_security_wages",
+      "value": "80,000.00",
+      "origin": "extracted",
+      "quote": "80,000.00"
+    },
+    {
+      "kind": "amount",
+      "subject": null,
+      "relation": "zero_amount",
+      "value": "0.00",
+      "origin": "extracted",
+      "quote": "0.00"
+    },
+    {
+      "kind": "amount",
+      "subject": null,
+      "relation": "zero_amount",
+      "value": "0.00",
+      "origin": "extracted",
+      "quote": "0.00"
+    },
+    {
+      "kind": "identifier",
+      "subject": null,
+      "relation": "form_identifier",
+      "value": "QA-W2-2026-01",
+      "origin": "extracted",
+      "quote": "QA-W2-2026-01"
+    },
+    {
+      "kind": "line_item",
+      "subject": null,
+      "relation": "table_row",
+      "value": {
+        "code": "11",
+        "description": "Nonqualified plans",
+        "amount": "0.00"
+      },
+      "origin": "extracted",
+      "quote": "11   Nonqualified plans                     0.00"
+    },
+    {
+      "kind": "amount",
+      "subject": null,
+      "relation": "zero_amount",
+      "value": "0.00",
+      "origin": "extracted",
+      "quote": "0.00"
+    },
+    {
+      "kind": "party",
+      "subject": null,
+      "relation": "employee_first_name",
+      "value": "Alex Q",
+      "origin": "extracted",
+      "quote": "Alex Q"
+    },
+    {
+      "kind": "party",
+      "subject": null,
+      "relation": "employee_last_name",
+      "value": "Sample",
+      "origin": "extracted",
+      "quote": "Sample"
+    },
+    {
+      "kind": "party",
+      "subject": null,
+      "relation": "employee_suffix",
+      "value": "Jr.",
+      "origin": "extracted",
+      "quote": "Jr."
+    },
+    {
+      "kind": "labelled_value",
+      "subject": null,
+      "relation": "dependent_care_benefits",
+      "value": "DD   9,600.00",
+      "origin": "extracted",
+      "quote": "DD   9,600.00"
+    },
+    {
+      "kind": "labelled_value",
+      "subject": "Alex Q Sample",
+      "relation": "address",
+      "value": "74 Sample Street, Apt 4C Brooklyn, NY 11201",
+      "origin": "extracted",
+      "quote": "74 Sample Street, Apt 4C Brooklyn, NY 11201"
+    },
+    {
+      "kind": "labelled_value",
+      "subject": null,
+      "relation": "wages_and_tips",
+      "value": "W    1,800.00",
+      "origin": "extracted",
+      "quote": "W    1,800.00"
+    },
+    {
+      "kind": "labelled_value",
+      "subject": null,
+      "relation": "state_disability_insurance",
+      "value": "NY SDI                31.20",
+      "origin": "extracted",
+      "quote": "NY SDI                31.20"
+    },
+    {
+      "kind": "labelled_value",
+      "subject": null,
+      "relation": "allocated_tips",
+      "value": "AA   2,400.00",
+      "origin": "extracted",
+      "quote": "AA   2,400.00"
+    },
+    {
+      "kind": "labelled_value",
+      "subject": null,
+      "relation": "dependent_care_benefits",
+      "value": "L     350.00",
+      "origin": "extracted",
+      "quote": "L     350.00"
+    },
+    {
+      "kind": "line_item",
+      "subject": null,
+      "relation": "state_and_local_tax_row",
+      "value": {
+        "state": "NY",
+        "employer_state_id": "NY-DEMO-001",
+        "state_wages": "80,000.00",
+        "state_income_tax": "3,100.00",
+        "local_wages": "80,000.00",
+        "local_income_tax": "2,650.00",
+        "locality_name": "New York City"
+      },
+      "origin": "extracted",
+      "quote": "NY   NY-DEMO-001                             80,000.00                3,100.00               80,000.00                  2,650.00              New York City"
+    },
+    {
+      "kind": "line_item",
+      "subject": null,
+      "relation": "state_and_local_tax_row",
+      "value": {
+        "state": "NJ",
+        "employer_state_id": "NJ-DEMO-002",
+        "state_wages": "12,000.00",
+        "state_income_tax": "275.00",
+        "local_wages": "0.00",
+        "local_income_tax": "0.00",
+        "locality_name": "None"
+      },
+      "origin": "extracted",
+      "quote": "NJ    NJ-DEMO-002                             12,000.00               275.00                 0.00                       0.00                    None"
+    }
+  ]
+}

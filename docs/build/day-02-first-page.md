@@ -12,3 +12,7 @@ Decisions made: The owner required two calls, explicit keyed-field outcomes, ear
 How to run: `python scripts/environments.py offline`; `python scripts/environments.py live-dev -- --development --text-only` for the 15 text PDFs; `python scripts/environments.py live-dev -- --development` for all 20.
 
 What it does not do yet: The role hint is not a semantic role check. Cached scans do not receive independent OCR verification. The judge remains disabled. The new two-call contract causes repeated keyed names in open output; these are saved as extraction failures, not hidden.
+
+## Correction — 2026-11-15
+
+The owner rejected the initial Day 2 result after reviewing the live runs. The duplicate rule now applies only inside the keyed reply. Repeated keyed names in the open reply remain open facts, carry an overlap flag, and report any value disagreement without changing the keyed answer. Keyed and open call failures are independent and each call has its own completeness result. Keyed values are scored against the human key even when evidence is uncertain; evidence changes the fact state, not the value comparison. A value inferred from an identifier is shown as a value match when applicable but fails the extracted-exact measure under Rule 7. No answer key was edited. The old statement that open overlaps are extraction failures remains above as the original Day 2 record; it no longer describes the corrected code.

@@ -63,17 +63,29 @@ def compare_field_maps(old: dict, new: dict) -> dict:
             "worse": [item for item in changes if item["direction"] == "worse"]}
 
 
-def compare_runs(old_folder: Path, new_folder: Path) -> dict:
+def align_to_new_fields(old: dict, new: dict) -> dict:
+    """Select the old fields measured in a narrower new run."""
+    if not new.keys() <= old.keys():
+        raise ValueError("New run has keyed fields absent from the old run")
+    return {key: old[key] for key in new}
+
+
+def compare_runs(old_folder: Path, new_folder: Path, *, text_subset: bool = False) -> dict:
     old, old_manifest = load_field_map(old_folder)
     new, new_manifest = load_field_map(new_folder)
     def inputs(manifest):
         return {item["doc_id"]: (item["pdf_sha256"], item["answer_key_sha256"])
                 for item in manifest["documents"]}
-    if inputs(old_manifest) != inputs(new_manifest):
+    old_inputs, new_inputs = inputs(old_manifest), inputs(new_manifest)
+    if text_subset:
+        old = align_to_new_fields(old, new)
+        old_inputs = {doc_id: old_inputs.get(doc_id) for doc_id in new_inputs}
+    if old_inputs != new_inputs:
         raise ValueError("PDF or answer-key bytes changed across days")
     result = compare_field_maps(old, new)
     result.update({"old_run": old_folder.name, "new_run": new_folder.name,
                    "input_hashes_identical": True,
+                   "text_subset": text_subset,
                    "code_identical": old_manifest["code_version"] == new_manifest["code_version"],
                    "prompt_identical": old_manifest["prompt_sha256"] == new_manifest["prompt_sha256"]})
     return result
@@ -99,16 +111,17 @@ def render(result: dict) -> str:
             item["doc_id"], item["page"], item["field"], item["old_value"],
             item["new_value"], cause.get("stage", "unassigned"),
             cause.get("reason", "unassigned"))) + " |")
-    lines.extend(["", "The new pipeline marks duplicate keyed facts as extraction failures. "
-                  "A smaller score here does not by itself show the extractor became less accurate; "
-                  "the measurement rule and call contract changed.", ""])
+    lines.extend(["", "The comparison covers the keyed fields in the new run. "
+                  "The extraction contract and code changed between runs; the field-level "
+                  "differences show the measured impact of those changes.", ""])
     return "\n".join(lines)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        raise SystemExit("Usage: compare_daily.py OLD_RUN NEW_RUN OUTPUT.md")
-    comparison = compare_runs(Path(sys.argv[1]), Path(sys.argv[2]))
+    if len(sys.argv) not in (4, 5) or (len(sys.argv) == 5 and sys.argv[4] != "--text-subset"):
+        raise SystemExit("Usage: compare_daily.py OLD_RUN NEW_RUN OUTPUT.md [--text-subset]")
+    comparison = compare_runs(Path(sys.argv[1]), Path(sys.argv[2]),
+                              text_subset=len(sys.argv) == 5)
     output = Path(sys.argv[3])
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(render(comparison), encoding="utf-8")

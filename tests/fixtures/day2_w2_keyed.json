@@ -1,0 +1,26 @@
+{
+  "employer_name": {
+    "value": "Northstar Demo Payroll LLC",
+    "quote": "Northstar Demo Payroll LLC"
+  },
+  "employee_name": {
+    "value": "Alex Q Sample",
+    "quote": "Alex Q                        Sample                                                       Jr."
+  },
+  "tax_year": {
+    "value": "2026",
+    "quote": "QA-W2-2026-01"
+  },
+  "social_security_wages": {
+    "value": "80,000.00",
+    "quote": "80,000.00                       9,200.00"
+  },
+  "wages": {
+    "value": "80,000.00",
+    "quote": "80,000.00                       4,960.00"
+  },
+  "federal_income_tax_withheld": {
+    "value": "9,200.00",
+    "quote": "80,000.00                       9,200.00"
+  }
+}

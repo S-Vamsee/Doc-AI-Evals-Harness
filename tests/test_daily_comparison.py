@@ -1,6 +1,6 @@
 """Cross-day comparison keeps a failed field visible when the pipeline changes."""
 
-from scripts.compare_daily import compare_field_maps
+from scripts.compare_daily import align_to_new_fields, compare_field_maps
 
 
 def test_daily_comparison_reports_worse_and_better_fields_with_cause():
@@ -14,3 +14,11 @@ def test_daily_comparison_reports_worse_and_better_fields_with_cause():
     assert result["counts"] == {"better": 1, "worse": 1,
                                 "unchanged": 0, "changed_no_flip": 0}
     assert result["worse"][0]["root_cause"]["stage"] == "normalization"
+
+
+def test_text_run_comparison_uses_only_fields_present_in_both_runs():
+    old = {("invoice", 1, "total"): {"exact": "pass", "extracted": "10"},
+           ("scan", 1, "total"): {"exact": "pass", "extracted": "20"}}
+    new = {("invoice", 1, "total"): {"exact": "pass", "extracted": "10"}}
+    aligned = align_to_new_fields(old, new)
+    assert aligned == {("invoice", 1, "total"): old[("invoice", 1, "total")]}

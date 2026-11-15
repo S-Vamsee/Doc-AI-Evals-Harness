@@ -26,15 +26,24 @@ def summarize_run(folder: Path) -> dict:
     field_failures = Counter()
     root_causes = Counter()
     passed = total = complete_pages = unscored_due_incomplete = 0
+    value_passed = keyed_complete_pages = open_complete_pages = 0
+    open_overlaps = open_disagreements = inferred_keyed = 0
     for row in summary["page_results"]:
         result = _read(folder / row["run_folder"] / "result.json")
         complete_pages += bool(result["complete"])
+        call_status = result.get("call_status") or {}
+        keyed_complete_pages += bool((call_status.get("keyed") or {}).get("complete"))
+        open_complete_pages += bool((call_status.get("open") or {}).get("complete"))
+        overlaps = result.get("open_overlaps") or []
+        open_overlaps += len(overlaps)
+        open_disagreements += sum(item.get("disagrees") is True for item in overlaps)
         for name in ("verified", "uncertain", "failed", "skipped"):
             states[name] += (result.get("counts") or {}).get(name, 0)
         for name in ("abstentions", "role_not_printed"):
             states[name] += (result.get("outcome_counts") or {}).get(name, 0)
         scored = result.get("scored") or {}
         passed += scored.get("exact_passed", 0)
+        value_passed += scored.get("value_passed", scored.get("exact_passed", 0))
         total += scored.get("scored", 0)
         if not scored and row.get("doc_id") and row.get("page"):
             key_path = ROOT / "data" / "ground_truth" / f"{row['doc_id']}.json"
@@ -51,6 +60,8 @@ def summarize_run(folder: Path) -> dict:
             root_causes[(failure.get("stage", "unknown"),
                          failure.get("reason", "incomplete page"))] += expected_count
         for record in result.get("records", []):
+            inferred_keyed += (record.get("source_call") == "keyed"
+                               and record.get("origin") == "inferred")
             if record["state"] == "uncertain" and record["value"] is not None:
                 reasons[record["reason"]] += 1
         for failure in result.get("failures", []):
@@ -62,6 +73,12 @@ def summarize_run(folder: Path) -> dict:
                 root_causes[(cause["stage"], cause["reason"])] += 1
     return {"run_id": folder.name, "documents": summary["documents"],
             "pages": summary["pages"], "complete_pages": complete_pages,
+            "keyed_complete_pages": keyed_complete_pages,
+            "open_complete_pages": open_complete_pages,
+            "open_overlaps": open_overlaps,
+            "open_disagreements": open_disagreements,
+            "inferred_keyed": inferred_keyed,
+            "value_passed": value_passed,
             "unscored_due_incomplete": unscored_due_incomplete,
             "keyed": {"passed": passed, "total": total},
             "states": dict(states), "uncertain_reasons": dict(reasons),
@@ -81,10 +98,12 @@ def render(runs: list[dict]) -> str:
     if len({(run["code_version"], run["prompt_sha256"], run["selection"])
             for run in runs}) != 1:
         raise ValueError("Runs differ in code, prompt, or selection")
+    complete = all(run["complete_pages"] == run["pages"] for run in runs)
+    status = ("All three runs completed." if complete else
+              "Some pages were incomplete; their keyed failures remain in the score denominator.")
     lines = ["# Day 2: three text-PDF runs", "",
              "These are 15 public text-layer PDFs with 17 keyed pages per run. "
-             "Scores count only human-keyed fields. All three runs were incomplete; "
-             "field failures are retained and the percentages are diagnostic only.", "",
+             "Scores count only human-keyed fields. " + status, "",
              "| Measure | Run 1 | Run 2 | Run 3 |", "| --- | ---: | ---: | ---: |"]
     def row(name, getter):
         lines.append("| " + name + " | " + " | ".join(str(getter(run)) for run in runs) + " |")
@@ -92,6 +111,13 @@ def render(runs: list[dict]) -> str:
     row("Keyed exact score", lambda run: f"{run['keyed']['passed']}/{run['keyed']['total']} "
         f"({run['keyed']['passed']/run['keyed']['total']*100:.1f}%)" if run["keyed"]["total"] else "0/0")
     row("Complete pages", lambda run: f"{run['complete_pages']}/{run['pages']}")
+    row("Keyed calls complete", lambda run: f"{run['keyed_complete_pages']}/{run['pages']}")
+    row("Open calls complete", lambda run: f"{run['open_complete_pages']}/{run['pages']}")
+    row("Open overlaps", lambda run: run["open_overlaps"])
+    row("Open/keyed value disagreements", lambda run: run["open_disagreements"])
+    row("Inferred keyed facts", lambda run: run["inferred_keyed"])
+    row("Value matches (including inferred)",
+        lambda run: f"{run['value_passed']}/{run['keyed']['total']}")
     row("Keyed fields failed on incomplete page",
         lambda run: run["unscored_due_incomplete"])
     for name in ("verified", "uncertain", "failed", "skipped", "abstentions",

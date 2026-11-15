@@ -44,4 +44,6 @@ def test_all_development_documents_run_with_recorded_responses(tmp_path):
                for item in manifest["documents"])
     assert any(item["source_mode"] == "cached_scan" for item in summary["page_results"])
     assert all(item["judge_scoring_enabled"] is False for item in summary["page_results"])
+    assert all("call_status" in item and "open_overlap_count" in item
+               for item in summary["page_results"])
 

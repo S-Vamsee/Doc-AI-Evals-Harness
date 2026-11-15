@@ -24,6 +24,8 @@ def build_review_queue(records: list[FactRecord], page_text: str, *,
         raise ValueError("Duplicate fact IDs in review input")
     by_relation: dict[str, list[FactRecord]] = {}
     for record in records:
+        if record.source_call == "open":
+            continue
         by_relation.setdefault(record.relation, []).append(record)
     possible_near_matches = []
     queued_ids = set()
