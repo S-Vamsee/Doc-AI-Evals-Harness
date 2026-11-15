@@ -1,0 +1,11 @@
+[
+  {
+    "doc_id": "statement_001",
+    "field": "period_start_date",
+    "old_date_order": null,
+    "new_date_order": "DMY",
+    "reason": "The owner confirmed that this statement's ambiguous numeric date is day-first.",
+    "owner_approved": true,
+    "approved_on": "2026-11-14"
+  }
+]

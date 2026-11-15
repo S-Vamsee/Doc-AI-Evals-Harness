@@ -165,10 +165,14 @@ def score_document(extracted: dict, truth: dict, pages: list[str]) -> dict:
         field = item["field"]
         got = extracted_by_name[field]
         value = got["value"]
-        if item.get("type") == "money":
-            exact_match = typed_equal(value, item["value"], "money",
-                                      printed_marker=item.get("printed_marker"),
-                                      marker_scope=item.get("marker_scope", "adjacent"))
+        if item.get("type") in {"money", "date", "name", "free_text", "identifier", "number"}:
+            exact_match = typed_equal(
+                value, item["value"], item["type"],
+                printed_marker=item.get("printed_marker"),
+                marker_scope=item.get("marker_scope", "adjacent"),
+                date_order=item.get("date_order", truth.get("date_order")),
+                prefix_matters=item.get("prefix_matters", True),
+            )
         else:
             exact_match = normalize(field, value, item["value"]) == normalize(field, item["value"], item["value"])
         if exact_match:

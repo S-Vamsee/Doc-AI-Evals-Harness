@@ -57,6 +57,19 @@ def test_weekday_and_ordinal_date_formats_normalize():
     assert typed_equal("2026-09-25", "25th day of September 2026", "date")
 
 
+def test_trailing_punctuation_is_formatting_for_names_not_identifiers():
+    assert typed_equal("Mama's Creations, Inc", "MAMA'S CREATIONS, INC.", "name")
+    assert not typed_equal("NV-10482", "#NV-10482", "identifier",
+                           prefix_matters=True)
+    assert not typed_equal("Meridian Supply Company", "Meridian Supply Co.", "name")
+
+
+def test_weekday_and_month_abbreviations_without_added_year():
+    assert typed_equal("Monday 12 October", "Mon 12 Oct", "free_text")
+    assert not typed_equal("2026-10-12", "Mon 12 Oct", "free_text")
+    assert typed_equal("Mon 12 Oct 2026", "2026-10-12", "date")
+
+
 def test_wilson_range_has_an_explicit_denominator():
     from src.policy import wilson_interval
 

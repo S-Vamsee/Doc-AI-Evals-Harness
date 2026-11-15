@@ -31,6 +31,8 @@ def test_scorer_and_future_judge_prompt_load_review_file():
     assert rulings["currency_aliases"] == [["₹", "INR", "rupees", "Indian rupees"]]
     assert rulings["missing_currency_marker_is_different"] is True
     assert rulings["column_bare_value_allowed"] is True
+    assert rulings["trim_trailing_punctuation"] is True
+    assert rulings["expand_weekday_month_abbreviations"] is True
     assert " ".join(rulings["judge_prompt_lines"]) == JUDGE_SYSTEM_PROMPT
 
 

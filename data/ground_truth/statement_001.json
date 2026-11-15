@@ -1,6 +1,7 @@
 {
   "doc_id": "statement_001",
   "source_url": "https://filedone.ai/sample-files/sample-bank-statement.pdf",
+  "date_order": "DMY",
   "fields": [
     {
       "field": "bank_name",

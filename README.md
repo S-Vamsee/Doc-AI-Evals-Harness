@@ -36,7 +36,7 @@ This project is being built in phases. The table shows what runs today and what 
 | --- | --- | --- |
 | 1 | Five text PDFs, human answer keys, exact scoring, groundedness, cost and latency | Built and run |
 | 2 | 20 PDFs, local vision for scans, a value judge, timestamped regression runs | Built and run |
-| 3 | Evidence checked by code, three result states, failures traced to a pipeline stage, a short human review queue, injection tests | Rebuild in progress on `rebuild/core-rules`; no end-to-end result yet |
+| 3 | Evidence checked by code, three result states, failures traced to a pipeline stage, a short human review queue, injection tests | Rebuild in progress on `rebuild/core-rules`; one text page has run end to end |
 
 Phases 1 and 2 score extraction against answer keys a person wrote in advance. Phase 3 changes the direction of work: the machine extracts first, code verifies what it can, and a person reviews only what is left.
 
@@ -75,6 +75,10 @@ One page of any kind goes through one generic path, with no code written for a s
 
 These rules are also in `AGENTS.md`, which coding agents working on this repository must follow.
 
+**Rule 12 is an existence check.** The offline suite checks that there is a named test for each of the twelve rules and runs those tests on every push or pull request. This check does not prove that the tests cover every possible failure or that a live model will resist every injected instruction.
+
+For rule 09, the original offline test checks only message placement: document text must appear in the user message and not in the system message. A stronger recorded-response test now replays one live extraction pass on a baseline and three self-made PDF pages with embedded instructions. It checks the PDF and request hashes, confirms the attack text reached extraction, and requires the three extracted field values to stay equal to the baseline and the printed invoice values. The first live pass failed on a fake answer-key instruction; that failure is retained in the fixtures. After a general instruction-boundary fix, the second live pass kept all three injected outputs unchanged. This is evidence for those three pages, not a general injection-resistance claim.
+
 ## Known weaknesses of the current version
 
 These were found by running the harness and are the reason for Phase 3.
@@ -86,10 +90,14 @@ These were found by running the harness and are the reason for Phase 3.
 - **An inferred value passed.** On `scan_notice_001` the page shows `Mon 12 Oct` and the model returned `2026-10-12`. The judge accepted it and it was marked grounded.
 - **A failure was replaced.** The W-2's printed year is missing from the selectable text. The field was swapped for box 3 wages, which hid a real text-layer gap.
 - **The sample is small.** 95 of 97 exact matches is consistent with a true accuracy anywhere from about 93% to 99%.
+- **One-page inventory varies.** Two fresh temperature-zero core runs on the same text invoice had identical prompt, PDF, answer-key, and code hashes, but returned 17 and 12 facts. Both matched the five keyed fields. The keyed score does not measure whether every other fact was found.
+- **Some evidence locations remain unresolved.** PyMuPDF returns separate rectangles for a label and value on the same line. The current checker conservatively leaves those quotes uncertain instead of merging them into a possibly incorrect box; its “multiple places” reason can describe fragments of one quote.
 
 ### Balanced judge calibration finding
 
 The local `gemma3:4b` judge was tested on 60 owner-labelled public-document value pairs: 24 equivalent and 36 different. It falsely accepted **18 of 36 different pairs** (50%) and falsely rejected **1 of 24 equivalent pairs** (4.17%). Four false accepts were plainly different amounts: `329.4` versus `$305.00`, `18500` versus `55,000`, `6561` versus `2,304`, and `30333` versus `19,418`. Other false accepts involved dropped identifiers or suffixes, an added title, and added currency markers. The prompt was not tuned against these 60 pairs. Judge scoring remains disabled. The judge percentages in the historical Phase 2 results below are retained as run history, not a validated score.
+
+After seeing the 60 pairs, the typed scorer was updated to trim trailing punctuation, match weekday and month abbreviations, and accept an optional document-level date order. The owner confirmed `statement_001` as day-first. No business-name abbreviation table was added. These changes were made after the calibration set was seen, so that set is not an untouched estimate of the revised scorer's performance.
 
 ## Quick start
 
@@ -113,6 +121,7 @@ Ollama serves `http://localhost:11434` by default. Set `QWEN_BASE_URL` and `QWEN
 
 ```bash
 python run_eval.py --phase1
+python run_eval.py --core-page invoice_001:1
 python run_eval.py --calibrate
 python run_eval.py
 python run_eval.py --reuse-ocr
@@ -120,6 +129,7 @@ python run_eval.py --compare 20261114T100817251438Z
 ```
 
 - `--phase1` runs the five text PDFs without Qwen or the judge and writes to `results/phase1/`.
+- `--core-page DOC_ID:PAGE` runs one text page through machine-first extraction, code-checked evidence, keyed exact scoring, a human review queue, and a hashed manifest. It writes a private, timestamped folder under `results/experiments/core_runs/`; judge scoring stays disabled. The scanned-page path for this core is still pending.
 - `--calibrate` judges 26 fixed candidates from the original five documents and must agree with exact scoring on at least 25.
 - No flag runs all 20 documents. It checks answer keys and scan readiness before any paid call; if blocked, it writes `results/phase2_readiness.md`.
 - `--reuse-ocr` reuses local transcriptions only when the PDF, model digest and OCR prompt are unchanged.

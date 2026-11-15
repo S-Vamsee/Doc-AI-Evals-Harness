@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
 from src.extract import extract_facts, read_pdf_pages
+from src.core_pipeline import run_text_page
 from src.judge import judge_document
 from src.page_eval import PAGE_RESULTS, compare_page, run_page
 from src.regression import compare_runs, format_comparison
@@ -37,11 +38,16 @@ def load_truth(path: Path, doc_id: str, page_count: int) -> dict:
     truth = json.loads(path.read_text(encoding="utf-8"))
     if truth.get("doc_id") != doc_id or not truth.get("source_url"):
         raise ValueError("doc_id or source_url is missing/mismatched")
+    document_date_order = truth.get("date_order")
+    if document_date_order is not None and document_date_order not in {"DMY", "MDY"}:
+        raise ValueError("Document date_order must be DMY or MDY")
     fields = truth.get("fields")
     if not isinstance(fields, list) or not 4 <= len(fields) <= 8:
         raise ValueError("Ground truth needs 4–8 manually verified fields")
     names = []
     for item in fields:
+        if item.get("type") == "date" and document_date_order and "date_order" not in item:
+            item["date_order"] = document_date_order
         required = {"field", "value", "page", "type"}
         allowed = required | {"prefix_matters", "date_order", "proposed_currency",
                               "printed_marker", "currency_basis", "marker_scope", "unit_scale"}
@@ -299,12 +305,48 @@ def main() -> int:
     mode.add_argument("--compare", metavar="RUN_ID", help="Compare the latest run with a saved run")
     mode.add_argument("--phase1", action="store_true", help="Rerun the original five text PDFs without vision or the judge")
     mode.add_argument("--page", metavar="DOC_ID:PAGE", help="Run private machine-first extraction on one page")
+    mode.add_argument("--core-page", metavar="DOC_ID:PAGE",
+                      help="Run the rule-tested one-page text pipeline with judge scoring disabled")
     parser.add_argument("--reuse-ocr", action="store_true", help="Reuse Qwen transcriptions when PDF, model, and OCR prompt are unchanged")
     parser.add_argument("--pdf", type=Path, help="PDF path for a private one-page run")
     parser.add_argument("--source-url", help="Public source URL for a private one-page PDF")
     parser.add_argument("--verify", type=Path, help="Human verification JSON for a completed one-page run")
     args = parser.parse_args()
     load_dotenv(ROOT / ".env")
+    if args.core_page:
+        if ":" not in args.core_page:
+            parser.error("--core-page must look like document_id:page_number")
+        doc_id, raw_page = args.core_page.rsplit(":", 1)
+        if not doc_id or not raw_page.isdigit() or int(raw_page) < 1:
+            parser.error("--core-page must look like document_id:page_number")
+        if args.verify or args.reuse_ocr:
+            parser.error("--verify and --reuse-ocr do not apply to --core-page")
+        pdf = args.pdf or PDF_DIR / f"{doc_id}.pdf"
+        if not pdf.is_file():
+            parser.error(f"PDF not found: {pdf}")
+        sources = json.loads((ROOT / "data" / "sources.json").read_text(encoding="utf-8"))
+        source = next((item for item in sources if item["doc_id"] == doc_id), None)
+        source_url = args.source_url or (source["source_url"] if source else None)
+        if not source_url or not source_url.startswith("https://"):
+            parser.error("A public HTTPS source URL is required")
+        with pymupdf.open(pdf) as document:
+            page_count = len(document)
+        truth_path = TRUTH_DIR / f"{doc_id}.json"
+        key = None
+        if truth_path.is_file():
+            truth = load_truth(truth_path, doc_id, page_count)
+            key = {field["field"]: {name: value for name, value in field.items()
+                                     if name not in {"field", "page"}}
+                   for field in truth["fields"] if field["page"] == int(raw_page)}
+        work = run_text_page(doc_id, pdf, int(raw_page), source_url,
+                             answer_key=key,
+                             document_type=source["type"] if source else "document")
+        if hasattr(sys.stdout, "reconfigure"):
+            sys.stdout.reconfigure(encoding="utf-8")
+        print((work / "report.md").read_text(encoding="utf-8"))
+        print(f"Full report: {work / 'report.md'}")
+        print(f"Manifest: {work / 'manifest.json'}")
+        return json.loads((work / "result.json").read_text(encoding="utf-8"))["exit_code"]
     if args.page:
         if ":" not in args.page:
             parser.error("--page must look like document_id:page_number")

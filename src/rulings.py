@@ -30,9 +30,10 @@ def load_review_rulings() -> dict:
             any(not isinstance(marker, str) or not marker for marker in group)
             for group in aliases):
         raise ValueError("Owner rulings need currency alias groups")
-    if type(rulings.get("missing_currency_marker_is_different")) is not bool or type(
-            rulings.get("column_bare_value_allowed")) is not bool:
-        raise ValueError("Owner rulings need explicit marker decisions")
+    for name in ("missing_currency_marker_is_different", "column_bare_value_allowed",
+                 "trim_trailing_punctuation", "expand_weekday_month_abbreviations"):
+        if type(rulings.get(name)) is not bool:
+            raise ValueError(f"Owner rulings need an explicit {name} decision")
     lines = rulings.get("judge_prompt_lines")
     if not isinstance(lines, list) or not lines or any(
             not isinstance(line, str) or not line.strip() for line in lines):
