@@ -5,3 +5,4 @@ __pycache__/
 results/rendered/
 results/ocr/
 results/experiments/
+tmp/

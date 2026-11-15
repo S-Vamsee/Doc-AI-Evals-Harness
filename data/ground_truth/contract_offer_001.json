@@ -5,27 +5,37 @@
     {
       "field": "employer_name",
       "value": "Cobalt Operations Team",
-      "page": 1
+      "page": 1,
+      "type": "name"
     },
     {
       "field": "candidate_name_with_id",
       "value": "Team member 5 (EMP-05)",
-      "page": 1
+      "page": 1,
+      "type": "name"
     },
     {
       "field": "start_date",
       "value": "10 August 2026",
-      "page": 1
+      "page": 1,
+      "type": "date"
     },
     {
       "field": "hourly_rate",
       "value": 28.0,
-      "page": 1
+      "page": 1,
+      "type": "money",
+      "unit_scale": 1,
+      "printed_marker": "USD",
+      "proposed_currency": "USD",
+      "currency_basis": "printed",
+      "marker_scope": "adjacent"
     },
     {
       "field": "offer_expiry_date",
       "value": "3 August 2026",
-      "page": 1
+      "page": 1,
+      "type": "date"
     }
   ]
 }

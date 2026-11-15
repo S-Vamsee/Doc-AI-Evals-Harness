@@ -5,22 +5,32 @@
     {
       "field": "organization_name",
       "value": "Larkfield Community Library",
-      "page": 1
+      "page": 1,
+      "type": "name"
     },
     {
       "field": "form_title",
       "value": "Membership application",
-      "page": 1
+      "page": 1,
+      "type": "free_text"
     },
     {
       "field": "membership_types",
       "value": "Adult, Student, Senior (65 and over)",
-      "page": 1
+      "page": 1,
+      "type": "free_text"
     },
     {
       "field": "interests_list",
       "value": "Fiction, Local history, Digital skills, Children's events",
-      "page": 1
+      "page": 1,
+      "type": "free_text"
+    },
+    {
+      "field": "full_name",
+      "value": null,
+      "page": 1,
+      "type": "name"
     }
   ]
 }

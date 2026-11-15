@@ -5,22 +5,31 @@
     {
       "field": "licensor_name",
       "value": "Sam Specimen",
-      "page": 1
+      "page": 1,
+      "type": "name"
     },
     {
       "field": "licensor_address",
       "value": "7 Example Avenue, Sampleton 000 000",
-      "page": 1
+      "page": 1,
+      "type": "free_text"
     },
     {
       "field": "agreement_date",
       "value": "25th day of September 2026",
-      "page": 1
+      "page": 1,
+      "type": "date"
     },
     {
       "field": "monthly_licence_fee",
       "value": 18500,
-      "page": 1
+      "page": 1,
+      "type": "money",
+      "unit_scale": 1,
+      "printed_marker": "₹ and rupees",
+      "proposed_currency": "INR",
+      "currency_basis": "printed",
+      "marker_scope": "adjacent"
     }
   ]
 }

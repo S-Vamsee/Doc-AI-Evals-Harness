@@ -5,22 +5,38 @@
     {
       "field": "invoice_number",
       "value": "INV-SAMPLE-1042",
-      "page": 1
+      "page": 1,
+      "type": "identifier",
+      "prefix_matters": true
     },
     {
       "field": "vendor_name",
       "value": "Meridian Supply Co.",
-      "page": 1
+      "page": 1,
+      "type": "name"
     },
     {
       "field": "customer_name",
       "value": "Riverside High School",
-      "page": 1
+      "page": 1,
+      "type": "name"
     },
     {
       "field": "total_amount",
       "value": 329.4,
-      "page": 1
+      "page": 1,
+      "type": "money",
+      "unit_scale": 1,
+      "printed_marker": "$",
+      "proposed_currency": "USD",
+      "currency_basis": "inferred",
+      "marker_scope": "adjacent"
+    },
+    {
+      "field": "due_date",
+      "value": null,
+      "page": 1,
+      "type": "date"
     }
   ]
 }

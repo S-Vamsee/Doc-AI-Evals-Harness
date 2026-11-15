@@ -5,27 +5,43 @@
     {
       "field": "amendment_reference",
       "value": "AMD-2026-01",
-      "page": 1
+      "page": 1,
+      "type": "identifier",
+      "prefix_matters": true
     },
     {
       "field": "effective_date",
       "value": "1 September 2026",
-      "page": 1
+      "page": 1,
+      "type": "date"
     },
     {
       "field": "old_expense_cap",
       "value": 250.0,
-      "page": 1
+      "page": 1,
+      "type": "money",
+      "unit_scale": 1,
+      "printed_marker": "USD",
+      "proposed_currency": "USD",
+      "currency_basis": "printed",
+      "marker_scope": "adjacent"
     },
     {
       "field": "new_expense_cap",
       "value": 400.0,
-      "page": 1
+      "page": 1,
+      "type": "money",
+      "unit_scale": 1,
+      "printed_marker": "USD",
+      "proposed_currency": "USD",
+      "currency_basis": "printed",
+      "marker_scope": "adjacent"
     },
     {
       "field": "acceptance_window_days",
       "value": 15,
-      "page": 1
+      "page": 1,
+      "type": "number"
     }
   ]
 }

@@ -5,27 +5,37 @@
     {
       "field": "supplier_name_with_id",
       "value": "Harbour Food Supply (SUP-02)",
-      "page": 1
+      "page": 1,
+      "type": "name"
     },
     {
       "field": "buyer_name",
       "value": "Harbour Kitchen Group",
-      "page": 1
+      "page": 1,
+      "type": "name"
     },
     {
       "field": "invoice_date",
       "value": "2026-08-14",
-      "page": 1
+      "page": 1,
+      "type": "date"
     },
     {
       "field": "due_date",
       "value": "2026-09-13",
-      "page": 1
+      "page": 1,
+      "type": "date"
     },
     {
       "field": "total_amount",
       "value": 325.41,
-      "page": 1
+      "page": 1,
+      "type": "money",
+      "unit_scale": 1,
+      "printed_marker": "CAD",
+      "proposed_currency": "CAD",
+      "currency_basis": "printed",
+      "marker_scope": "adjacent"
     }
   ]
 }

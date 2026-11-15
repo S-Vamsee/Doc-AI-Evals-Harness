@@ -5,22 +5,31 @@
     {
       "field": "merchant_name",
       "value": "CORNER CAFE",
-      "page": 1
+      "page": 1,
+      "type": "name"
     },
     {
       "field": "purchase_date",
       "value": "18/09/2026",
-      "page": 1
+      "page": 1,
+      "type": "date"
     },
     {
       "field": "total_amount",
       "value": 380.0,
-      "page": 1
+      "page": 1,
+      "type": "money",
+      "unit_scale": 1,
+      "printed_marker": "none",
+      "proposed_currency": null,
+      "currency_basis": "printed",
+      "marker_scope": "none"
     },
     {
       "field": "payment_method",
       "value": "Card",
-      "page": 1
+      "page": 1,
+      "type": "free_text"
     }
   ]
 }

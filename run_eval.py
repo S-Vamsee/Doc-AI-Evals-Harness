@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.extract import extract_facts, read_pdf_pages
 from src.judge import judge_document
+from src.page_eval import PAGE_RESULTS, compare_page, run_page
 from src.regression import compare_runs, format_comparison
 from src.report import make_report
 from src.score import normalize, score_document
@@ -41,12 +42,33 @@ def load_truth(path: Path, doc_id: str, page_count: int) -> dict:
         raise ValueError("Ground truth needs 4–8 manually verified fields")
     names = []
     for item in fields:
-        if not isinstance(item, dict) or set(item) != {"field", "value", "page"}:
-            raise ValueError("Each field needs exactly field, value, page")
+        required = {"field", "value", "page", "type"}
+        allowed = required | {"prefix_matters", "date_order", "proposed_currency",
+                              "printed_marker", "currency_basis", "marker_scope", "unit_scale"}
+        if not isinstance(item, dict) or not required.issubset(item) or not set(item).issubset(allowed):
+            raise ValueError("Each field needs field, value, page, type and supported comparison options")
         if not isinstance(item["field"], str) or not item["field"]:
             raise ValueError("Invalid field name")
-        if item["value"] is None or isinstance(item["value"], bool) or not isinstance(item["value"], (str, int, float)):
+        if isinstance(item["value"], bool) or item["value"] is not None and not isinstance(item["value"], (str, int, float)):
             raise ValueError(f'Invalid truth value for {item["field"]}')
+        if item["type"] not in {"date", "money", "identifier", "name", "free_text", "number"}:
+            raise ValueError(f'Invalid comparison type for {item["field"]}')
+        if item["type"] == "identifier" and not isinstance(item.get("prefix_matters"), bool):
+            raise ValueError(f'Identifier needs prefix_matters for {item["field"]}')
+        if item["type"] == "money":
+            if item.get("proposed_currency") not in {None, "INR", "USD", "CAD"}:
+                raise ValueError(f'Invalid currency code for {item["field"]}')
+            if item.get("printed_marker") not in {"USD", "CAD", "₹", "$", "none",
+                                                   "₹ and rupees", "₹ and Indian rupees"}:
+                raise ValueError(f'Invalid printed currency marker for {item["field"]}')
+            if item.get("currency_basis") not in {"printed", "inferred"}:
+                raise ValueError(f'Invalid currency basis for {item["field"]}')
+            if item.get("marker_scope") not in {"adjacent", "column", "none"}:
+                raise ValueError(f'Invalid marker scope for {item["field"]}')
+            if item.get("unit_scale") not in {1, 1000}:
+                raise ValueError(f'Invalid money unit scale for {item["field"]}')
+        if "date_order" in item and item["date_order"] not in {"DMY", "MDY"}:
+            raise ValueError(f'Invalid date_order for {item["field"]}')
         if not isinstance(item["page"], int) or not 1 <= item["page"] <= page_count:
             raise ValueError(f'Invalid page for {item["field"]}')
         names.append(item["field"])
@@ -276,9 +298,40 @@ def main() -> int:
     mode.add_argument("--calibrate", action="store_true", help="Calibrate the judge on the five golden PDFs")
     mode.add_argument("--compare", metavar="RUN_ID", help="Compare the latest run with a saved run")
     mode.add_argument("--phase1", action="store_true", help="Rerun the original five text PDFs without vision or the judge")
+    mode.add_argument("--page", metavar="DOC_ID:PAGE", help="Run private machine-first extraction on one page")
     parser.add_argument("--reuse-ocr", action="store_true", help="Reuse Qwen transcriptions when PDF, model, and OCR prompt are unchanged")
+    parser.add_argument("--pdf", type=Path, help="PDF path for a private one-page run")
+    parser.add_argument("--source-url", help="Public source URL for a private one-page PDF")
+    parser.add_argument("--verify", type=Path, help="Human verification JSON for a completed one-page run")
     args = parser.parse_args()
     load_dotenv(ROOT / ".env")
+    if args.page:
+        if ":" not in args.page:
+            parser.error("--page must look like document_id:page_number")
+        doc_id, raw_page = args.page.rsplit(":", 1)
+        if not doc_id or not raw_page.isdigit() or int(raw_page) < 1:
+            parser.error("--page must look like document_id:page_number")
+        if args.verify:
+            safe = re.sub(r"[^a-zA-Z0-9_-]", "_", args.page)
+            runs = sorted((PAGE_RESULTS / safe).glob("*/machine.json"))
+            if not runs:
+                parser.error("No completed machine run exists for this page")
+            output = compare_page(runs[-1], args.verify)
+            print(f"Human comparison saved: {output}")
+            return 0
+        pdf = args.pdf or PDF_DIR / f"{doc_id}.pdf"
+        if not pdf.exists():
+            parser.error(f"PDF not found: {pdf}")
+        source_url = args.source_url
+        if not source_url:
+            sources = json.loads((ROOT / "data" / "sources.json").read_text(encoding="utf-8"))
+            source_url = next((item["source_url"] for item in sources if item["doc_id"] == doc_id), None)
+        if not source_url or not source_url.startswith("https://"):
+            parser.error("A public HTTPS source URL is required for a one-page run")
+        run_page(args.page, pdf, int(raw_page), source_url)
+        return 0
+    if args.pdf or args.source_url or args.verify:
+        parser.error("--pdf, --source-url, and --verify require --page")
     if args.phase1:
         return run_phase1()
     if args.compare:

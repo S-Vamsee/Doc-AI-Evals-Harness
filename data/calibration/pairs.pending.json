@@ -1,0 +1,1029 @@
+{
+  "status": "pending_human_labels",
+  "pairs": [
+    {
+      "pair_id": "P-958199",
+      "doc_id": "contract_offer_001",
+      "source_url": "https://www.testaroo.com/files/data/commercial-documents-v1/contracts/employment-offer-EMP-05.pdf",
+      "field": "hourly_rate",
+      "value_type": "money",
+      "reference": 28.0,
+      "candidate": "1,176.00 USD",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "1,176.00 USD"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-945985",
+      "doc_id": "invoice_001",
+      "source_url": "https://filedone.ai/sample-files/sample-invoice.pdf",
+      "field": "invoice_number",
+      "value_type": "identifier",
+      "reference": "INV-2026-0142",
+      "candidate": "INV-2026-0142",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "INV-2026-0142"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-558991",
+      "doc_id": "receipt_001",
+      "source_url": "https://filedone.ai/sample-files/sample-receipt.pdf",
+      "field": "merchant_name",
+      "value_type": "name",
+      "reference": "CORNER CAFE",
+      "candidate": "Corner Cafe",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "CORNER CAFE"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-395320",
+      "doc_id": "scan_notice_001",
+      "source_url": "https://filedone.ai/sample-files/sample-scanned-page.pdf",
+      "field": "block_a_water_off_date",
+      "value_type": "free_text",
+      "reference": "Mon 12 Oct",
+      "candidate": "Monday 12 October",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Mon 12 Oct"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-284745",
+      "doc_id": "form_library_001",
+      "source_url": "https://filedone.ai/sample-files/sample-fillable-form.pdf",
+      "field": "organization_name",
+      "value_type": "name",
+      "reference": "Larkfield Community Library",
+      "candidate": "Larkfield Community Library",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Larkfield Community Library"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-256394",
+      "doc_id": "invoice_002",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/invoice-searchable.pdf",
+      "field": "vendor_name",
+      "value_type": "name",
+      "reference": "Meridian Supply Co.",
+      "candidate": "Meridian Supply",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Meridian Supply Co."
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-494141",
+      "doc_id": "contract_offer_001",
+      "source_url": "https://www.testaroo.com/files/data/commercial-documents-v1/contracts/employment-offer-EMP-05.pdf",
+      "field": "candidate_name_with_id",
+      "value_type": "name",
+      "reference": "Team member 5 (EMP-05)",
+      "candidate": "Team member 5",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Team member 5 (EMP-05)"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-870162",
+      "doc_id": "statement_001",
+      "source_url": "https://filedone.ai/sample-files/sample-bank-statement.pdf",
+      "field": "account_holder",
+      "value_type": "name",
+      "reference": "Sam Specimen",
+      "candidate": "Alex Example",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Alex Example"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-377673",
+      "doc_id": "w2_001",
+      "source_url": "https://epaystubs.net/pdfs/W2_ORD6AEC6730533E5.pdf",
+      "field": "employee_name",
+      "value_type": "name",
+      "reference": "Alex Q Sample Jr.",
+      "candidate": "Alex Q Sample",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Alex Q Sample Jr."
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-955500",
+      "doc_id": "statement_001",
+      "source_url": "https://filedone.ai/sample-files/sample-bank-statement.pdf",
+      "field": "opening_balance",
+      "value_type": "money",
+      "reference": 48230.55,
+      "candidate": "₹48,230.55",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "48,230.55"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-255510",
+      "doc_id": "statement_001",
+      "source_url": "https://filedone.ai/sample-files/sample-bank-statement.pdf",
+      "field": "period_start_date",
+      "value_type": "date",
+      "reference": "2026-08-01",
+      "candidate": "2026-01-08",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "01/08/2026"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-336730",
+      "doc_id": "contract_offer_001",
+      "source_url": "https://www.testaroo.com/files/data/commercial-documents-v1/contracts/employment-offer-EMP-05.pdf",
+      "field": "employer_name",
+      "value_type": "name",
+      "reference": "Cobalt Operations Team",
+      "candidate": "Team member 5 (EMP-05)",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Team member 5 (EMP-05)"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-288666",
+      "doc_id": "receipt_002",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/receipt-searchable.pdf",
+      "field": "order_number",
+      "value_type": "identifier",
+      "reference": "#NV-10482",
+      "candidate": "#NV-10482",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "#NV-10482"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-163780",
+      "doc_id": "utility_001",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/utility-searchable.pdf",
+      "field": "total_due",
+      "value_type": "money",
+      "reference": 53.78,
+      "candidate": "$53.78",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "$53.78"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-257651",
+      "doc_id": "scan_notice_001",
+      "source_url": "https://filedone.ai/sample-files/sample-scanned-page.pdf",
+      "field": "block_a_water_off_start",
+      "value_type": "free_text",
+      "reference": "09:00",
+      "candidate": "09:00",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "09:00"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-543104",
+      "doc_id": "filing_001",
+      "source_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/m/NASDAQ_MAMA_2023.pdf",
+      "field": "company_name",
+      "value_type": "name",
+      "reference": "MAMA'S CREATIONS, INC.",
+      "candidate": "Mama's Creations",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "MAMA'S CREATIONS, INC."
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-600569",
+      "doc_id": "scan_notice_001",
+      "source_url": "https://filedone.ai/sample-files/sample-scanned-page.pdf",
+      "field": "block_a_water_off_date",
+      "value_type": "free_text",
+      "reference": "Mon 12 Oct",
+      "candidate": "2026-10-12",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Mon 12 Oct"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-629634",
+      "doc_id": "scan_report_001",
+      "source_url": "https://filedone.ai/sample-files/sample-scanned-report-3-pages.pdf",
+      "field": "printed_book_loans",
+      "value_type": "number",
+      "reference": 58914,
+      "candidate": "58,914",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "58,914"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-545299",
+      "doc_id": "w2_001",
+      "source_url": "https://epaystubs.net/pdfs/W2_ORD6AEC6730533E5.pdf",
+      "field": "wages",
+      "value_type": "money",
+      "reference": 80000.0,
+      "candidate": 80000.0,
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "80,000.00"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-474000",
+      "doc_id": "filing_001",
+      "source_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/m/NASDAQ_MAMA_2023.pdf",
+      "field": "company_name",
+      "value_type": "name",
+      "reference": "MAMA'S CREATIONS, INC.",
+      "candidate": "Mama's Creations, Inc",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "MAMA'S CREATIONS, INC."
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-509659",
+      "doc_id": "utility_001",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/utility-searchable.pdf",
+      "field": "provider_name",
+      "value_type": "name",
+      "reference": "Brightside Energy",
+      "candidate": "Brightside Energy",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Brightside Energy"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-733402",
+      "doc_id": "scan_report_001",
+      "source_url": "https://filedone.ai/sample-files/sample-scanned-report-3-pages.pdf",
+      "field": "annual_visits",
+      "value_type": "number",
+      "reference": 41280,
+      "candidate": "41,280",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "41,280"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-990466",
+      "doc_id": "scan_report_001",
+      "source_url": "https://filedone.ai/sample-files/sample-scanned-report-3-pages.pdf",
+      "field": "days_open",
+      "value_type": "number",
+      "reference": 302,
+      "candidate": 302,
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "302"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-257923",
+      "doc_id": "invoice_003",
+      "source_url": "https://www.testaroo.com/files/data/restaurant-procure-to-pay-v1/restaurant-group/invoice.pdf",
+      "field": "supplier_name_with_id",
+      "value_type": "name",
+      "reference": "Harbour Food Supply (SUP-02)",
+      "candidate": "Harbour Food Supply",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Harbour Food Supply (SUP-02)"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-448755",
+      "doc_id": "invoice_001",
+      "source_url": "https://filedone.ai/sample-files/sample-invoice.pdf",
+      "field": "vendor_name",
+      "value_type": "name",
+      "reference": "Larkfield Stationers",
+      "candidate": "Example Traders (fictional)",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Example Traders (fictional)"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-744933",
+      "doc_id": "invoice_003",
+      "source_url": "https://www.testaroo.com/files/data/restaurant-procure-to-pay-v1/restaurant-group/invoice.pdf",
+      "field": "supplier_name_with_id",
+      "value_type": "name",
+      "reference": "Harbour Food Supply (SUP-02)",
+      "candidate": "Harbour Kitchen Group (BUY-GRP)",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Harbour Kitchen Group (BUY-GRP)"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-470635",
+      "doc_id": "invoice_002",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/invoice-searchable.pdf",
+      "field": "total_amount",
+      "value_type": "money",
+      "reference": 329.4,
+      "candidate": "$305.00",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "$305.00"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-734999",
+      "doc_id": "invoice_001",
+      "source_url": "https://filedone.ai/sample-files/sample-invoice.pdf",
+      "field": "invoice_date",
+      "value_type": "date",
+      "reference": "2026-09-18",
+      "candidate": "18 September 2026",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "18 September 2026"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-899821",
+      "doc_id": "filing_001",
+      "source_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/m/NASDAQ_MAMA_2023.pdf",
+      "field": "net_income_2024_thousands",
+      "value_type": "money",
+      "reference": 6561,
+      "candidate": 6561,
+      "reference_page": 2,
+      "source_quotes": [
+        {
+          "page": 2,
+          "quote": "6,561"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-479807",
+      "doc_id": "scan_agreement_001",
+      "source_url": "https://filedone.ai/sample-files/sample-rental-agreement-scan.pdf",
+      "field": "monthly_licence_fee",
+      "value_type": "money",
+      "reference": 18500,
+      "candidate": "55,000",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "55,000"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-923238",
+      "doc_id": "w2_001",
+      "source_url": "https://epaystubs.net/pdfs/W2_ORD6AEC6730533E5.pdf",
+      "field": "federal_income_tax_withheld",
+      "value_type": "money",
+      "reference": 9200.0,
+      "candidate": "9,600.00",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "9,600.00"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-652131",
+      "doc_id": "statement_001",
+      "source_url": "https://filedone.ai/sample-files/sample-bank-statement.pdf",
+      "field": "period_start_date",
+      "value_type": "date",
+      "reference": "2026-08-01",
+      "candidate": "01/08/2026",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "01/08/2026"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-315502",
+      "doc_id": "invoice_001",
+      "source_url": "https://filedone.ai/sample-files/sample-invoice.pdf",
+      "field": "total_amount",
+      "value_type": "money",
+      "reference": 17348.36,
+      "candidate": "₹17,348.36",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "17,348.36"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-610718",
+      "doc_id": "receipt_001",
+      "source_url": "https://filedone.ai/sample-files/sample-receipt.pdf",
+      "field": "total_amount",
+      "value_type": "money",
+      "reference": 380.0,
+      "candidate": "180.00",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "180.00"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-617240",
+      "doc_id": "receipt_002",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/receipt-searchable.pdf",
+      "field": "purchase_date",
+      "value_type": "date",
+      "reference": "2026-01-06",
+      "candidate": "2026-06-01",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "2026-01-06"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-261882",
+      "doc_id": "filing_001",
+      "source_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/m/NASDAQ_MAMA_2023.pdf",
+      "field": "net_income_2024_thousands",
+      "value_type": "money",
+      "reference": 6561,
+      "candidate": "2,304",
+      "reference_page": 2,
+      "source_quotes": [
+        {
+          "page": 2,
+          "quote": "2,304"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-437165",
+      "doc_id": "form_001",
+      "source_url": "https://www.mdot.maryland.gov/OPCP/06_MDOTPrioritization_SampleCompletedApplicationTOD_2025.01.15.pdf",
+      "field": "applicant_name",
+      "value_type": "name",
+      "reference": "Jane Jacobs",
+      "candidate": "Jane Jacobs, Planner III",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Jane Jacobs"
+        },
+        {
+          "page": 2,
+          "quote": "Planner III"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-616761",
+      "doc_id": "invoice_002",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/invoice-searchable.pdf",
+      "field": "total_amount",
+      "value_type": "money",
+      "reference": 329.4,
+      "candidate": "$329.40",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "$329.40"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-939791",
+      "doc_id": "receipt_002",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/receipt-searchable.pdf",
+      "field": "total_amount",
+      "value_type": "money",
+      "reference": 7.75,
+      "candidate": "$7.75",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "$7.75"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-229337",
+      "doc_id": "notice_001",
+      "source_url": "https://filedone.ai/sample-files/sample-notice-en-fr-es.pdf",
+      "field": "notice_date",
+      "value_type": "date",
+      "reference": "2026-10-06",
+      "candidate": "6 October 2026",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "6/10/2026"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-941477",
+      "doc_id": "scan_invoice_001",
+      "source_url": "https://filedone.ai/sample-files/sample-scanned-invoice.pdf",
+      "field": "invoice_date",
+      "value_type": "date",
+      "reference": "18 September 2026",
+      "candidate": "2026-09-18",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "18 September 2026"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-827882",
+      "doc_id": "utility_001",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/utility-searchable.pdf",
+      "field": "total_due",
+      "value_type": "money",
+      "reference": 53.78,
+      "candidate": "$37.63",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "$37.63"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-637249",
+      "doc_id": "invoice_002",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/invoice-searchable.pdf",
+      "field": "vendor_name",
+      "value_type": "name",
+      "reference": "Meridian Supply Co.",
+      "candidate": "Riverside High School",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Riverside High School"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-766103",
+      "doc_id": "contract_amendment_001",
+      "source_url": "https://www.testaroo.com/files/data/commercial-documents-v1/contracts/msa-amendment-01.pdf",
+      "field": "new_expense_cap",
+      "value_type": "money",
+      "reference": 400.0,
+      "candidate": "250.00 USD",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "250.00 USD"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-884099",
+      "doc_id": "form_001",
+      "source_url": "https://www.mdot.maryland.gov/OPCP/06_MDOTPrioritization_SampleCompletedApplicationTOD_2025.01.15.pdf",
+      "field": "application_due_date",
+      "value_type": "date",
+      "reference": "2025-02-18",
+      "candidate": "February 18, 2025",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "February 18, 2025"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-986734",
+      "doc_id": "receipt_002",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/receipt-searchable.pdf",
+      "field": "order_number",
+      "value_type": "identifier",
+      "reference": "#NV-10482",
+      "candidate": "NV-10482",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "#NV-10482"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-582665",
+      "doc_id": "contract_offer_001",
+      "source_url": "https://www.testaroo.com/files/data/commercial-documents-v1/contracts/employment-offer-EMP-05.pdf",
+      "field": "hourly_rate",
+      "value_type": "money",
+      "reference": 28.0,
+      "candidate": 28.0,
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "28.00 USD"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-354726",
+      "doc_id": "invoice_002",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/invoice-searchable.pdf",
+      "field": "vendor_name",
+      "value_type": "name",
+      "reference": "Meridian Supply Co.",
+      "candidate": "Meridian Supply Company",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Meridian Supply Co."
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-903578",
+      "doc_id": "utility_001",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/utility-searchable.pdf",
+      "field": "account_number",
+      "value_type": "identifier",
+      "reference": "ACC-SAMPLE-7788",
+      "candidate": "SAMPLE-7788",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "ACC-SAMPLE-7788"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-559440",
+      "doc_id": "filing_001",
+      "source_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/m/NASDAQ_MAMA_2023.pdf",
+      "field": "gross_profit_2024_thousands",
+      "value_type": "money",
+      "reference": 30333,
+      "candidate": "19,418",
+      "reference_page": 2,
+      "source_quotes": [
+        {
+          "page": 2,
+          "quote": "19,418"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-643614",
+      "doc_id": "invoice_002",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/invoice-searchable.pdf",
+      "field": "customer_name",
+      "value_type": "name",
+      "reference": "Riverside High School",
+      "candidate": "Riverside High School",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Riverside High School"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-488355",
+      "doc_id": "notice_001",
+      "source_url": "https://filedone.ai/sample-files/sample-notice-en-fr-es.pdf",
+      "field": "end_time",
+      "value_type": "free_text",
+      "reference": "16:00",
+      "candidate": "14:00",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "14:00"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-366626",
+      "doc_id": "scan_letter_001",
+      "source_url": "https://filedone.ai/sample-files/sample-scanned-letter.pdf",
+      "field": "reference_number",
+      "value_type": "identifier",
+      "reference": "BHS/MC/2026/118",
+      "candidate": "BHS/MC/2026/118",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "BHS/MC/2026/118"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-313253",
+      "doc_id": "form_handwritten_001",
+      "source_url": "https://www.testaroo.com/files/documents/ocr-domain/handwritten-searchable.pdf",
+      "field": "symptoms",
+      "value_type": "free_text",
+      "reference": "mild headache, SAMPLE only",
+      "candidate": "mild headache",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "mild headache, SAMPLE only"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-737066",
+      "doc_id": "statement_001",
+      "source_url": "https://filedone.ai/sample-files/sample-bank-statement.pdf",
+      "field": "opening_balance",
+      "value_type": "money",
+      "reference": 48230.55,
+      "candidate": "₹46,736.38",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "46,736.38"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-693915",
+      "doc_id": "scan_report_001",
+      "source_url": "https://filedone.ai/sample-files/sample-scanned-report-3-pages.pdf",
+      "field": "annual_visits",
+      "value_type": "number",
+      "reference": 41280,
+      "candidate": "58,914",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "58,914"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-618969",
+      "doc_id": "invoice_003",
+      "source_url": "https://www.testaroo.com/files/data/restaurant-procure-to-pay-v1/restaurant-group/invoice.pdf",
+      "field": "total_amount",
+      "value_type": "money",
+      "reference": 325.41,
+      "candidate": "309.92 CAD",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "309.92 CAD"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-576899",
+      "doc_id": "invoice_001",
+      "source_url": "https://filedone.ai/sample-files/sample-invoice.pdf",
+      "field": "total_amount",
+      "value_type": "money",
+      "reference": 17348.36,
+      "candidate": "₹14,702.00",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "14,702.00"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-727174",
+      "doc_id": "invoice_003",
+      "source_url": "https://www.testaroo.com/files/data/restaurant-procure-to-pay-v1/restaurant-group/invoice.pdf",
+      "field": "total_amount",
+      "value_type": "money",
+      "reference": 325.41,
+      "candidate": "325.41 CAD",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "325.41 CAD"
+        }
+      ],
+      "human_label": null
+    },
+    {
+      "pair_id": "P-807176",
+      "doc_id": "statement_001",
+      "source_url": "https://filedone.ai/sample-files/sample-bank-statement.pdf",
+      "field": "account_holder",
+      "value_type": "name",
+      "reference": "Sam Specimen",
+      "candidate": "Sam Specimen",
+      "reference_page": 1,
+      "source_quotes": [
+        {
+          "page": 1,
+          "quote": "Sam Specimen"
+        }
+      ],
+      "human_label": null
+    }
+  ]
+}

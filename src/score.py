@@ -8,6 +8,8 @@ import unicodedata
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 
+from src.policy import typed_equal
+
 SMALL_NUMBER_WORDS = (
     "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
     "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
@@ -82,6 +84,8 @@ def appears_in_text(field: str, value: object, pages: list[str]) -> bool:
     if value is None:
         return False
     text = _plain(" ".join(pages))
+    if isinstance(value, str) and field.endswith(("_number", "_id", "_code", "_reference")):
+        return _plain(value) in text
     if field.endswith("_period"):
         period = _month_period(value)
         if isinstance(period, tuple):
@@ -161,7 +165,12 @@ def score_document(extracted: dict, truth: dict, pages: list[str]) -> dict:
         field = item["field"]
         got = extracted_by_name[field]
         value = got["value"]
-        exact_match = normalize(field, value, item["value"]) == normalize(field, item["value"], item["value"])
+        if item.get("type") == "money":
+            exact_match = typed_equal(value, item["value"], "money",
+                                      printed_marker=item.get("printed_marker"),
+                                      marker_scope=item.get("marker_scope", "adjacent"))
+        else:
+            exact_match = normalize(field, value, item["value"]) == normalize(field, item["value"], item["value"])
         if exact_match:
             correct += 1
         else:

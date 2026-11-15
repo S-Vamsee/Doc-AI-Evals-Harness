@@ -1,0 +1,9 @@
+{
+  "facts": [
+    {
+      "fact_id": "f001",
+      "state": "pass",
+      "evidence": {"page": 1, "quote": "Invoice B-99", "bbox": null}
+    }
+  ]
+}

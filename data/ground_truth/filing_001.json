@@ -2,9 +2,39 @@
   "doc_id": "filing_001",
   "source_url": "https://www.annualreports.com/HostedData/AnnualReportArchive/m/NASDAQ_MAMA_2023.pdf",
   "fields": [
-    {"field": "company_name", "value": "MAMA'S CREATIONS, INC.", "page": 1},
-    {"field": "fiscal_year_end_date", "value": "2024-01-31", "page": 1},
-    {"field": "gross_profit_2024_thousands", "value": 30333, "page": 2},
-    {"field": "net_income_2024_thousands", "value": 6561, "page": 2}
+    {
+      "field": "company_name",
+      "value": "MAMA'S CREATIONS, INC.",
+      "page": 1,
+      "type": "name"
+    },
+    {
+      "field": "fiscal_year_end_date",
+      "value": "2024-01-31",
+      "page": 1,
+      "type": "date"
+    },
+    {
+      "field": "gross_profit_2024_thousands",
+      "value": 30333,
+      "page": 2,
+      "type": "money",
+      "unit_scale": 1000,
+      "printed_marker": "$",
+      "proposed_currency": "USD",
+      "currency_basis": "inferred",
+      "marker_scope": "column"
+    },
+    {
+      "field": "net_income_2024_thousands",
+      "value": 6561,
+      "page": 2,
+      "type": "money",
+      "unit_scale": 1000,
+      "printed_marker": "$",
+      "proposed_currency": "USD",
+      "currency_basis": "inferred",
+      "marker_scope": "column"
+    }
   ]
 }

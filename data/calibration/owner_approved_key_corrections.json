@@ -1,0 +1,13 @@
+[
+  {
+    "doc_id": "form_handwritten_001",
+    "field": "symptoms",
+    "page": 1,
+    "old_value": "mild headache, SAMPLE only",
+    "new_value": "mild headache",
+    "printed_quote": "Symptoms: mild headache, SAMPLE only",
+    "reason": "The owner ruled that SAMPLE only is a specimen marking, not a symptom.",
+    "owner_approved": true,
+    "approved_on": "2026-11-14"
+  }
+]

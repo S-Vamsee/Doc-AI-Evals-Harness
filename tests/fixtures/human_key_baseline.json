@@ -1,0 +1,527 @@
+{
+  "contract_amendment_001": [
+    {
+      "field": "amendment_reference",
+      "value": "AMD-2026-01",
+      "page": 1
+    },
+    {
+      "field": "effective_date",
+      "value": "1 September 2026",
+      "page": 1
+    },
+    {
+      "field": "old_expense_cap",
+      "value": 250.0,
+      "page": 1
+    },
+    {
+      "field": "new_expense_cap",
+      "value": 400.0,
+      "page": 1
+    },
+    {
+      "field": "acceptance_window_days",
+      "value": 15,
+      "page": 1
+    }
+  ],
+  "contract_offer_001": [
+    {
+      "field": "employer_name",
+      "value": "Cobalt Operations Team",
+      "page": 1
+    },
+    {
+      "field": "candidate_name_with_id",
+      "value": "Team member 5 (EMP-05)",
+      "page": 1
+    },
+    {
+      "field": "start_date",
+      "value": "10 August 2026",
+      "page": 1
+    },
+    {
+      "field": "hourly_rate",
+      "value": 28.0,
+      "page": 1
+    },
+    {
+      "field": "offer_expiry_date",
+      "value": "3 August 2026",
+      "page": 1
+    }
+  ],
+  "filing_001": [
+    {
+      "field": "company_name",
+      "value": "MAMA'S CREATIONS, INC.",
+      "page": 1
+    },
+    {
+      "field": "fiscal_year_end_date",
+      "value": "2024-01-31",
+      "page": 1
+    },
+    {
+      "field": "gross_profit_2024_thousands",
+      "value": 30333,
+      "page": 2
+    },
+    {
+      "field": "net_income_2024_thousands",
+      "value": 6561,
+      "page": 2
+    }
+  ],
+  "form_001": [
+    {
+      "field": "applicant_name",
+      "value": "Jane Jacobs",
+      "page": 1
+    },
+    {
+      "field": "applicant_role",
+      "value": "Planner III",
+      "page": 2
+    },
+    {
+      "field": "applicant_organization",
+      "value": "XYZ County Department of Transportation",
+      "page": 2
+    },
+    {
+      "field": "project_name",
+      "value": "C Station Transit Oriented Development",
+      "page": 2
+    },
+    {
+      "field": "project_type",
+      "value": "Transit Oriented Development",
+      "page": 1
+    },
+    {
+      "field": "application_due_date",
+      "value": "2025-02-18",
+      "page": 1
+    }
+  ],
+  "form_handwritten_001": [
+    {
+      "field": "patient_name",
+      "value": "Jordan Rivera",
+      "page": 1
+    },
+    {
+      "field": "form_date",
+      "value": "2026-01-18",
+      "page": 1
+    },
+    {
+      "field": "symptoms",
+      "value": "mild headache, SAMPLE only",
+      "page": 1
+    },
+    {
+      "field": "instruction",
+      "value": "rest and hydrate — fictional clinic form",
+      "page": 1
+    },
+    {
+      "field": "signature",
+      "value": "J. Rivera (SAMPLE)",
+      "page": 1
+    }
+  ],
+  "form_library_001": [
+    {
+      "field": "organization_name",
+      "value": "Larkfield Community Library",
+      "page": 1
+    },
+    {
+      "field": "form_title",
+      "value": "Membership application",
+      "page": 1
+    },
+    {
+      "field": "membership_types",
+      "value": "Adult, Student, Senior (65 and over)",
+      "page": 1
+    },
+    {
+      "field": "interests_list",
+      "value": "Fiction, Local history, Digital skills, Children's events",
+      "page": 1
+    }
+  ],
+  "invoice_001": [
+    {
+      "field": "invoice_number",
+      "value": "INV-2026-0142",
+      "page": 1
+    },
+    {
+      "field": "invoice_date",
+      "value": "2026-09-18",
+      "page": 1
+    },
+    {
+      "field": "due_date",
+      "value": "2026-10-18",
+      "page": 1
+    },
+    {
+      "field": "vendor_name",
+      "value": "Larkfield Stationers",
+      "page": 1
+    },
+    {
+      "field": "total_amount",
+      "value": 17348.36,
+      "page": 1
+    }
+  ],
+  "invoice_002": [
+    {
+      "field": "invoice_number",
+      "value": "INV-SAMPLE-1042",
+      "page": 1
+    },
+    {
+      "field": "vendor_name",
+      "value": "Meridian Supply Co.",
+      "page": 1
+    },
+    {
+      "field": "customer_name",
+      "value": "Riverside High School",
+      "page": 1
+    },
+    {
+      "field": "total_amount",
+      "value": 329.4,
+      "page": 1
+    }
+  ],
+  "invoice_003": [
+    {
+      "field": "supplier_name_with_id",
+      "value": "Harbour Food Supply (SUP-02)",
+      "page": 1
+    },
+    {
+      "field": "buyer_name",
+      "value": "Harbour Kitchen Group",
+      "page": 1
+    },
+    {
+      "field": "invoice_date",
+      "value": "2026-08-14",
+      "page": 1
+    },
+    {
+      "field": "due_date",
+      "value": "2026-09-13",
+      "page": 1
+    },
+    {
+      "field": "total_amount",
+      "value": 325.41,
+      "page": 1
+    }
+  ],
+  "notice_001": [
+    {
+      "field": "notice_date",
+      "value": "2026-10-06",
+      "page": 1
+    },
+    {
+      "field": "first_affected_area",
+      "value": "Market Road and Station Lane",
+      "page": 1
+    },
+    {
+      "field": "interruption_date",
+      "value": "Tuesday 13 October 2026",
+      "page": 1
+    },
+    {
+      "field": "start_time",
+      "value": "08:00",
+      "page": 1
+    },
+    {
+      "field": "end_time",
+      "value": "16:00",
+      "page": 1
+    },
+    {
+      "field": "issuer_name",
+      "value": "Sampleton Water Board",
+      "page": 1
+    }
+  ],
+  "receipt_001": [
+    {
+      "field": "merchant_name",
+      "value": "CORNER CAFE",
+      "page": 1
+    },
+    {
+      "field": "purchase_date",
+      "value": "18/09/2026",
+      "page": 1
+    },
+    {
+      "field": "total_amount",
+      "value": 380.0,
+      "page": 1
+    },
+    {
+      "field": "payment_method",
+      "value": "Card",
+      "page": 1
+    }
+  ],
+  "receipt_002": [
+    {
+      "field": "merchant_name",
+      "value": "BRIGHTSIDE CAFE",
+      "page": 1
+    },
+    {
+      "field": "order_number",
+      "value": "#NV-10482",
+      "page": 1
+    },
+    {
+      "field": "purchase_date",
+      "value": "2026-01-06",
+      "page": 1
+    },
+    {
+      "field": "total_amount",
+      "value": 7.75,
+      "page": 1
+    }
+  ],
+  "scan_agreement_001": [
+    {
+      "field": "licensor_name",
+      "value": "Sam Specimen",
+      "page": 1
+    },
+    {
+      "field": "licensor_address",
+      "value": "7 Example Avenue, Sampleton 000 000",
+      "page": 1
+    },
+    {
+      "field": "agreement_date",
+      "value": "25th day of September 2026",
+      "page": 1
+    },
+    {
+      "field": "monthly_licence_fee",
+      "value": 18500,
+      "page": 1
+    }
+  ],
+  "scan_invoice_001": [
+    {
+      "field": "invoice_number",
+      "value": "INV-2026-0142",
+      "page": 1
+    },
+    {
+      "field": "invoice_date",
+      "value": "18 September 2026",
+      "page": 1
+    },
+    {
+      "field": "due_date",
+      "value": "18 October 2026",
+      "page": 1
+    },
+    {
+      "field": "total_amount",
+      "value": 17348.36,
+      "page": 1
+    },
+    {
+      "field": "vendor_name",
+      "value": "Larkfield Stationers",
+      "page": 1
+    }
+  ],
+  "scan_letter_001": [
+    {
+      "field": "issuer_name",
+      "value": "Brightwater Housing Society",
+      "page": 1
+    },
+    {
+      "field": "letter_date",
+      "value": "21 September 2026",
+      "page": 1
+    },
+    {
+      "field": "reference_number",
+      "value": "BHS/MC/2026/118",
+      "page": 1
+    },
+    {
+      "field": "new_monthly_charge",
+      "value": 2450,
+      "page": 1
+    },
+    {
+      "field": "effective_date",
+      "value": "1 November 2026",
+      "page": 1
+    }
+  ],
+  "scan_notice_001": [
+    {
+      "field": "notice_date",
+      "value": "6 October 2026",
+      "page": 1
+    },
+    {
+      "field": "block_a_water_off_date",
+      "value": "Mon 12 Oct",
+      "page": 1
+    },
+    {
+      "field": "block_a_water_off_start",
+      "value": "09:00",
+      "page": 1
+    },
+    {
+      "field": "block_a_water_off_end",
+      "value": "13:00",
+      "page": 1
+    },
+    {
+      "field": "signer_name",
+      "value": "Sam Specimen",
+      "page": 1
+    }
+  ],
+  "scan_report_001": [
+    {
+      "field": "organization_name",
+      "value": "Larkfield Community Library",
+      "page": 1
+    },
+    {
+      "field": "report_period",
+      "value": "April 2025 to March 2026",
+      "page": 1
+    },
+    {
+      "field": "days_open",
+      "value": 302,
+      "page": 1
+    },
+    {
+      "field": "annual_visits",
+      "value": 41280,
+      "page": 1
+    },
+    {
+      "field": "printed_book_loans",
+      "value": 58914,
+      "page": 1
+    }
+  ],
+  "statement_001": [
+    {
+      "field": "bank_name",
+      "value": "Specimen Bank",
+      "page": 1
+    },
+    {
+      "field": "account_holder",
+      "value": "Sam Specimen",
+      "page": 1
+    },
+    {
+      "field": "account_number",
+      "value": "SPECIMEN-0000-4821",
+      "page": 1
+    },
+    {
+      "field": "period_start_date",
+      "value": "2026-08-01",
+      "page": 1
+    },
+    {
+      "field": "opening_balance",
+      "value": 48230.55,
+      "page": 1
+    },
+    {
+      "field": "closing_balance",
+      "value": 46736.38,
+      "page": 1
+    }
+  ],
+  "utility_001": [
+    {
+      "field": "provider_name",
+      "value": "Brightside Energy",
+      "page": 1
+    },
+    {
+      "field": "account_number",
+      "value": "ACC-SAMPLE-7788",
+      "page": 1
+    },
+    {
+      "field": "billing_period_start",
+      "value": "2025-12-01",
+      "page": 1
+    },
+    {
+      "field": "billing_period_end",
+      "value": "2025-12-31",
+      "page": 1
+    },
+    {
+      "field": "total_due",
+      "value": 53.78,
+      "page": 1
+    }
+  ],
+  "w2_001": [
+    {
+      "field": "employer_name",
+      "value": "Northstar Demo Payroll LLC",
+      "page": 1
+    },
+    {
+      "field": "employee_name",
+      "value": "Alex Q Sample Jr.",
+      "page": 1
+    },
+    {
+      "field": "social_security_wages",
+      "value": 80000.0,
+      "page": 1
+    },
+    {
+      "field": "wages",
+      "value": 80000.0,
+      "page": 1
+    },
+    {
+      "field": "federal_income_tax_withheld",
+      "value": 9200.0,
+      "page": 1
+    }
+  ]
+}

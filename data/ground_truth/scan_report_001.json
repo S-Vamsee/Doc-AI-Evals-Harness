@@ -5,27 +5,32 @@
     {
       "field": "organization_name",
       "value": "Larkfield Community Library",
-      "page": 1
+      "page": 1,
+      "type": "name"
     },
     {
       "field": "report_period",
       "value": "April 2025 to March 2026",
-      "page": 1
+      "page": 1,
+      "type": "free_text"
     },
     {
       "field": "days_open",
       "value": 302,
-      "page": 1
+      "page": 1,
+      "type": "number"
     },
     {
       "field": "annual_visits",
       "value": 41280,
-      "page": 1
+      "page": 1,
+      "type": "number"
     },
     {
       "field": "printed_book_loans",
       "value": 58914,
-      "page": 1
+      "page": 1,
+      "type": "number"
     }
   ]
 }

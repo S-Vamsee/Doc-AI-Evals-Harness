@@ -5,27 +5,38 @@
     {
       "field": "issuer_name",
       "value": "Brightwater Housing Society",
-      "page": 1
+      "page": 1,
+      "type": "name"
     },
     {
       "field": "letter_date",
       "value": "21 September 2026",
-      "page": 1
+      "page": 1,
+      "type": "date"
     },
     {
       "field": "reference_number",
       "value": "BHS/MC/2026/118",
-      "page": 1
+      "page": 1,
+      "type": "identifier",
+      "prefix_matters": true
     },
     {
       "field": "new_monthly_charge",
       "value": 2450,
-      "page": 1
+      "page": 1,
+      "type": "money",
+      "unit_scale": 1,
+      "printed_marker": "₹",
+      "proposed_currency": "INR",
+      "currency_basis": "printed",
+      "marker_scope": "adjacent"
     },
     {
       "field": "effective_date",
       "value": "1 November 2026",
-      "page": 1
+      "page": 1,
+      "type": "date"
     }
   ]
 }

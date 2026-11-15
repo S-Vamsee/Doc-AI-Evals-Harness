@@ -1,6 +1,6 @@
 {
-  "calibrated_at_utc": "2026-11-14T10:16:22+00:00",
-  "judge_signature": "c0efbd357ec19d167e936651b170bfae2683df2975c2cefbfd47d41598149040",
+  "calibrated_at_utc": "2026-11-14T11:10:21+00:00",
+  "judge_signature": "c61237be25527e8da73d10929291ec58cff2529bb8ae19a1490d6d6bb20b3190",
   "golden_fields": 26,
   "agreements": 26,
   "passed": true,
@@ -43,7 +43,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Exact match."
+      "reason": "Extracted value 'Jane Jacobs' exactly matches expected value."
     },
     {
       "doc_id": "form_001",
@@ -51,7 +51,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Exact match."
+      "reason": "Extracted value 'Planner III' exactly matches expected value."
     },
     {
       "doc_id": "form_001",
@@ -59,7 +59,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Exact match."
+      "reason": "Extracted value 'XYZ County Department of Transportation' exactly matches expected value."
     },
     {
       "doc_id": "form_001",
@@ -67,7 +67,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Exact match."
+      "reason": "Extracted value 'C Station Transit Oriented Development' exactly matches expected value."
     },
     {
       "doc_id": "form_001",
@@ -75,7 +75,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Exact match."
+      "reason": "Extracted value 'Transit Oriented Development' exactly matches expected value."
     },
     {
       "doc_id": "form_001",
@@ -83,7 +83,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "Exact match."
+      "reason": "Extracted value '2025-02-18' exactly matches expected value."
     },
     {
       "doc_id": "invoice_001",
@@ -195,7 +195,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "80000 is numerically equivalent to 80000.0."
+      "reason": "Same numeric value (80000 vs 80000.0)."
     },
     {
       "doc_id": "w2_001",
@@ -203,7 +203,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "80000 is numerically equivalent to 80000.0."
+      "reason": "Same numeric value (80000 vs 80000.0)."
     },
     {
       "doc_id": "w2_001",
@@ -211,7 +211,7 @@
       "exact_match": true,
       "judge_match": true,
       "agree": true,
-      "reason": "9200 is numerically equivalent to 9200.0."
+      "reason": "Same numeric value (9200 vs 9200.0)."
     }
   ]
 }

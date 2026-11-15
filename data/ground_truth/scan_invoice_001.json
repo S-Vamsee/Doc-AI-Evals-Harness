@@ -5,27 +5,38 @@
     {
       "field": "invoice_number",
       "value": "INV-2026-0142",
-      "page": 1
+      "page": 1,
+      "type": "identifier",
+      "prefix_matters": true
     },
     {
       "field": "invoice_date",
       "value": "18 September 2026",
-      "page": 1
+      "page": 1,
+      "type": "date"
     },
     {
       "field": "due_date",
       "value": "18 October 2026",
-      "page": 1
+      "page": 1,
+      "type": "date"
     },
     {
       "field": "total_amount",
       "value": 17348.36,
-      "page": 1
+      "page": 1,
+      "type": "money",
+      "unit_scale": 1,
+      "printed_marker": "₹",
+      "proposed_currency": "INR",
+      "currency_basis": "printed",
+      "marker_scope": "adjacent"
     },
     {
       "field": "vendor_name",
       "value": "Larkfield Stationers",
-      "page": 1
+      "page": 1,
+      "type": "name"
     }
   ]
 }

@@ -1,0 +1,20 @@
+doc_id,field,current_value,page,printed_marker,proposed_currency,currency_basis,marker_scope,unit_scale,basis,source_url,printed_marker_confirmed,key_update_authorized
+contract_amendment_001,old_expense_cap,250.0,1,USD,USD,printed,adjacent,1,USD is printed beside both caps.,https://www.testaroo.com/files/data/commercial-documents-v1/contracts/msa-amendment-01.pdf,true,true
+contract_amendment_001,new_expense_cap,400.0,1,USD,USD,printed,adjacent,1,USD is printed beside both caps.,https://www.testaroo.com/files/data/commercial-documents-v1/contracts/msa-amendment-01.pdf,true,true
+contract_offer_001,hourly_rate,28.0,1,USD,USD,printed,adjacent,1,USD is printed beside hourly rate.,https://www.testaroo.com/files/data/commercial-documents-v1/contracts/employment-offer-EMP-05.pdf,true,true
+filing_001,gross_profit_2024_thousands,30333,2,$,USD,inferred,column,1000,"$ is printed on the first row of the 2024 column, not beside this figure; USD inferred from U.S. filing context. Table unit is thousands.",https://www.annualreports.com/HostedData/AnnualReportArchive/m/NASDAQ_MAMA_2023.pdf,true,true
+filing_001,net_income_2024_thousands,6561,2,$,USD,inferred,column,1000,"$ is printed on the first row of the 2024 column, not beside this figure; USD inferred from U.S. filing context. Table unit is thousands.",https://www.annualreports.com/HostedData/AnnualReportArchive/m/NASDAQ_MAMA_2023.pdf,true,true
+invoice_001,total_amount,17348.36,1,₹,INR,printed,adjacent,1,Rupee symbol is printed beside total due.,https://filedone.ai/sample-files/sample-invoice.pdf,true,true
+invoice_002,total_amount,329.4,1,$,USD,inferred,adjacent,1,Dollar sign is printed; issuer location implies USD.,https://www.testaroo.com/files/documents/ocr-domain/invoice-searchable.pdf,true,true
+invoice_003,total_amount,325.41,1,CAD,CAD,printed,adjacent,1,CAD is printed beside total due.,https://www.testaroo.com/files/data/restaurant-procure-to-pay-v1/restaurant-group/invoice.pdf,true,true
+receipt_001,total_amount,380.0,1,none,not_printed,printed,none,1,No currency marker is printed.,https://filedone.ai/sample-files/sample-receipt.pdf,true,true
+receipt_002,total_amount,7.75,1,$,dollar_symbol_unspecified,printed,adjacent,1,Dollar sign is printed; ISO dollar currency is not stated.,https://www.testaroo.com/files/documents/ocr-domain/receipt-searchable.pdf,true,true
+scan_agreement_001,monthly_licence_fee,18500,1,₹ and rupees,INR,printed,adjacent,1,Rupee symbol and spelled-out rupees are printed beside licence fee.,https://filedone.ai/sample-files/sample-rental-agreement-scan.pdf,true,true
+scan_invoice_001,total_amount,17348.36,1,₹,INR,printed,adjacent,1,Rupee symbol is printed beside total due.,https://filedone.ai/sample-files/sample-scanned-invoice.pdf,true,true
+scan_letter_001,new_monthly_charge,2450,1,₹,INR,printed,adjacent,1,Rupee symbol is printed beside new monthly charge.,https://filedone.ai/sample-files/sample-scanned-letter.pdf,true,true
+statement_001,opening_balance,48230.55,1,₹ and Indian rupees,INR,printed,adjacent,1,Rupee symbol is printed; page says amounts in Indian rupees.,https://filedone.ai/sample-files/sample-bank-statement.pdf,true,true
+statement_001,closing_balance,46736.38,1,₹ and Indian rupees,INR,printed,adjacent,1,Rupee symbol is printed; page says amounts in Indian rupees.,https://filedone.ai/sample-files/sample-bank-statement.pdf,true,true
+utility_001,total_due,53.78,1,$,dollar_symbol_unspecified,printed,adjacent,1,Dollar sign is printed; ISO dollar currency is not stated.,https://www.testaroo.com/files/documents/ocr-domain/utility-searchable.pdf,true,true
+w2_001,social_security_wages,80000.0,1,none,USD,inferred,none,1,U.S. IRS Form W-2 context implies USD; no currency marker is printed.,https://epaystubs.net/pdfs/W2_ORD6AEC6730533E5.pdf,true,true
+w2_001,wages,80000.0,1,none,USD,inferred,none,1,U.S. IRS Form W-2 context implies USD; no currency marker is printed.,https://epaystubs.net/pdfs/W2_ORD6AEC6730533E5.pdf,true,true
+w2_001,federal_income_tax_withheld,9200.0,1,none,USD,inferred,none,1,U.S. IRS Form W-2 context implies USD; no currency marker is printed.,https://epaystubs.net/pdfs/W2_ORD6AEC6730533E5.pdf,true,true

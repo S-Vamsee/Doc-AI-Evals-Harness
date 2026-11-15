@@ -5,27 +5,32 @@
     {
       "field": "notice_date",
       "value": "6 October 2026",
-      "page": 1
+      "page": 1,
+      "type": "date"
     },
     {
       "field": "block_a_water_off_date",
       "value": "Mon 12 Oct",
-      "page": 1
+      "page": 1,
+      "type": "free_text"
     },
     {
       "field": "block_a_water_off_start",
       "value": "09:00",
-      "page": 1
+      "page": 1,
+      "type": "free_text"
     },
     {
       "field": "block_a_water_off_end",
       "value": "13:00",
-      "page": 1
+      "page": 1,
+      "type": "free_text"
     },
     {
       "field": "signer_name",
       "value": "Sam Specimen",
-      "page": 1
+      "page": 1,
+      "type": "name"
     }
   ]
 }

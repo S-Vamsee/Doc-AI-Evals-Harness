@@ -5,27 +5,45 @@
     {
       "field": "provider_name",
       "value": "Brightside Energy",
-      "page": 1
+      "page": 1,
+      "type": "name"
     },
     {
       "field": "account_number",
       "value": "ACC-SAMPLE-7788",
-      "page": 1
+      "page": 1,
+      "type": "identifier",
+      "prefix_matters": true
     },
     {
       "field": "billing_period_start",
       "value": "2025-12-01",
-      "page": 1
+      "page": 1,
+      "type": "date"
     },
     {
       "field": "billing_period_end",
       "value": "2025-12-31",
-      "page": 1
+      "page": 1,
+      "type": "date"
     },
     {
       "field": "total_due",
       "value": 53.78,
-      "page": 1
+      "page": 1,
+      "type": "money",
+      "unit_scale": 1,
+      "printed_marker": "$",
+      "proposed_currency": null,
+      "currency_basis": "printed",
+      "marker_scope": "adjacent"
+    },
+    {
+      "field": "meter_serial_number",
+      "value": null,
+      "page": 1,
+      "type": "identifier",
+      "prefix_matters": true
     }
   ]
 }
