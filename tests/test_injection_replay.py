@@ -1,4 +1,7 @@
-"""Replay one live extraction pass on four self-made PDF pages, offline."""
+"""Replay legacy one-call extraction on four self-made PDF pages, offline.
+
+These recordings do not test the current keyed/open two-call pipeline.
+"""
 
 import hashlib
 import json

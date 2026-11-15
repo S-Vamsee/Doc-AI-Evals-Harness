@@ -28,6 +28,7 @@ MODULE_INPUTS = {
     "test_day2_role_support": "A self-made PDF containing only a bare invoice identifier.",
     "test_day2_text_only_run": "All public PDFs with recorded model replies; only keyed pages with text are selected.",
     "test_day2_typed_support": "Self-made PDF lines with a date, currency amount, and embedded number.",
+    "test_day2_text_layer_cause": "Historical Day 2 canned W-2 reply with a null tax year and wrong withheld-tax value; replaced by saved real replies.",
     "test_day2_w2_real_replay": "The public W-2 PDF and saved real keyed and open model replies from the live run.",
     "test_daily_comparison": "Two small field maps with one pass-to-fail and one fail-to-pass change.",
     "test_day2_summary": "Saved synthetic run JSON with states, scores, failures, and an incomplete page.",
@@ -36,7 +37,7 @@ MODULE_INPUTS = {
     "test_environments": "Temporary environment variables, blocked socket, result paths, and held-back freeze file.",
     "test_evidence": "Self-made text PDFs with correct, missing, or misplaced quotes and boxes.",
     "test_fact_kinds": "A self-made page and recorded open facts covering every kind plus unclassified.",
-    "test_injection_replay": "Recorded baseline and three pages with embedded instruction attacks.",
+    "test_injection_replay": "Recorded baseline and three attack pages on legacy one-call src.extract; the current two-call pipeline is not exercised.",
     "test_judge_calibration": "Human-labelled value pairs and recorded local-judge verdicts.",
     "test_judge_calibration_run": "Saved calibration rows, local judge fixtures, and disagreement output.",
     "test_live_response_limit": "A fake API reply that reaches the output limit and leaves partial JSON.",
@@ -55,6 +56,10 @@ MODULE_INPUTS = {
 }
 
 EXPECTED_OVERRIDES = {
+    "test_w2_missing_labels_are_text_layer_root_causes":
+        "The historical canned reply assigns text_layer root causes to two failed fields; it does not replay a real W-2 response.",
+    "test_recorded_extraction_ignores_embedded_instructions":
+        "The legacy one-call replay preserves its recorded fields; it does not establish current two-call instruction resistance.",
     "test_explicit_null_is_scored_as_abstention_and_not_reviewed":
         "The null passes a null key, increments abstentions and skipped, and never enters uncertainty or review.",
     "test_keyed_reply_classifies_each_requested_name":
@@ -81,6 +86,12 @@ EXPECTED_OVERRIDES = {
         "The comparison reports one better and one worse field and preserves the worse field's root cause.",
 }
 
+HISTORICAL_ASSERTIONS = {
+    ("test_day2_text_layer_cause", "test_w2_missing_labels_are_text_layer_root_causes"):
+        "causes['tax_year']['stage'] == 'text_layer'; "
+        "causes['federal_income_tax_withheld']['stage'] == 'text_layer'",
+}
+
 
 def humanize(name: str) -> str:
     name = name.removeprefix("test_").replace("_", " ")
@@ -102,12 +113,28 @@ def describe_test(classname: str, name: str) -> dict[str, str]:
 
 
 def _assertions(module: str, name: str) -> str:
+    if (module, name) in HISTORICAL_ASSERTIONS:
+        return HISTORICAL_ASSERTIONS[(module, name)]
     path = ROOT / "tests" / f"{module}.py"
     tree = ast.parse(path.read_text(encoding="utf-8"))
     for node in tree.body:
         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name == name:
-            return "; ".join(ast.unparse(item.test) for item in ast.walk(node)
-                             if isinstance(item, ast.Assert))
+            conditions = []
+            for item in ast.walk(node):
+                if isinstance(item, ast.Assert):
+                    conditions.append(ast.unparse(item.test))
+                elif isinstance(item, ast.With) and any(
+                    isinstance(context.context_expr, ast.Call)
+                    and isinstance(context.context_expr.func, ast.Attribute)
+                    and isinstance(context.context_expr.func.value, ast.Name)
+                    and context.context_expr.func.value.id == "pytest"
+                    and context.context_expr.func.attr == "raises"
+                    for context in item.items
+                ):
+                    conditions.append(" ".join(ast.unparse(item).split()))
+            if not conditions:
+                raise ValueError(f"No explicit assertion found: {module}.{name}")
+            return "; ".join(conditions)
     raise ValueError(f"Test source not found: {module}.{name}")
 
 
