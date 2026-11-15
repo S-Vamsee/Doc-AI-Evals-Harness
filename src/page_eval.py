@@ -27,7 +27,8 @@ from src.vision import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGE_RESULTS = ROOT / "results" / "experiments" / "pages"
+RESULT_ROOT = Path(os.getenv("HARNESS_RESULTS_DIR", str(ROOT / "results")))
+PAGE_RESULTS = RESULT_ROOT / "experiments" / "pages"
 
 
 def _save(path: Path, data: object) -> None:
@@ -91,7 +92,7 @@ def _source_page(pdf_path: Path, page_number: int, work: Path) -> dict:
             raise RuntimeError(blocker)
         signature = vision_cache_signature(pdf_path)
         cache_path = work / "ocr.json"
-        existing = ROOT / "results" / "ocr" / f"{pdf_path.stem}.json"
+        existing = RESULT_ROOT / "ocr" / f"{pdf_path.stem}.json"
         cached = None
         for path in (cache_path, existing):
             if path.exists():

@@ -73,10 +73,12 @@ class FactRecord(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     fact_id: str = Field(min_length=1)
-    kind: Literal["field", "relation"]
+    kind: Literal["party", "identifier", "date_or_time", "amount", "line_item",
+                  "labelled_value", "statement", "unclassified", "field", "relation"]
     subject: str | None
     relation: str = Field(min_length=1)
     value: str | None
+    columns: dict[str, str] | None = None
     origin: Literal["extracted", "inferred"]
     evidence: Evidence
     state: Literal["verified", "uncertain", "failed"]
@@ -88,6 +90,8 @@ class FactRecord(BaseModel):
 
     @model_validator(mode="after")
     def verified_requires_evidence(self) -> FactRecord:
+        if self.kind == "line_item" and not self.columns and self.state != "failed":
+            raise ValueError("A line item needs its table columns")
         if self.state == "verified":
             if self.origin == "inferred":
                 raise ValueError("An inferred fact cannot be verified as extracted evidence")

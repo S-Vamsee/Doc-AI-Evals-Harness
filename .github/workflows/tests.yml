@@ -13,4 +13,4 @@ jobs:
         with:
           python-version: '3.11'
       - run: python -m pip install -r requirements-dev.txt
-      - run: python -m pytest -q
+      - run: python scripts/environments.py ci

@@ -28,7 +28,7 @@ from src.vision import has_usable_text, read_scanned_pdf_pages, render_pages, vi
 
 PDF_DIR = ROOT / "data" / "pdfs"
 TRUTH_DIR = ROOT / "data" / "ground_truth"
-RESULT_DIR = ROOT / "results"
+RESULT_DIR = Path(os.getenv("HARNESS_RESULTS_DIR", str(ROOT / "results")))
 RUNS_DIR = RESULT_DIR / "runs"
 GOLDEN_IDS = ("filing_001", "form_001", "invoice_001", "statement_001", "w2_001")
 GOLDEN_CANDIDATES = ROOT / "data" / "golden_candidates.json"
@@ -307,12 +307,22 @@ def main() -> int:
     mode.add_argument("--page", metavar="DOC_ID:PAGE", help="Run private machine-first extraction on one page")
     mode.add_argument("--core-page", metavar="DOC_ID:PAGE",
                       help="Run the rule-tested one-page text pipeline with judge scoring disabled")
+    mode.add_argument("--development", action="store_true",
+                      help="Run the 20 public development PDFs through the judge-free core")
     parser.add_argument("--reuse-ocr", action="store_true", help="Reuse Qwen transcriptions when PDF, model, and OCR prompt are unchanged")
     parser.add_argument("--pdf", type=Path, help="PDF path for a private one-page run")
     parser.add_argument("--source-url", help="Public source URL for a private one-page PDF")
     parser.add_argument("--verify", type=Path, help="Human verification JSON for a completed one-page run")
     args = parser.parse_args()
     load_dotenv(ROOT / ".env")
+    if args.development:
+        if os.getenv("HARNESS_ENV") != "live-dev":
+            parser.error("--development requires the live-dev environment entry point")
+        from src.development_run import run_development
+        work = run_development()
+        summary = json.loads((work / "summary.json").read_text(encoding="utf-8"))
+        print(f"Development report: {work / 'report.md'}")
+        return 0 if summary["complete"] else 1
     if args.core_page:
         if ":" not in args.core_page:
             parser.error("--core-page must look like document_id:page_number")

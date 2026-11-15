@@ -76,3 +76,28 @@ def test_extraction_failure_is_saved_as_incomplete_run(tmp_path):
     assert result["failures"][0]["stage"] == "extraction"
     assert "model did not respond" in result["failures"][0]["reason"]
     assert "incomplete" in (run / "report.md").read_text(encoding="utf-8").lower()
+
+
+def test_line_item_object_is_preserved_and_missing_columns_is_a_failed_fact(tmp_path):
+    pdf_path = tmp_path / "sample.pdf"
+    _pdf(pdf_path)
+
+    def recorded(_messages):
+        return {"content": json.dumps({"facts": [
+            {"kind": "line_item", "subject": None, "relation": "invoice_row",
+             "value": {"item": "Invoice number", "number": "A-17"},
+             "origin": "extracted", "quote": "Invoice number A-17"},
+            {"kind": "line_item", "subject": None, "relation": "bad_row",
+             "value": "Vendor Northvale", "origin": "extracted",
+             "quote": "Vendor Northvale"},
+        ]}), "usage": {}, "api_created_at": None, "latency_seconds": 0.0}
+
+    run = run_text_page("sample", pdf_path, 1, "https://example.org/sample.pdf",
+                        output_root=tmp_path / "runs", model_request=recorded)
+    result = json.loads((run / "result.json").read_text(encoding="utf-8"))
+    assert result["complete"] is True
+    assert result["counts"]["facts_in"] == 2
+    assert result["records"][0]["columns"] == {"item": "Invoice number", "number": "A-17"}
+    assert result["records"][1]["state"] == "failed"
+    assert result["records"][1]["stage"] == "extraction"
+    assert "columns" in result["records"][1]["reason"]
