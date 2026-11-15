@@ -87,6 +87,7 @@ class FactRecord(BaseModel):
     exact: Literal["pass", "fail", "unscored"]
     judge: Literal["pass", "fail", "unscored"]
     human_verdict: Literal["right", "wrong", "missing"] | None
+    evidence_support: Literal["supported", "unsupported", "role_not_printed"] | None = None
 
     @model_validator(mode="after")
     def verified_requires_evidence(self) -> FactRecord:
@@ -105,16 +106,19 @@ def _plain(value: object) -> str:
 
 
 def _with_state(record: FactRecord, state: str, reason: str, stage: str,
-                bbox: list[float] | None = None) -> FactRecord:
+                bbox: list[float] | None = None,
+                support: str = "unsupported") -> FactRecord:
     data = record.model_dump()
     data["state"] = state
     data["reason"] = reason
     data["stage"] = stage
     data["evidence"]["bbox"] = bbox
+    data["evidence_support"] = support
     return FactRecord.model_validate(data)
 
 
-def verify_text_record(record: FactRecord, page: pymupdf.Page) -> FactRecord:
+def verify_text_record(record: FactRecord, page: pymupdf.Page,
+                       field_spec: dict | None = None) -> FactRecord:
     """Locate a quoted fact in a text page without trusting a model's box."""
     if record.state == "failed":
         return record
@@ -134,14 +138,26 @@ def verify_text_record(record: FactRecord, page: pymupdf.Page) -> FactRecord:
     if record.value is None:
         return _with_state(record, "uncertain", "A null value has no read value to verify.",
                            "evidence_check")
-    if not value_supported_by_quote(record.value, quote):
-        return _with_state(record, "uncertain", "The value is not present in its quote.",
+    field_type = (field_spec or {}).get("type") or {
+        "party": "name", "identifier": "identifier",
+        "date_or_time": "date" if _date_value(record.value) else "free_text",
+        "amount": "money", "line_item": "free_text",
+    }.get(record.kind)
+    if not value_supported_by_quote(record.value, quote, field_type,
+                                    date_order=(field_spec or {}).get("date_order")) or (
+            record.columns and not all(value_supported_by_quote(column_value, quote)
+                                       for column_value in record.columns.values())):
+        return _with_state(record, "uncertain", "The quote does not support the typed value.",
                            "evidence_check")
     relation_words = {word for word in re.findall(r"[a-z]+", record.relation.casefold())
                       if len(word) >= 3}
     quote_words = set(re.findall(r"[a-z]+", quote.casefold()))
     if relation_words and not relation_words.intersection(quote_words):
-        return _with_state(record, "uncertain", "The quote does not name the claimed role.",
+        value_words = set(re.findall(r"[a-z]+", str(record.value).casefold()))
+        if not quote_words.difference(value_words):
+            return _with_state(record, "uncertain", "No printed role label; role hint unavailable.",
+                               "evidence_check", support="role_not_printed")
+        return _with_state(record, "uncertain", "The quote lacks the claimed role hint.",
                            "evidence_check")
     claimed = record.evidence.bbox
     if claimed is not None:
@@ -156,7 +172,7 @@ def verify_text_record(record: FactRecord, page: pymupdf.Page) -> FactRecord:
     rect = matches[0]
     box = [round(rect.x0, 2), round(rect.y0, 2), round(rect.x1, 2), round(rect.y1, 2)]
     return _with_state(record, "verified", "Code found the quoted value at this box.",
-                       "evidence_check", box)
+                       "evidence_check", box, support="supported")
 
 
 def _tokens(value: str) -> list[str]:
@@ -194,7 +210,7 @@ def verify_scan_record(record: FactRecord, vision_text: str,
                       if len(word) >= 3}
     quote_words = set(re.findall(r"[a-z]+", quote.casefold()))
     if relation_words and not relation_words.intersection(quote_words):
-        return _with_state(record, "uncertain", "The quote does not name the claimed role.",
+        return _with_state(record, "uncertain", "The quote lacks the claimed role hint.",
                            "evidence_check")
     if not independent_words or any(word.get("source") != "tesseract"
                                     for word in independent_words):
@@ -228,7 +244,7 @@ def verify_scan_record(record: FactRecord, vision_text: str,
                            "Independent OCR did not locate one matching quote at the claimed place.",
                            "evidence_check")
     return _with_state(record, "verified", "Vision and Tesseract agree at this page box.",
-                       "evidence_check", candidates[0])
+                       "evidence_check", candidates[0], support="supported")
 
 
 def record_stage_call(stage: str, operation, retries: int = 0) -> dict:
@@ -288,13 +304,17 @@ def validate_scope_claim(claim: str, document_types: dict[str, int]) -> bool:
 
 
 def render_policy_report(*, counts: dict[str, int], document_types: dict[str, int],
-                         failures: list[dict], scored: dict | None = None) -> str:
+                         failures: list[dict], scored: dict | None = None,
+                         outcome_counts: dict | None = None) -> str:
     """Reject bad counts before a report can be written."""
     validate_tally(counts)
     lines = ["# One-page evaluation", "", scope_statement(document_types), "",
              f"Facts in: {counts['facts_in']}; verified: {counts['verified']}; "
              f"uncertain: {counts['uncertain']}; failed: {counts['failed']}; "
-             f"skipped: {counts['skipped']}.", ""]
+             f"skipped: {counts['skipped']}.",
+             f"Abstentions (skipped subset): {(outcome_counts or {}).get('abstentions', 0)}.",
+             f"Role not printed (uncertain subset): {(outcome_counts or {}).get('role_not_printed', 0)}.",
+             "Role hint: lexical word overlap only; this is not a semantic role check.", ""]
     if scored is None or scored.get("accuracy") is None:
         lines.append("Extracted, unscored: no human answer key for this page.")
     else:
@@ -432,13 +452,22 @@ def _text_value(value: object) -> str:
     return text
 
 
-def value_supported_by_quote(value: object, quote: str) -> bool:
+def value_supported_by_quote(value: object, quote: str,
+                             field_type: str | None = None,
+                             *, date_order: str | None = None) -> bool:
     if value is None:
         return False
-    if _plain(value) in _plain(quote):
-        return True
-    expected_date = _date_value(value)
-    if expected_date is not None:
+    if field_type == "number":
+        try:
+            target = Decimal(str(value).replace(",", ""))
+        except InvalidOperation:
+            return False
+        return any(Decimal(match.group().replace(",", "")) == target
+                   for match in re.finditer(r"(?<![\w.])\d[\d,]*(?:\.\d+)?(?![\w.])", quote))
+    if field_type == "date" or (field_type is None and _date_value(value, date_order)):
+        expected_date = _date_value(value, date_order)
+        if expected_date is None:
+            return False
         date_patterns = (
             r"\b\d{4}-\d{2}-\d{2}\b",
             r"\b\d{1,2}\s+[A-Za-z]+\s+\d{4}\b",
@@ -447,14 +476,22 @@ def value_supported_by_quote(value: object, quote: str) -> bool:
         )
         for pattern in date_patterns:
             for match in re.finditer(pattern, quote):
-                if _date_value(match.group()) == expected_date:
+                if _date_value(match.group(), date_order) == expected_date:
                     return True
-    expected_amount = _money_value(value)
-    if expected_amount is not None:
+        return False
+    if field_type == "money" or (field_type is None and _money_value(value) is not None):
+        expected_amount = _money_value(value)
+        if expected_amount is None:
+            return False
         for match in re.finditer(r"(?<![\w.])(?:[$₹£€]\s*)?\d[\d,]*(?:\.\d+)?(?![\w.])", quote):
             if _money_value(match.group()) == expected_amount:
                 return True
-    return False
+        return False
+    if field_type == "identifier":
+        target = str(value).strip()
+        return bool(re.search(r"(?<![\w])" + re.escape(target) + r"(?![\w])",
+                              quote, flags=re.I))
+    return bool(_plain(value)) and _plain(value) in _plain(quote)
 
 
 def typed_equal(got: object, expected: object, field_type: str,

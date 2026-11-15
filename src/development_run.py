@@ -38,7 +38,8 @@ def load_cached_scan(path: Path, baseline_dir: Path) -> dict:
 
 def run_development(*, root: Path = ROOT, output_root: Path | None = None,
                     model_request=None, scan_loader=load_cached_scan,
-                    max_cost_usd: float = 1.0) -> Path:
+                    max_cost_usd: float = 1.0,
+                    text_only: bool = False) -> Path:
     """Run every answer-key page; a one-reader scan stays uncertain."""
     root = Path(root)
     if output_root is None:
@@ -51,7 +52,19 @@ def run_development(*, root: Path = ROOT, output_root: Path | None = None,
     sources = {entry["doc_id"]: entry for entry in json.loads(
         (root / "data" / "sources.json").read_text(encoding="utf-8"))}
     pdfs = sorted((root / "data" / "pdfs").glob("*.pdf"))
+    if text_only:
+        selected = []
+        for path in pdfs:
+            key_path = root / "data" / "ground_truth" / f"{path.stem}.json"
+            fields = json.loads(key_path.read_text(encoding="utf-8"))["fields"]
+            keyed_pages = sorted({field["page"] for field in fields})
+            with pymupdf.open(path) as pdf:
+                if all(len(pdf[number - 1].get_text(sort=True).strip()) >= 40
+                       for number in keyed_pages):
+                    selected.append(path)
+        pdfs = selected
     manifest = {"environment": "live-dev", "run_id": run_id,
+                "selection": "text_only" if text_only else "all_public_documents",
                 "model_label": PUBLIC_MODEL_LABEL,
                 "prompt_sha256": hashlib.sha256(SYSTEM_PROMPT.encode("utf-8")).hexdigest(),
                 "code_version": _code_version(), "documents": [], "pages": []}

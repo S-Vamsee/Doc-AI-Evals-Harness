@@ -21,14 +21,18 @@ def _pdf(path):
 def _response(messages):
     assert messages[0]["role"] == "system"
     assert messages[1]["role"] == "user"
-    return {"content": json.dumps({"facts": [
-        {"kind": "field", "subject": None, "relation": "invoice_number",
-         "value": "A-17", "origin": "extracted", "quote": "Invoice number A-17"},
-        {"kind": "field", "subject": None, "relation": "vendor_name",
-         "value": "Northvale", "origin": "extracted", "quote": "Vendor Northvale"},
-        {"kind": "field", "subject": None, "relation": "total_amount",
-         "value": "128.40", "origin": "extracted", "quote": "Total amount $128.40"},
-    ]}), "usage": {"prompt_tokens": 100, "completion_tokens": 80},
+    if "top-level keys" in messages[0]["content"]:
+        content = {"fields": {
+            "invoice_number": {"kind": "identifier", "subject": None, "value": "A-17",
+                               "origin": "extracted", "quote": "Invoice number A-17"},
+            "vendor_name": {"kind": "party", "subject": None, "value": "Northvale",
+                            "origin": "extracted", "quote": "Vendor Northvale"},
+            "total_amount": {"kind": "amount", "subject": None, "value": "128.40",
+                             "origin": "extracted", "quote": "Total amount $128.40"},
+        }}
+    else:
+        content = {"facts": []}
+    return {"content": json.dumps(content), "usage": {"prompt_tokens": 100, "completion_tokens": 80},
             "api_created_at": 1790000000, "latency_seconds": 0.1}
 
 

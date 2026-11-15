@@ -309,6 +309,8 @@ def main() -> int:
                       help="Run the rule-tested one-page text pipeline with judge scoring disabled")
     mode.add_argument("--development", action="store_true",
                       help="Run the 20 public development PDFs through the judge-free core")
+    parser.add_argument("--text-only", action="store_true",
+                        help="With --development, run only PDFs whose pages have usable text")
     parser.add_argument("--reuse-ocr", action="store_true", help="Reuse Qwen transcriptions when PDF, model, and OCR prompt are unchanged")
     parser.add_argument("--pdf", type=Path, help="PDF path for a private one-page run")
     parser.add_argument("--source-url", help="Public source URL for a private one-page PDF")
@@ -319,7 +321,7 @@ def main() -> int:
         if os.getenv("HARNESS_ENV") != "live-dev":
             parser.error("--development requires the live-dev environment entry point")
         from src.development_run import run_development
-        work = run_development()
+        work = run_development(text_only=args.text_only)
         summary = json.loads((work / "summary.json").read_text(encoding="utf-8"))
         print(f"Development report: {work / 'report.md'}")
         return 0 if summary["complete"] else 1

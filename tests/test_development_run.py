@@ -14,7 +14,15 @@ def test_all_development_documents_run_with_recorded_responses(tmp_path):
 
     def recorded(messages):
         requests.append(messages)
-        return {"content": '{"facts": []}', "usage": {},
+        if "top-level keys" in messages[0]["content"]:
+            user = messages[1]["content"]
+            requested = json.loads(user.split("Requested keyed field names: ", 1)[1].split("\n", 1)[0])
+            content = json.dumps({"fields": {name: {"value": None, "quote": "",
+                                                    "kind": "labelled_value", "origin": "extracted"}
+                                             for name in requested}})
+        else:
+            content = '{"facts": []}'
+        return {"content": content, "usage": {},
                 "api_created_at": None, "latency_seconds": 0.0}
 
     def cached_scan(_path, _baseline):
@@ -27,7 +35,7 @@ def test_all_development_documents_run_with_recorded_responses(tmp_path):
     manifest = json.loads((run / "manifest.json").read_text(encoding="utf-8"))
     assert summary["documents"] == 20
     assert summary["complete"] is True
-    assert summary["pages"] == len(requests)
+    assert len(requests) == 2 * summary["pages"]
     assert summary["pages"] >= 20
     assert summary["judge_calls"] == 0
     assert manifest["environment"] == "live-dev"

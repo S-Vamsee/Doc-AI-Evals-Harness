@@ -34,6 +34,8 @@ def build_review_queue(records: list[FactRecord], page_text: str, *,
         if len(matches) != 1:
             continue
         record = matches[0]
+        if record.value is None:
+            continue
         queued_ids.add(record.fact_id)
         possible_near_matches.append({
             "fact_id": record.fact_id, "field": record.relation,
@@ -42,7 +44,12 @@ def build_review_queue(records: list[FactRecord], page_text: str, *,
             "evidence_state": record.state, "evidence": record.evidence.model_dump(),
         })
     uncertain_all = sorted((item for item in records if item.state == "uncertain"
+                            and item.value is not None
                             and item.fact_id not in queued_ids), key=_doubt)
+    role_all = sorted((item for item in records
+                       if item.evidence_support == "role_not_printed" and item.value is not None),
+                      key=lambda item: item.fact_id)
+    role_sample = random.Random(seed).sample(role_all, min(sample_size, len(role_all)))
     verified_all = sorted((item for item in records if item.state == "verified"
                            and item.fact_id not in queued_ids),
                           key=lambda item: item.fact_id)
@@ -58,6 +65,7 @@ def build_review_queue(records: list[FactRecord], page_text: str, *,
         "uncertain": [item.model_dump() for item in uncertain_all[:uncertain_cap]],
         "possible_near_matches": possible_near_matches,
         "verified_sample": [item.model_dump() for item in sample],
+        "role_not_printed_sample": [item.model_dump() for item in role_sample],
         "uncovered_text": uncovered,
         "unreviewed_uncertain": max(len(uncertain_all) - uncertain_cap, 0),
         "facts_extracted": len(records),
@@ -68,7 +76,7 @@ def build_review_queue(records: list[FactRecord], page_text: str, *,
 def apply_human_verdicts(records: list[FactRecord], queue: dict,
                          verdicts: dict[str, str], missing: list[dict]) -> dict:
     offered = {item["fact_id"] for key in ("uncertain", "verified_sample",
-                                          "possible_near_matches")
+                                          "role_not_printed_sample", "possible_near_matches")
                for item in queue.get(key, [])}
     if not set(verdicts).issubset(offered):
         raise ValueError("A verdict names a fact outside the review queue")

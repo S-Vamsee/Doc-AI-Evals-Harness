@@ -1,0 +1,200 @@
+{
+  "facts": [
+    {
+      "kind": "party",
+      "subject": "Larkfield Stationers",
+      "relation": "is_vendor",
+      "value": "Larkfield Stationers",
+      "origin": "extracted",
+      "quote": "Larkfield Stationers                    TAX INVOICE"
+    },
+    {
+      "kind": "party",
+      "subject": "Example Traders (fictional)",
+      "relation": "is_bill_to",
+      "value": "Example Traders (fictional)",
+      "origin": "extracted",
+      "quote": "BILL TO\n Example Traders (fictional)"
+    },
+    {
+      "kind": "identifier",
+      "subject": "Larkfield Stationers",
+      "relation": "tax_number",
+      "value": "SPECIMEN-TAX-0001",
+      "origin": "extracted",
+      "quote": "Tax no.: SPECIMEN-TAX-0001"
+    },
+    {
+      "kind": "identifier",
+      "subject": "Example Traders (fictional)",
+      "relation": "tax_number",
+      "value": "SPECIMEN-TAX-0002",
+      "origin": "extracted",
+      "quote": "Tax no.: SPECIMEN-TAX-0002"
+    },
+    {
+      "kind": "identifier",
+      "subject": null,
+      "relation": "order_reference",
+      "value": "PO-77310",
+      "origin": "extracted",
+      "quote": "Order ref.                   PO-77310"
+    },
+    {
+      "kind": "party",
+      "subject": "Larkfield Stationers",
+      "relation": "address",
+      "value": "22 Example Market, Sampleton 000 000",
+      "origin": "extracted",
+      "quote": "22 Example Market, Sampleton 000 000"
+    },
+    {
+      "kind": "party",
+      "subject": "Larkfield Stationers",
+      "relation": "email",
+      "value": "accounts@larkfield.example",
+      "origin": "extracted",
+      "quote": "accounts@larkfield.example"
+    },
+    {
+      "kind": "party",
+      "subject": "Example Traders (fictional)",
+      "relation": "address",
+      "value": "Unit 5, Specimen Industrial Estate\nSampleton 000 000",
+      "origin": "extracted",
+      "quote": "Unit 5, Specimen Industrial Estate\n Sampleton 000 000"
+    },
+    {
+      "kind": "line_item",
+      "subject": null,
+      "relation": "line_item_1",
+      "value": {
+        "#": "1",
+        "Description": "A4 copier paper, 75 gsm, ream of 500",
+        "Qty": "20",
+        "Unit price": "₹285.00",
+        "Amount": "₹5,700.00"
+      },
+      "origin": "extracted",
+      "quote": "1    A4 copier paper, 75 gsm, ream of 500                   20         ₹285.00         ₹5,700.00"
+    },
+    {
+      "kind": "line_item",
+      "subject": null,
+      "relation": "line_item_2",
+      "value": {
+        "#": "2",
+        "Description": "Ballpoint pens, blue, box of 50",
+        "Qty": "4",
+        "Unit price": "₹420.00",
+        "Amount": "₹1,680.00"
+      },
+      "origin": "extracted",
+      "quote": "2     Ballpoint pens, blue, box of 50                          4         ₹420.00         ₹1,680.00"
+    },
+    {
+      "kind": "line_item",
+      "subject": null,
+      "relation": "line_item_3",
+      "value": {
+        "#": "3",
+        "Description": "Lever-arch files, A4, pack of 10",
+        "Qty": "3",
+        "Unit price": "₹899.00",
+        "Amount": "₹2,697.00"
+      },
+      "origin": "extracted",
+      "quote": "3    Lever-arch files, A4, pack of 10                          3         ₹899.00         ₹2,697.00"
+    },
+    {
+      "kind": "line_item",
+      "subject": null,
+      "relation": "line_item_4",
+      "value": {
+        "#": "4",
+        "Description": "Whiteboard markers, assorted, pack of 4",
+        "Qty": "6",
+        "Unit price": "₹160.00",
+        "Amount": "₹960.00"
+      },
+      "origin": "extracted",
+      "quote": "4    Whiteboard markers, assorted, pack of 4                  6         ₹160.00          ₹960.00"
+    },
+    {
+      "kind": "line_item",
+      "subject": null,
+      "relation": "line_item_5",
+      "value": {
+        "#": "5",
+        "Description": "Desk organiser, mesh, black",
+        "Qty": "5",
+        "Unit price": "₹349.00",
+        "Amount": "₹1,745.00"
+      },
+      "origin": "extracted",
+      "quote": "5     Desk organiser, mesh, black                            5         ₹349.00         ₹1,745.00"
+    },
+    {
+      "kind": "line_item",
+      "subject": null,
+      "relation": "line_item_6",
+      "value": {
+        "#": "6",
+        "Description": "Sticky notes, 76 x 76 mm, pack of 12",
+        "Qty": "8",
+        "Unit price": "₹240.00",
+        "Amount": "₹1,920.00"
+      },
+      "origin": "extracted",
+      "quote": "6     Sticky notes, 76 x 76 mm, pack of 12                     8         ₹240.00         ₹1,920.00"
+    },
+    {
+      "kind": "amount",
+      "subject": null,
+      "relation": "subtotal",
+      "value": "₹14,702.00",
+      "origin": "extracted",
+      "quote": "Subtotal   ₹14,702.00"
+    },
+    {
+      "kind": "amount",
+      "subject": null,
+      "relation": "gst_amount",
+      "value": "₹2,646.36",
+      "origin": "extracted",
+      "quote": "GST at 18% ₹2,646.36"
+    },
+    {
+      "kind": "amount",
+      "subject": null,
+      "relation": "total_due",
+      "value": "₹17,348.36",
+      "origin": "extracted",
+      "quote": "Total due ₹17,348.36"
+    },
+    {
+      "kind": "statement",
+      "subject": null,
+      "relation": "payment_instructions",
+      "value": "Bank transfer to Specimen Bank, account SPECIMEN-0000-1111, within 30 days. Please quote the invoice number with your payment.",
+      "origin": "extracted",
+      "quote": "Bank transfer to Specimen Bank, account SPECIMEN-0000-1111, within 30 days. Please quote the invoice number with your payment."
+    },
+    {
+      "kind": "statement",
+      "subject": null,
+      "relation": "verification_note",
+      "value": "Every amount is quantity times unit price; the subtotal, GST and total add up to the paisa.",
+      "origin": "extracted",
+      "quote": "Every amount is quantity times unit price; the subtotal, GST and total add up to the paisa."
+    },
+    {
+      "kind": "statement",
+      "subject": null,
+      "relation": "disclaimer",
+      "value": "SPECIMEN - fictional document made by filedone.ai for testing. Free to use (CC0 1.0).",
+      "origin": "extracted",
+      "quote": "SPECIMEN - fictional document made by filedone.ai for testing. Free to use (CC0 1.0)."
+    }
+  ]
+}

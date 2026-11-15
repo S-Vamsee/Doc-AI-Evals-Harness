@@ -1,0 +1,22 @@
+{
+  "invoice_number": {
+    "value": "INV-2026-0142",
+    "quote": "Invoice no.              INV-2026-0142"
+  },
+  "invoice_date": {
+    "value": "18 September 2026",
+    "quote": "Invoice date        18 September 2026"
+  },
+  "due_date": {
+    "value": "18 October 2026",
+    "quote": "Due date              18 October 2026"
+  },
+  "vendor_name": {
+    "value": "Larkfield Stationers",
+    "quote": "Larkfield Stationers                    TAX INVOICE"
+  },
+  "total_amount": {
+    "value": "₹17,348.36",
+    "quote": "Total due ₹17,348.36"
+  }
+}
