@@ -31,3 +31,13 @@ def test_owner_approved_document_date_order_is_inherited_by_date_fields():
     assert truth["date_order"] == "DMY"
     assert all(field["date_order"] == "DMY" for field in truth["fields"]
                if field["type"] == "date")
+
+
+def test_notice_day_first_order_records_owner_context():
+    key_path = ROOT / "data" / "ground_truth" / "notice_001.json"
+    with pymupdf.open(ROOT / "data" / "pdfs" / "notice_001.pdf") as pdf:
+        truth = load_truth(key_path, "notice_001", len(pdf))
+    assert truth["date_order"] == "DMY"
+    assert truth["date_order_basis"] == "owner_context"
+    assert all(field["date_order"] == "DMY" for field in truth["fields"]
+               if field["type"] == "date")

@@ -41,3 +41,12 @@ def test_number_inside_another_number_does_not_count_as_support():
     assert checked.evidence_support == "unsupported"
     assert "support" in checked.reason.lower()
     pdf.close()
+
+
+def test_number_words_in_quote_support_digit_value():
+    from src.policy import value_supported_by_quote
+
+    quote = "The window is extended from ten to fifteen business days."
+    assert value_supported_by_quote(15, quote, "number")
+    assert value_supported_by_quote("fifteen", quote, "number")
+    assert not value_supported_by_quote(16, quote, "number")

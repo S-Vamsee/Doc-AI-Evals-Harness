@@ -33,6 +33,7 @@ def test_scorer_and_future_judge_prompt_load_review_file():
     assert rulings["column_bare_value_allowed"] is True
     assert rulings["trim_trailing_punctuation"] is True
     assert rulings["expand_weekday_month_abbreviations"] is True
+    assert rulings["number_words_equal_digits"] is True
     assert " ".join(rulings["judge_prompt_lines"]) == JUDGE_SYSTEM_PROMPT
 
 
@@ -43,3 +44,13 @@ def test_money_alias_decision_comes_from_loaded_rulings(monkeypatch):
     alternate = dict(real, currency_aliases=[["$", "USD"]])
     monkeypatch.setattr(policy, "load_review_rulings", lambda: alternate)
     assert policy.typed_equal("USD 53.78", "$53.78", "money")
+
+
+def test_number_word_decision_comes_from_loaded_rulings(monkeypatch):
+    from src import policy
+
+    real = policy.load_review_rulings()
+    monkeypatch.setattr(policy, "load_review_rulings",
+                        lambda: dict(real, number_words_equal_digits=False))
+    assert not policy.typed_equal("fifteen", 15, "number")
+    assert not policy.value_supported_by_quote(15, "Window: fifteen days", "number")

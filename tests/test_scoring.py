@@ -52,6 +52,15 @@ def test_count_is_numeric_but_not_money():
     assert typed_equal("41,280", 41280, "number")
 
 
+def test_number_words_match_digits_for_number_fields():
+    assert typed_equal("fifteen", 15, "number")
+    assert typed_equal("twenty-one", 21, "number")
+    assert typed_equal("forty-one thousand two hundred eighty", 41280, "number")
+    assert typed_equal("one hundred and five", 105, "number")
+    assert not typed_equal("fourteen", 15, "number")
+    assert not typed_equal("fifteen business days", 15, "number")
+
+
 def test_weekday_and_ordinal_date_formats_normalize():
     assert typed_equal("2026-10-13", "Tuesday 13 October 2026", "date")
     assert typed_equal("2026-09-25", "25th day of September 2026", "date")

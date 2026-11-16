@@ -401,6 +401,128 @@ def _money_value(value: object) -> Decimal | None:
         return None
 
 
+_SMALL_NUMBER_WORDS = {
+    "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4,
+    "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9,
+    "ten": 10, "eleven": 11, "twelve": 12, "thirteen": 13,
+    "fourteen": 14, "fifteen": 15, "sixteen": 16,
+    "seventeen": 17, "eighteen": 18, "nineteen": 19,
+}
+_TENS_NUMBER_WORDS = {
+    "twenty": 20, "thirty": 30, "forty": 40, "fifty": 50,
+    "sixty": 60, "seventy": 70, "eighty": 80, "ninety": 90,
+}
+_SCALE_NUMBER_WORDS = {"trillion": 10**12, "billion": 10**9,
+                       "million": 10**6, "thousand": 10**3}
+_ALL_NUMBER_WORDS = (set(_SMALL_NUMBER_WORDS) | set(_TENS_NUMBER_WORDS)
+                     | set(_SCALE_NUMBER_WORDS) | {"hundred", "and", "point",
+                                                    "minus", "negative"})
+
+
+def _number_group(tokens: list[str]) -> int | None:
+    """Parse one English cardinal group below one thousand, without extra words."""
+    if not tokens:
+        return None
+    total = 0
+    index = 0
+    if (len(tokens) >= 2 and tokens[0] in _SMALL_NUMBER_WORDS
+            and 1 <= _SMALL_NUMBER_WORDS[tokens[0]] <= 9
+            and tokens[1] == "hundred"):
+        total = _SMALL_NUMBER_WORDS[tokens[0]] * 100
+        index = 2
+        if index == len(tokens):
+            return total
+        if tokens[index] == "and":
+            index += 1
+    if index >= len(tokens):
+        return None
+    word = tokens[index]
+    if word in _TENS_NUMBER_WORDS:
+        total += _TENS_NUMBER_WORDS[word]
+        index += 1
+        if index < len(tokens) and tokens[index] in _SMALL_NUMBER_WORDS:
+            unit = _SMALL_NUMBER_WORDS[tokens[index]]
+            if not 1 <= unit <= 9:
+                return None
+            total += unit
+            index += 1
+    elif word in _SMALL_NUMBER_WORDS:
+        total += _SMALL_NUMBER_WORDS[word]
+        index += 1
+    else:
+        return None
+    return total if index == len(tokens) else None
+
+
+def _number_word_value(tokens: list[str]) -> Decimal | None:
+    if not tokens:
+        return None
+    sign = -1 if tokens[0] in {"minus", "negative"} else 1
+    if sign == -1:
+        tokens = tokens[1:]
+    if not tokens:
+        return None
+    if "point" in tokens:
+        if tokens.count("point") != 1:
+            return None
+        point = tokens.index("point")
+        whole = _number_word_value(tokens[:point]) if point else Decimal(0)
+        digits = tokens[point + 1:]
+        if (whole is None or not digits or any(word not in _SMALL_NUMBER_WORDS
+                or _SMALL_NUMBER_WORDS[word] > 9 for word in digits)):
+            return None
+        fraction = "".join(str(_SMALL_NUMBER_WORDS[word]) for word in digits)
+        return sign * (whole + Decimal("0." + fraction))
+    total = 0
+    group = []
+    previous_scale = float("inf")
+    for word in tokens:
+        if word in _SCALE_NUMBER_WORDS:
+            scale = _SCALE_NUMBER_WORDS[word]
+            amount = _number_group(group)
+            if amount is None or amount == 0 or scale >= previous_scale:
+                return None
+            total += amount * scale
+            previous_scale = scale
+            group = []
+        else:
+            group.append(word)
+    if total and group[:1] == ["and"]:
+        group = group[1:]
+    remainder = _number_group(group) if group else 0
+    if remainder is None:
+        return None
+    return Decimal(sign * (total + remainder))
+
+
+def _number_value(value: object) -> Decimal | None:
+    text = str(value).strip().strip(".,;:!? ")
+    try:
+        return Decimal(text.replace(",", ""))
+    except InvalidOperation:
+        if not load_review_rulings()["number_words_equal_digits"]:
+            return None
+        if not re.fullmatch(r"[A-Za-z]+(?:[ -][A-Za-z]+)*", text):
+            return None
+        return _number_word_value(re.findall(r"[A-Za-z]+", text.casefold()))
+
+
+def _number_words_in_quote(quote: str) -> list[Decimal]:
+    if not load_review_rulings()["number_words_equal_digits"]:
+        return []
+    values = []
+    run = []
+    for word in re.findall(r"[A-Za-z]+", quote.casefold()) + [""]:
+        if word in _ALL_NUMBER_WORDS:
+            run.append(word)
+        elif run:
+            value = _number_word_value(run)
+            if value is not None:
+                values.append(value)
+            run = []
+    return values
+
+
 def _money_marker(value: object) -> str | None:
     if isinstance(value, (int, float, Decimal)):
         return None
@@ -461,12 +583,12 @@ def value_supported_by_quote(value: object, quote: str,
     if value is None:
         return False
     if field_type == "number":
-        try:
-            target = Decimal(str(value).replace(",", ""))
-        except InvalidOperation:
+        target = _number_value(value)
+        if target is None:
             return False
-        return any(Decimal(match.group().replace(",", "")) == target
-                   for match in re.finditer(r"(?<![\w.])\d[\d,]*(?:\.\d+)?(?![\w.])", quote))
+        return (any(Decimal(match.group().replace(",", "")) == target
+                    for match in re.finditer(r"(?<![\w.])\d[\d,]*(?:\.\d+)?(?![\w.])", quote))
+                or target in _number_words_in_quote(quote))
     if field_type == "date" or (field_type is None and _date_value(value, date_order)):
         expected_date = _date_value(value, date_order)
         if expected_date is None:
@@ -518,10 +640,8 @@ def typed_equal(got: object, expected: object, field_type: str,
         actual, target = _date_value(got, date_order), _date_value(expected, date_order)
         return actual is not None and target is not None and actual == target
     if field_type == "number":
-        try:
-            return Decimal(str(got).replace(",", "")) == Decimal(str(expected).replace(",", ""))
-        except InvalidOperation:
-            return False
+        actual, target = _number_value(got), _number_value(expected)
+        return actual is not None and target is not None and actual == target
     if field_type == "identifier":
         actual, target = _plain(got), _plain(expected)
         if not prefix_matters:

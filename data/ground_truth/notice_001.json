@@ -1,6 +1,9 @@
 {
   "doc_id": "notice_001",
   "source_url": "https://filedone.ai/sample-files/sample-notice-en-fr-es.pdf",
+  "date_order": "DMY",
+  "date_order_basis": "owner_context",
+  "date_order_note": "Owner set day-first from the October work dates; the page does not state a date format.",
   "fields": [
     {
       "field": "notice_date",

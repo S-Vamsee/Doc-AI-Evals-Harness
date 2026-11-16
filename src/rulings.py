@@ -31,7 +31,8 @@ def load_review_rulings() -> dict:
             for group in aliases):
         raise ValueError("Owner rulings need currency alias groups")
     for name in ("missing_currency_marker_is_different", "column_bare_value_allowed",
-                 "trim_trailing_punctuation", "expand_weekday_month_abbreviations"):
+                 "trim_trailing_punctuation", "expand_weekday_month_abbreviations",
+                 "number_words_equal_digits"):
         if type(rulings.get(name)) is not bool:
             raise ValueError(f"Owner rulings need an explicit {name} decision")
     lines = rulings.get("judge_prompt_lines")
