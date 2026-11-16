@@ -57,6 +57,8 @@ MODULE_INPUTS = {
 }
 
 EXPECTED_OVERRIDES = {
+    "test_current_two_call_replay_counts_changed_keyed_fields":
+        "The current two-call replay completes eight calls and finds zero changed keyed answers across nine attack-field comparisons.",
     "test_w2_printed_tax_year_is_kept_as_a_finding":
         "The answer-key review keeps the printed W-2 tax-year issue visible as a finding.",
     "test_owner_sheet_has_neutral_shuffled_ids_and_no_answer_hints":
