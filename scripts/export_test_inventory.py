@@ -38,6 +38,7 @@ MODULE_INPUTS = {
     "test_evidence": "Self-made text PDFs with correct, missing, or misplaced quotes and boxes.",
     "test_fact_kinds": "A self-made page and recorded open facts covering every kind plus unclassified.",
     "test_injection_replay": "Recorded baseline and three attack pages on legacy one-call src.extract; the current two-call pipeline is not exercised.",
+    "test_injection_two_call": "Four self-made PDF pages and their saved live keyed and open replies on the current two-call path.",
     "test_judge_calibration": "Human-labelled value pairs and recorded local-judge verdicts.",
     "test_judge_calibration_run": "Saved calibration rows, local judge fixtures, and disagreement output.",
     "test_live_response_limit": "A fake API reply that reaches the output limit and leaves partial JSON.",
