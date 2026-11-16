@@ -57,6 +57,62 @@ MODULE_INPUTS = {
 }
 
 EXPECTED_OVERRIDES = {
+    "test_w2_printed_tax_year_is_kept_as_a_finding":
+        "The answer-key review keeps the printed W-2 tax-year issue visible as a finding.",
+    "test_owner_sheet_has_neutral_shuffled_ids_and_no_answer_hints":
+        "The owner review sheet uses shuffled neutral IDs and reveals no answer hints.",
+    "test_candidates_are_not_duplicate_rows_for_same_field":
+        "The calibration candidates contain no duplicate row for the same field.",
+    "test_text_page_writes_full_report_manifest_and_near_match_queue":
+        "A text-page run writes a full report, a manifest, and a near-match review queue.",
+    "test_line_item_object_is_preserved_and_missing_columns_is_a_failed_fact":
+        "A line item keeps its table columns, and an item without columns is a failed fact.",
+    "test_score_records_passes_key_currency_metadata_to_exact_comparison":
+        "Exact money comparison receives the answer key's printed-currency metadata.",
+    "test_keyed_near_match_stays_in_queue_with_same_named_open_fact":
+        "A keyed near-match stays in review when an open fact uses the same relation name.",
+    "test_run_is_local_cached_and_awaits_owner_review":
+        "The calibration run uses the local cached judge and waits for owner review.",
+    "test_heldback_refuses_unfrozen_set":
+        "The held-back run is refused until its input set is frozen.",
+    "test_year_inside_reference_id_does_not_verify_tax_year":
+        "A year found only inside an identifier does not verify the tax-year field.",
+    "test_review_csv_can_calibrate_without_editing_proposals":
+        "Owner labels in the review CSV calibrate the judge without editing proposals.",
+    "test_calibration_file_uses_human_labels_not_proposals":
+        "The calibration file uses human labels rather than proposed answers.",
+    "test_all_twelve_rules_have_named_tests":
+        "The suite names a test for each of the twelve hard rules.",
+    "test_weekday_and_month_abbreviations_without_added_year":
+        "Weekday and month abbreviations normalize without adding an unprinted year.",
+    "test_cli_loads_all_confirmed_money_keys":
+        "The CLI loads every owner-confirmed money key.",
+    "test_requested_mix_and_document_coverage":
+        "The calibration sheet includes the requested case mix and document coverage.",
+    "test_rule_01_no_score_without_human_key":
+        "A fact without a human answer key is reported as extracted and unscored.",
+    "test_rule_02_only_three_fact_states":
+        "Fact validation rejects states outside verified, uncertain, and failed.",
+    "test_rule_03_fabricated_quote_cannot_be_verified":
+        "A fabricated quote remains uncertain and receives no verified box.",
+    "test_rule_04_single_vision_reading_cannot_verify_a_scan":
+        "A scan checked only against its own vision reading remains uncertain.",
+    "test_rule_05_simulated_timeout_is_a_recorded_failure":
+        "An OCR timeout produces an incomplete run with a named OCR failure.",
+    "test_rule_06_mismatched_counts_block_report":
+        "A report is rejected when the fact counts do not add up.",
+    "test_rule_07_inferred_fact_and_null_are_not_guesses":
+        "An inferred fact cannot be verified; an explicit null is a scored abstention, not an uncertain fact.",
+    "test_rule_08_judge_requires_other_model_and_wrong_examples":
+        "Judge calibration rejects the extractor model and unbalanced examples while keeping exact and judge scores separate.",
+    "test_rule_09_document_instruction_stays_data":
+        "Page instructions stay in the user message and do not enter the system prompt.",
+    "test_rule_10_manifest_records_hashes_and_cache_use":
+        "The run manifest records model label, prompt and input hashes, code version, and cache use.",
+    "test_rule_11_general_claim_rejected_for_narrow_test":
+        "A narrow test cannot be reported as a general document-type claim.",
+    "test_rule_12_suite_must_cover_every_hard_rule":
+        "The coverage check rejects a list missing any of the twelve named hard-rule tests.",
     "test_w2_missing_labels_are_text_layer_root_causes":
         "The historical canned reply assigns text_layer root causes to two failed fields; it does not replay a real W-2 response.",
     "test_recorded_extraction_ignores_embedded_instructions":
@@ -110,7 +166,7 @@ def describe_test(classname: str, name: str) -> dict[str, str]:
     return {"plain_language_check": check,
             "input": MODULE_INPUTS[module],
             "expected_result": EXPECTED_OVERRIDES.get(base,
-                "The asserted outcome holds: " + humanize(base).lower() + ".")}
+                humanize(base).rstrip(".") + ".")}
 
 
 def _assertions(module: str, name: str) -> str:

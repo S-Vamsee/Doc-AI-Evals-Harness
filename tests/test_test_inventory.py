@@ -27,3 +27,18 @@ def test_exception_assertions_are_visible_in_exported_cases():
         assertion = _assertions(module, name)
         assert "raises" in assertion
         assert "ValueError" in assertion or "RuntimeError" in assertion
+
+
+def test_generated_expected_results_are_plain_behavior_sentences():
+    examples = [
+        ("tests.test_answer_keys", "test_every_human_key_field_has_a_supported_type"),
+        ("tests.test_calibration_sheet", "test_requested_mix_and_document_coverage"),
+        ("tests.test_rules", "test_rule_07_inferred_fact_and_null_are_not_guesses"),
+    ]
+    for module, name in examples:
+        expected = describe_test(module, name)["expected_result"]
+        assert not expected.startswith("The asserted outcome holds:")
+        assert expected[0].isupper() and expected.endswith(".")
+    assert "abstention" in describe_test(
+        "tests.test_rules", "test_rule_07_inferred_fact_and_null_are_not_guesses"
+    )["expected_result"].lower()

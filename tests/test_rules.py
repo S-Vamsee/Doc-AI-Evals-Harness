@@ -91,14 +91,36 @@ def test_rule_06_mismatched_counts_block_report():
                                "failed": 0, "skipped": 0})
 
 
-def test_rule_07_inferred_fact_and_null_are_not_guesses():
+def test_rule_07_inferred_fact_and_null_are_not_guesses(tmp_path):
     from src import policy
+    from src.core_pipeline import run_text_page
 
     with pytest.raises(ValueError):
         policy.FactRecord.model_validate(fact(origin="inferred", state="verified"))
-    null_fact = policy.FactRecord.model_validate(fact(value=None, state="uncertain"))
-    assert null_fact.value is None
-    assert null_fact.state == "uncertain"
+
+    path = tmp_path / "sample.pdf"
+    pdf = pymupdf.open()
+    page = pdf.new_page()
+    page.insert_text((72, 72), "Invoice A-17 has no printed payment due date on this sample page.")
+    pdf.save(path)
+    pdf.close()
+
+    def recorded(messages):
+        content = ({"due_date": {"value": None, "quote": ""}}
+                   if "top-level keys" in messages[0]["content"] else {"facts": []})
+        return {"content": json.dumps(content), "finish_reason": "stop",
+                "usage": {}, "api_created_at": None, "latency_seconds": 0.0}
+
+    run = run_text_page("sample", path, 1, "https://example.org/sample.pdf",
+                        answer_key={"due_date": {"value": None, "type": "date"}},
+                        model_request=recorded, output_root=tmp_path / "runs")
+    result = json.loads((run / "result.json").read_text(encoding="utf-8"))
+    assert result["complete"] is True
+    assert result["scored"]["exact_passed"] == 1
+    assert result["outcome_counts"]["abstentions"] == 1
+    assert result["counts"]["skipped"] == 1
+    assert result["counts"]["uncertain"] == 0
+    assert result["review_counts"]["uncertain"] == 0
 
 
 def test_rule_08_judge_requires_other_model_and_wrong_examples():
