@@ -24,6 +24,11 @@ def test_approved_file_covers_every_human_key_once():
     assert sum(len(fields) for fields in definitions["documents"].values()) == 103
 
 
+def test_invoice_002_due_date_definition_states_field_boundary_only():
+    definition = load_field_definitions()["documents"]["invoice_002"]["due_date"]
+    assert definition == "The payment-due date; excludes the invoice issue date."
+
+
 def test_loaded_answer_key_receives_definitions_from_approved_file():
     path = ROOT / "data" / "ground_truth" / "invoice_001.json"
     with pymupdf.open(ROOT / "data" / "pdfs" / "invoice_001.pdf") as pdf:

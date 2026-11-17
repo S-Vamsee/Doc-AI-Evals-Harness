@@ -72,7 +72,7 @@ Owner approved this version on 2026-11-16. This is the single source for the sha
 - `vendor_name` — The seller or issuer; excludes the billed customer.
 - `customer_name` — The buyer or billed organization; excludes the seller.
 - `total_amount` — The final invoice total; excludes item amounts and subtotals.
-- `due_date` — A date entered for payment due; excludes an empty due-date label and the invoice date.
+- `due_date` — The payment-due date; excludes the invoice issue date.
 
 ## `invoice_003`
 
