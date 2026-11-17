@@ -22,13 +22,13 @@
     },
     {
       "field": "instruction",
-      "value": "rest and hydrate — fictional clinic form",
+      "value": "rest and hydrate",
       "page": 1,
       "type": "free_text"
     },
     {
       "field": "signature",
-      "value": "J. Rivera (SAMPLE)",
+      "value": "J. Rivera",
       "page": 1,
       "type": "free_text"
     }

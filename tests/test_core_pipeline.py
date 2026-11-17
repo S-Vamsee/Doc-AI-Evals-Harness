@@ -64,6 +64,7 @@ def test_text_page_writes_full_report_manifest_and_near_match_queue(tmp_path):
     assert manifest["model_label"] == "deepseek-flash"
     assert manifest["cache_steps"]["extraction"] is False
     assert "2 of 3" in report and "Possible near-matches" in report
+    assert "Open facts (experimental): 0" in report
 
 
 def test_extraction_failure_is_saved_as_incomplete_run(tmp_path):

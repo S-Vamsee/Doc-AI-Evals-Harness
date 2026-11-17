@@ -9,5 +9,27 @@
     "reason": "The owner ruled that SAMPLE only is a specimen marking, not a symptom.",
     "owner_approved": true,
     "approved_on": "2026-11-14"
+  },
+  {
+    "doc_id": "form_handwritten_001",
+    "field": "instruction",
+    "page": 1,
+    "old_value": "rest and hydrate — fictional clinic form",
+    "new_value": "rest and hydrate",
+    "printed_quote": "Rx note: rest and hydrate — fictional clinic form",
+    "reason": "The owner ruled that the form descriptor is not part of the care instruction.",
+    "owner_approved": true,
+    "approved_on": "2026-11-16"
+  },
+  {
+    "doc_id": "form_handwritten_001",
+    "field": "signature",
+    "page": 1,
+    "old_value": "J. Rivera (SAMPLE)",
+    "new_value": "J. Rivera",
+    "printed_quote": "Signature: J. Rivera (SAMPLE)",
+    "reason": "The owner ruled that the sample marking is not part of the signer name.",
+    "owner_approved": true,
+    "approved_on": "2026-11-16"
   }
 ]

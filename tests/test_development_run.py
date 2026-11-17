@@ -46,4 +46,6 @@ def test_all_development_documents_run_with_recorded_responses(tmp_path):
     assert all(item["judge_scoring_enabled"] is False for item in summary["page_results"])
     assert all("call_status" in item and "open_overlap_count" in item
                for item in summary["page_results"])
+    assert all("open_fact_count" in item for item in summary["page_results"])
+    assert "Open facts (experimental)" in (run / "report.md").read_text(encoding="utf-8")
 

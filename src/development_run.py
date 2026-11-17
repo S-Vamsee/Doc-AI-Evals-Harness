@@ -10,7 +10,9 @@ from datetime import datetime, timezone
 
 import pymupdf
 
-from src.core_pipeline import PUBLIC_MODEL_LABEL, SYSTEM_PROMPT, _code_version, run_text_page
+from src.core_pipeline import (KEYED_PROMPT, PUBLIC_MODEL_LABEL, SYSTEM_PROMPT,
+                               _code_version, run_text_page)
+from src.field_definitions import DEFINITIONS_PATH
 from src.vision import vision_cache_signature
 
 
@@ -66,7 +68,11 @@ def run_development(*, root: Path = ROOT, output_root: Path | None = None,
     manifest = {"environment": "live-dev", "run_id": run_id,
                 "selection": "text_only" if text_only else "all_public_documents",
                 "model_label": PUBLIC_MODEL_LABEL,
-                "prompt_sha256": hashlib.sha256(SYSTEM_PROMPT.encode("utf-8")).hexdigest(),
+                "prompt_sha256": hashlib.sha256(
+                    (KEYED_PROMPT + "\n" + SYSTEM_PROMPT + "\n").encode("utf-8") +
+                    DEFINITIONS_PATH.read_bytes()).hexdigest(),
+                "field_definitions_sha256": hashlib.sha256(
+                    DEFINITIONS_PATH.read_bytes()).hexdigest(),
                 "code_version": _code_version(), "documents": [], "pages": []}
     rows = []
     failures = []
@@ -130,6 +136,8 @@ def run_development(*, root: Path = ROOT, output_root: Path | None = None,
                        "complete": result["complete"],
                        "call_status": result.get("call_status"),
                        "open_overlap_count": len(result.get("open_overlaps", [])),
+                       "open_fact_count": sum(record.get("source_call") == "open"
+                                              for record in result.get("records", [])),
                        "counts": result.get("counts"),
                        "scored_fields": (result.get("scored") or {}).get("scored"),
                        "exact_passed": (result.get("scored") or {}).get("exact_passed"),
@@ -163,8 +171,8 @@ def run_development(*, root: Path = ROOT, output_root: Path | None = None,
              f"Documents attempted: {summary['documents']} of {len(pdfs)}; "
              f"keyed pages: {summary['pages']}; complete: {summary['complete']}.",
              f"Hosted token-rate reference estimate: ${total_cost:.6f}; billed cost unverified.",
-             "", "| Document | Page | Source | Keyed call | Open call | Open overlaps | Facts | Verified | Uncertain | Failed | Exact |",
-             "| --- | ---: | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
+             "", "| Document | Page | Source | Keyed call | Open call | Open facts (experimental) | Open overlaps | Facts | Verified | Uncertain | Failed | Exact |",
+             "| --- | ---: | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
     for row in rows:
         counts = row["counts"] or {}
         exact = f"{row['exact_passed']}/{row['scored_fields']}" if row[
@@ -172,6 +180,7 @@ def run_development(*, root: Path = ROOT, output_root: Path | None = None,
         lines.append(f"| {row['doc_id']} | {row['page']} | {row['source_mode']} | "
                      f"{'complete' if (row['call_status'] or {}).get('keyed', {}).get('complete') else 'incomplete'} | "
                      f"{'complete' if (row['call_status'] or {}).get('open', {}).get('complete') else 'incomplete'} | "
+                     f"{row['open_fact_count']} | "
                      f"{row['open_overlap_count']} | "
                      f"{counts.get('facts_in', 0)} | {counts.get('verified', 0)} | "
                      f"{counts.get('uncertain', 0)} | {counts.get('failed', 0)} | {exact} |")

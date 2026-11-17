@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT))
 
 from src.extract import extract_facts, read_pdf_pages
 from src.core_pipeline import run_text_page
+from src.field_definitions import DEFINITIONS_PATH, load_field_definitions
 from src.judge import judge_document
 from src.page_eval import PAGE_RESULTS, compare_page, run_page
 from src.regression import compare_runs, format_comparison
@@ -80,6 +81,14 @@ def load_truth(path: Path, doc_id: str, page_count: int) -> dict:
         names.append(item["field"])
     if len(names) != len(set(names)):
         raise ValueError("Duplicate ground-truth field names")
+    definitions = load_field_definitions()
+    meanings = definitions["documents"].get(doc_id)
+    if meanings is None or set(meanings) != set(names):
+        raise ValueError(f"Approved field definitions do not match the answer key for {doc_id}")
+    for item in fields:
+        item["definition"] = meanings[item["field"]]
+    truth["shared_rules"] = definitions["shared_rules"]
+    truth["definitions_source"] = str(DEFINITIONS_PATH.relative_to(ROOT)).replace("\\", "/")
     return truth
 
 
