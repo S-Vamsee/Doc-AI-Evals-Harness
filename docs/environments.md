@@ -35,3 +35,10 @@ full-run path still invokes the judge and is not an approved Day 1 live command.
 The owner approved the 20-document judge-free development runner for Day 1. Its
 cached scan facts stay uncertain until independent OCR is wired in. The held-back
 command is blocked until the owner freezes that set on Day 8.
+
+## Trying a new document
+
+`C:\venvs\harness\Scripts\python.exe scripts\environments.py live-dev -- --tryout path\to\file.pdf`
+runs a text PDF with no answer key. The page text is sent to the hosted model, so use public
+documents only. Results stay in `results/tryouts/`, apart from development and held-back runs.
+Exit codes: 0 complete, 1 incomplete, 2 refused.

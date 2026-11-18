@@ -318,6 +318,10 @@ def main() -> int:
                       help="Run the rule-tested one-page text pipeline with judge scoring disabled")
     mode.add_argument("--development", action="store_true",
                       help="Run the 20 public development PDFs through the judge-free core")
+    mode.add_argument("--tryout", type=Path, metavar="PDF",
+                      help="Try any text PDF with no answer key and write a readable trace")
+    parser.add_argument("--fields", metavar="A,B",
+                        help="With --tryout, field names to ask for, separated by commas")
     parser.add_argument("--text-only", action="store_true",
                         help="With --development, run only PDFs whose pages have usable text")
     parser.add_argument("--reuse-ocr", action="store_true", help="Reuse Qwen transcriptions when PDF, model, and OCR prompt are unchanged")
@@ -326,6 +330,20 @@ def main() -> int:
     parser.add_argument("--verify", type=Path, help="Human verification JSON for a completed one-page run")
     args = parser.parse_args()
     load_dotenv(ROOT / ".env")
+    if args.fields is not None and args.tryout is None:
+        parser.error("--fields requires --tryout")
+    if args.tryout is not None:
+        from src.tryout import TryoutRefused, parse_fields, run_tryout
+        try:
+            folder = run_tryout(args.tryout, parse_fields(args.fields))
+        except TryoutRefused as exc:
+            print(f"Refused: {exc}", file=sys.stderr)
+            return 2
+        if hasattr(sys.stdout, "reconfigure"):
+            sys.stdout.reconfigure(encoding="utf-8")
+        print((folder / "summary.md").read_text(encoding="utf-8"))
+        print(f"Tryout folder: {folder}")
+        return json.loads((folder / "summary.json").read_text(encoding="utf-8"))["exit_code"]
     if args.development:
         if os.getenv("HARNESS_ENV") != "live-dev":
             parser.error("--development requires the live-dev environment entry point")

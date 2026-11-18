@@ -24,6 +24,7 @@ from src.score import estimated_cost
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "results" / "experiments" / "core_runs"
 PUBLIC_MODEL_LABEL = "deepseek-flash"
+LOCAL_TRYOUT_SOURCE = "local-tryout:"
 SYSTEM_PROMPT = (
     "Read one PDF page and list its distinct structured facts as JSON. Return an object "
     "with a facts array. Every fact needs kind, subject (string or null), "
@@ -214,7 +215,7 @@ def _report(result: dict, document_type: str) -> str:
              "", "## Keyed fields", "",
              "| Field | Expected | Keyed value | Value match | Extracted exact | Origin | Evidence state | Answer | Root-cause stage | Reason |",
              "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
-    if result["scored"]:
+    if result["scored"] and result["scored"]["fields"]:
         for field in result["scored"]["fields"]:
             cause = field.get("root_cause") or {}
             lines.append(f"| {_cell(field['field'])} | {_cell(field['expected'])} | "
@@ -257,9 +258,16 @@ def run_text_page(doc_id: str, pdf_path: Path, page_number: int, source_url: str
                   answer_key: dict | None = None, document_type: str = "document",
                   output_root: Path | None = None, model_request=None,
                   page_text_override: str | None = None,
-                  ocr_cache_signature: str | None = None) -> Path:
-    """Write a complete or explicitly incomplete one-page run; never call a judge."""
-    if not source_url.startswith("https://"):
+                  ocr_cache_signature: str | None = None,
+                  requested_fields: list[str] | None = None) -> Path:
+    """Write a complete or explicitly incomplete one-page run; never call a judge.
+
+    ``requested_fields`` asks for named fields on a page that has no answer key, so
+    they are extracted and evidence-checked but never scored.
+    """
+    if answer_key is not None and requested_fields is not None:
+        raise ValueError("Requested fields without a key cannot be combined with an answer key")
+    if not source_url.startswith(("https://", LOCAL_TRYOUT_SOURCE)):
         raise ValueError("A public HTTPS source URL is required")
     if page_number < 1:
         raise ValueError("page_number must be positive")
@@ -285,7 +293,7 @@ def run_text_page(doc_id: str, pdf_path: Path, page_number: int, source_url: str
                     else page.get_text(sort=True)).strip()
             if len(text) < 40:
                 raise ValueError("Page has no usable text layer")
-            requested = list(answer_key or {})
+            requested = list(answer_key or requested_fields or [])
             definitions = load_field_definitions()
             meanings = definitions["documents"].get(doc_id, {})
             if doc_id in definitions["documents"] and not set(requested).issubset(meanings):
@@ -404,8 +412,11 @@ def run_text_page(doc_id: str, pdf_path: Path, page_number: int, source_url: str
                     continue
                 keyed_record = keyed_by_relation.get(record.relation)
                 disagrees = None
-                if keyed_record is not None:
-                    spec = (answer_key or {})[record.relation]
+                if keyed_record is not None and not answer_key:
+                    disagrees = (str(record.value).strip().casefold() !=
+                                 str(keyed_record.value).strip().casefold())
+                elif keyed_record is not None:
+                    spec = answer_key[record.relation]
                     disagrees = not typed_equal(
                         record.value, keyed_record.value, spec["type"],
                         prefix_matters=spec.get("prefix_matters", True),

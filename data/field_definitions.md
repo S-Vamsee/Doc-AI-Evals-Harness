@@ -45,9 +45,9 @@ Owner approved this version on 2026-11-16. This is the single source for the sha
 ## `form_handwritten_001`
 
 - `patient_name` — The patient named on the form; excludes the signer if different.
-- `form_date` — The date entered for the form; excludes unrelated dates.
+- `form_date` — The date of the patient form; excludes unrelated dates.
 - `symptoms` — The patient's symptom description; excludes instructions and form annotations.
-- `instruction` — The care instruction entered on the form; excludes symptoms and form descriptors.
+- `instruction` — The care instruction on the form; excludes symptoms and form descriptors.
 - `signature` — The signer's written mark or name in the signature field; excludes printed form labels.
 
 ## `form_library_001`
@@ -56,7 +56,7 @@ Owner approved this version on 2026-11-16. This is the single source for the sha
 - `form_title` — The title of the form; excludes section headings.
 - `membership_types` — The membership categories offered, including their eligibility qualifiers; excludes an applicant's selection.
 - `interests_list` — The interest categories offered as choices; excludes an applicant's selected interests.
-- `full_name` — A name entered in the applicant full-name field; excludes names printed elsewhere on the form.
+- `full_name` — The applicant's full name in the full-name field; excludes names printed elsewhere on the form.
 
 ## `invoice_001`
 

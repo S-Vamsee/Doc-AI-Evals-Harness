@@ -70,3 +70,10 @@ def test_keyed_prompt_and_review_use_the_same_definitions(tmp_path):
     review = json.loads((work / "review.json").read_text(encoding="utf-8"))
     assert review["shared_rules"] == definitions["shared_rules"]
     assert review["field_definitions"] == definitions["documents"]["invoice_001"]
+
+
+def test_definitions_do_not_describe_whether_a_field_is_filled_in():
+    definitions = load_field_definitions()["documents"]
+    wording = [meaning.casefold() for fields in definitions.values() for meaning in fields.values()]
+    for hint in ("entered", "empty", "blank", "if present", "return null"):
+        assert not [meaning for meaning in wording if hint in meaning], hint

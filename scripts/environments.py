@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
@@ -44,6 +45,12 @@ def frozen_heldback(root: Path = ROOT) -> dict:
     record = json.loads(path.read_text(encoding="utf-8"))
     if record.get("frozen") is not True or not record.get("input_sha256"):
         raise RuntimeError("The held-back set has no valid frozen fingerprint")
+    registry = root / "data" / "tryout_registry.json"
+    if registry.is_file():
+        tried = set(json.loads(registry.read_text(encoding="utf-8")).get("documents", {}))
+        frozen = set(re.findall(r"\b[0-9a-f]{64}\b", json.dumps(record)))
+        if tried & frozen:
+            raise RuntimeError("The held-back set contains a document that was already tried")
     return record
 
 
