@@ -56,8 +56,13 @@ KEYED_PROMPT = (
 )
 
 
-def parse_keyed_response(raw: str, requested: list[str]) -> tuple[dict, list[dict]]:
-    """Preserve duplicate JSON keys while validating the requested field contract."""
+def parse_keyed_response(raw: str, requested: list[str],
+                         warnings: list[dict] | None = None) -> tuple[dict, list[dict]]:
+    """Preserve duplicate JSON keys while validating the requested field contract.
+
+    A field that was not requested is ignored and reported in ``warnings``. A reply that
+    contains none of the requested names is rejected as the wrong shape.
+    """
     def pairs(items):
         return [(key, value) for key, value in items]
 
@@ -72,10 +77,18 @@ def parse_keyed_response(raw: str, requested: list[str]) -> tuple[dict, list[dic
     else:
         field_pairs = document
     found: dict[str, list] = {}
+    unexpected = []
     for name, value in field_pairs:
         if name not in requested:
-            raise ValueError(f"Unexpected keyed field: {name}")
+            unexpected.append(name)
+            continue
         found.setdefault(name, []).append(value)
+    if unexpected and not found:
+        raise ValueError(f"Unexpected keyed field: {unexpected[0]}")
+    if warnings is not None:
+        warnings.extend({"call": "keyed", "stage": "extraction",
+                         "reason": f"unrequested field ignored: {name}"}
+                        for name in dict.fromkeys(unexpected))
     values = {}
     failures = []
     for name in requested:
@@ -203,6 +216,8 @@ def _report(result: dict, document_type: str) -> str:
              f"Calls: keyed: {'complete' if result['call_status']['keyed']['complete'] else 'incomplete'}; "
              f"open: {'complete' if result['call_status']['open']['complete'] else 'incomplete'}.",
              f"Open facts (experimental): {sum(record['source_call'] == 'open' for record in result['records'])}.",
+             "Warnings: " + ("; ".join(item["reason"] for item in result.get("warnings", []))
+                             or "none") + ".",
              f"Open overlaps: {len(result['open_overlaps'])}; "
              f"value disagreements: {sum(item['disagrees'] is True for item in result['open_overlaps'])}.",
              "", f"Source: {result['source_url']}",
@@ -341,6 +356,7 @@ def run_text_page(doc_id: str, pdf_path: Path, page_number: int, source_url: str
             field_failures = []
             call_failures = []
             keyed_status = {"complete": not requested, "requested_fields": len(requested)}
+            warnings: list[dict] = []
             if requested:
                 try:
                     keyed_reply = requester(keyed_messages)
@@ -349,7 +365,7 @@ def run_text_page(doc_id: str, pdf_path: Path, page_number: int, source_url: str
                     if keyed_reply.get("finish_reason") == "length":
                         raise ValueError("Keyed response hit its output limit; raw JSON was saved")
                     keyed_values, field_failures = parse_keyed_response(keyed_reply["content"],
-                                                                        requested)
+                                                                        requested, warnings)
                     keyed_status["complete"] = not field_failures
                 except Exception as exc:
                     reason = f"{type(exc).__name__}: {exc}"
@@ -522,7 +538,8 @@ def run_text_page(doc_id: str, pdf_path: Path, page_number: int, source_url: str
                                   for kind in ("party", "identifier", "date_or_time", "amount",
                                                "line_item", "labelled_value", "statement",
                                                "unclassified")},
-                  "scored": scored, "failures": all_failures, "usage": usage,
+                  "scored": scored, "failures": all_failures, "warnings": warnings,
+                  "usage": usage,
                   "call_status": {"keyed": keyed_status, "open": open_status},
                   "open_overlaps": overlap_details,
                   "latency_seconds": sum(float(item.get("latency_seconds", 0.0)) for item in replies),

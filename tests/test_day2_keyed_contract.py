@@ -56,3 +56,41 @@ def test_omitted_and_duplicate_fields_are_named_failures_in_saved_run(tmp_path):
             }
     assert all(item["exact"] == "fail" for item in result["scored"]["fields"])
     assert "incomplete" in (run / "report.md").read_text(encoding="utf-8").lower()
+
+
+def test_unrequested_field_is_ignored_and_flagged_without_losing_answers():
+    raw = ('{"invoice_number": {"value": "A-17", "quote": "Invoice A-17"}, '
+           '"origin": "extracted"}')
+    warnings = []
+    values, failures = parse_keyed_response(raw, ["invoice_number"], warnings)
+    assert values["invoice_number"]["value"] == "A-17" and failures == []
+    assert warnings == [{"call": "keyed", "stage": "extraction",
+                         "reason": "unrequested field ignored: origin"}]
+
+
+def test_stray_field_in_a_saved_run_is_a_warning_not_a_failure(tmp_path):
+    import json
+    import pymupdf
+    pdf = pymupdf.open()
+    pdf.new_page().insert_text((72, 72), "Invoice number A-17 for the supplies delivered")
+    path = tmp_path / "page.pdf"
+    pdf.save(path)
+    pdf.close()
+
+    def reply(messages):
+        if "top-level keys" in messages[0]["content"]:
+            content = {"invoice_number": {"value": "A-17", "quote": "Invoice number A-17",
+                                          "origin": "extracted"}, "origin": "extracted"}
+        else:
+            content = {"facts": []}
+        return {"content": json.dumps(content), "usage": {"prompt_tokens": 5,
+                                                          "completion_tokens": 2},
+                "api_created_at": 1790000000}
+
+    key = {"invoice_number": {"value": "A-17", "type": "identifier", "prefix_matters": True}}
+    run = run_text_page("sample", path, 1, "https://example.org/page.pdf", answer_key=key,
+                        output_root=tmp_path / "runs", model_request=reply)
+    result = json.loads((run / "result.json").read_text(encoding="utf-8"))
+    assert result["complete"] is True and result["failures"] == []
+    assert result["scored"]["exact_passed"] == 1
+    assert "unrequested field ignored: origin" in (run / "report.md").read_text(encoding="utf-8")

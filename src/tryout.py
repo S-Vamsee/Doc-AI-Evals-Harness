@@ -145,6 +145,10 @@ def _write_trace(work: Path, name: str, page: int, calls: list[dict]) -> dict:
     failures = result.get("failures", [])
     lines.extend(["", "Failures:" if failures else "No stage failures were recorded."])
     lines.extend(f"- {item['stage']}: {item['reason']}" for item in failures)
+    warnings = result.get("warnings", [])
+    if warnings:
+        lines.extend(["", "Warnings, which did not stop the run:"])
+        lines.extend(f"- {item['reason']}" for item in warnings)
     cost = result.get("reference_cost_usd_estimate")
     lines.extend(["", "## 6. Time and estimated cost", "",
                   f"- Model time: {result.get('latency_seconds', 0.0):.1f} seconds",
