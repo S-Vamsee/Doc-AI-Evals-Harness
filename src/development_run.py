@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 
 import pymupdf
 
+from src.model_config import public_model_label
 from src.core_pipeline import (KEYED_PROMPT, PUBLIC_MODEL_LABEL, SYSTEM_PROMPT,
                                _code_version, run_text_page)
 from src.field_definitions import DEFINITIONS_PATH
@@ -67,7 +68,7 @@ def run_development(*, root: Path = ROOT, output_root: Path | None = None,
         pdfs = selected
     manifest = {"environment": "live-dev", "run_id": run_id,
                 "selection": "text_only" if text_only else "all_public_documents",
-                "model_label": PUBLIC_MODEL_LABEL,
+                "model_label": public_model_label(),
                 "prompt_sha256": hashlib.sha256(
                     (KEYED_PROMPT + "\n" + SYSTEM_PROMPT + "\n").encode("utf-8") +
                     DEFINITIONS_PATH.read_bytes()).hexdigest(),
@@ -167,7 +168,7 @@ def run_development(*, root: Path = ROOT, output_root: Path | None = None,
     _write(work / "manifest.json", manifest)
     _write(work / "summary.json", summary)
     lines = ["# Development run", "", f"Run: {run_id}; environment: live-dev; "
-             f"model label: {PUBLIC_MODEL_LABEL}; judge calls: 0.",
+             f"model label: {public_model_label()}; judge calls: 0.",
              f"Documents attempted: {summary['documents']} of {len(pdfs)}; "
              f"keyed pages: {summary['pages']}; complete: {summary['complete']}.",
              f"Hosted token-rate reference estimate: ${total_cost:.6f}; billed cost unverified.",

@@ -318,6 +318,8 @@ def main() -> int:
                       help="Run the rule-tested one-page text pipeline with judge scoring disabled")
     mode.add_argument("--development", action="store_true",
                       help="Run the 20 public development PDFs through the judge-free core")
+    mode.add_argument("--check-model", action="store_true",
+                      help="Send one tiny request to confirm the model key and endpoint work")
     mode.add_argument("--tryout", type=Path, metavar="PDF",
                       help="Try any text PDF with no answer key and write a readable trace")
     parser.add_argument("--fields", metavar="A,B",
@@ -330,6 +332,9 @@ def main() -> int:
     parser.add_argument("--verify", type=Path, help="Human verification JSON for a completed one-page run")
     args = parser.parse_args()
     load_dotenv(ROOT / ".env")
+    if args.check_model:
+        from src.model_check import check_model
+        return check_model()
     if args.fields is not None and args.tryout is None:
         parser.error("--fields requires --tryout")
     if args.tryout is not None:

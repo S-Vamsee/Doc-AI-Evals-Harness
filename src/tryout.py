@@ -151,6 +151,8 @@ def _write_trace(work: Path, name: str, page: int, calls: list[dict]) -> dict:
                   "- Estimated model cost: " +
                   (f"${cost:.6f} at reference token rates, not a billing record"
                    if cost is not None else "not available"),
+                  *([f"- Provider-reported cost: ${result['provider_cost_usd']:.6f}"]
+                    if result.get("provider_cost_usd") is not None else []),
                   "", "## 7. Saved files", "",
                   "`requests.json`, `keyed.raw.json` and `open.raw.json` (when requested), "
                   "`result.json`, `review.json`, `manifest.json`, `report.md`."])

@@ -42,3 +42,17 @@ command is blocked until the owner freezes that set on Day 8.
 runs a text PDF with no answer key. The page text is sent to the hosted model, so use public
 documents only. Results stay in `results/tryouts/`, apart from development and held-back runs.
 Exit codes: 0 complete, 1 incomplete, 2 refused.
+
+## Model endpoint
+
+The extraction model is set in `.env` with `HARNESS_MODEL_BASE_URL`, `HARNESS_MODEL_API_KEY`
+and `HARNESS_MODEL`. Any OpenAI-compatible endpoint works; see `.env.example`. The older
+`DEEPSEEK_*` names are still read when the new ones are absent.
+
+Check the connection with one small request before any run:
+
+`C:\venvs\harness\Scripts\python.exe scripts\environments.py live-dev -- --check-model`
+
+Each run's manifest records the provider and host. On OpenRouter, the provider-reported
+cost is saved beside the reference estimate. Changing provider or model can change answers,
+so a new baseline needs three runs.

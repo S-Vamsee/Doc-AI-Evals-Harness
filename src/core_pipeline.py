@@ -17,6 +17,8 @@ from src.policy import (FactRecord, build_extraction_messages, make_manifest,
                         render_policy_report, score_records, validate_tally,
                         verify_text_record, typed_equal)
 from src.field_definitions import DEFINITIONS_PATH, load_field_definitions
+from src.model_config import (endpoint_summary, load_model_config, public_model_label,
+                              request_options, usage_cost)
 from src.review import build_review_queue
 from src.score import estimated_cost
 
@@ -97,17 +99,12 @@ def _write(path: Path, value: dict | list) -> None:
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def _live_request(messages: list[dict]) -> dict:
-    key = os.getenv("DEEPSEEK_API_KEY")
-    if not key or key == "your_key_here":
-        raise RuntimeError("DEEPSEEK_API_KEY is missing from the ignored .env file")
-    model = os.getenv("DEEPSEEK_MODEL", PUBLIC_MODEL_LABEL)
-    base_url = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
-    client = OpenAI(api_key=key, base_url=base_url, timeout=180)
-    request = {"model": model, "messages": messages, "temperature": 0,
-               "response_format": {"type": "json_object"}, "max_tokens": 10000}
-    if base_url.rstrip("/") == "https://api.deepseek.com":
-        request["extra_body"] = {"thinking": {"type": "disabled"}}
+def _live_request(messages: list[dict], *, max_tokens: int = 10000) -> dict:
+    config = load_model_config()
+    client = OpenAI(api_key=config.api_key, base_url=config.base_url, timeout=180)
+    request = {"model": config.model, "messages": messages, "temperature": 0,
+               "response_format": {"type": "json_object"}, "max_tokens": max_tokens}
+    request.update(request_options(config))
     started = time.perf_counter()
     response = client.chat.completions.create(**request)
     usage = response.usage
@@ -118,6 +115,8 @@ def _live_request(messages: list[dict]) -> dict:
                   "completion_tokens": usage.completion_tokens if usage else None,
                   "prompt_cache_hit_tokens": getattr(usage, "prompt_cache_hit_tokens", None),
                   "prompt_cache_miss_tokens": getattr(usage, "prompt_cache_miss_tokens", None)},
+        "cost_usd": usage_cost(usage),
+        "provider": config.provider,
         "api_created_at": response.created,
         "latency_seconds": round(time.perf_counter() - started, 3),
     }
@@ -208,10 +207,12 @@ def _report(result: dict, document_type: str) -> str:
              f"value disagreements: {sum(item['disagrees'] is True for item in result['open_overlaps'])}.",
              "", f"Source: {result['source_url']}",
              f"Page: {result['page_number']}; source mode: {result['source_mode']}; "
-             f"model: {PUBLIC_MODEL_LABEL}; "
+             f"model: {result.get('model_label', PUBLIC_MODEL_LABEL)}; "
              f"judge: disabled; extraction cache: no.",
              f"Extraction latency: {result['latency_seconds']:.3f}s; "
-             f"reference API cost estimate: ${result['reference_cost_usd_estimate']:.6f}.",
+             f"reference API cost estimate: ${result['reference_cost_usd_estimate']:.6f}"
+             + (f"; provider-reported cost: ${result['provider_cost_usd']:.6f}."
+                if result.get("provider_cost_usd") is not None else "."),
              "", "## Keyed fields", "",
              "| Field | Expected | Keyed value | Value match | Extracted exact | Origin | Evidence state | Answer | Root-cause stage | Reason |",
              "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
@@ -312,7 +313,7 @@ def run_text_page(doc_id: str, pdf_path: Path, page_number: int, source_url: str
             keyed_messages = build_extraction_messages(keyed_user, keyed_instruction)
             open_messages = build_extraction_messages(open_user, SYSTEM_PROMPT)
             messages = [keyed_messages, open_messages]
-            manifest = make_manifest(model_label=PUBLIC_MODEL_LABEL,
+            manifest = make_manifest(model_label=public_model_label(),
                                      prompt=json.dumps(messages, ensure_ascii=False,
                                                        sort_keys=True),
                                      pdf_bytes=pdf_bytes, code_version=_code_version(),
@@ -329,7 +330,7 @@ def run_text_page(doc_id: str, pdf_path: Path, page_number: int, source_url: str
                              "answer_key_sha256": hashlib.sha256(json.dumps(
                                  answer_key, sort_keys=True, ensure_ascii=False).encode("utf-8")
                              ).hexdigest() if answer_key is not None else None,
-                             "judge_scoring_enabled": False})
+                             "judge_scoring_enabled": False, **endpoint_summary()})
             _write(work / "manifest.json", manifest)
             (work / "page_text.txt").write_text(text + "\n", encoding="utf-8")
             stage = "extraction"
@@ -507,6 +508,9 @@ def run_text_page(doc_id: str, pdf_path: Path, page_number: int, source_url: str
                    for item in replies if item.get("api_created_at") is not None
                    and (item.get("usage") or {}).get("prompt_tokens") is not None
                    and (item.get("usage") or {}).get("completion_tokens") is not None)
+        provider_costs = [item.get("cost_usd") for item in replies]
+        provider_cost = (sum(provider_costs) if provider_costs and
+                         all(value is not None for value in provider_costs) else None)
         all_failures = [{"call": "keyed", **item} for item in field_failures] + call_failures
         complete = keyed_status["complete"] and open_status["complete"] and not all_failures
         result = {"complete": complete, "exit_code": int(not complete), "doc_id": doc_id,
@@ -523,6 +527,8 @@ def run_text_page(doc_id: str, pdf_path: Path, page_number: int, source_url: str
                   "open_overlaps": overlap_details,
                   "latency_seconds": sum(float(item.get("latency_seconds", 0.0)) for item in replies),
                   "reference_cost_usd_estimate": cost,
+                  "provider_cost_usd": provider_cost,
+                  "model_label": manifest["model_label"],
                   "review_counts": {name: len(queue[name]) for name in
                                     ("possible_near_matches", "uncertain",
                                      "role_not_printed_sample", "verified_sample", "uncovered_text")}}
