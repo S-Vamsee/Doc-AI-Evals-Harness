@@ -49,6 +49,7 @@ def test_openrouter_requests_ask_for_real_cost_and_json_capable_providers():
     options = request_options(load_model_config(OPENROUTER))
     assert options["extra_body"]["usage"] == {"include": True}
     assert options["extra_body"]["provider"] == {"require_parameters": True}
+    assert options["extra_body"]["reasoning"] == {"enabled": False}
     deepseek = load_model_config({"HARNESS_MODEL_API_KEY": "k"})
     assert request_options(deepseek)["extra_body"] == {"thinking": {"type": "disabled"}}
 

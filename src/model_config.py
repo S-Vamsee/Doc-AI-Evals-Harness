@@ -83,9 +83,11 @@ def load_model_config(env=None) -> ModelConfig:
 def request_options(config: ModelConfig) -> dict:
     """Provider-specific options added to every chat request."""
     if config.provider == "openrouter":
-        # Report real usage cost, and only route to providers that honour JSON mode.
+        # Report real usage cost, only route to providers that honour JSON mode, and turn
+        # off hidden reasoning, as the earlier DeepSeek runs did.
         return {"extra_body": {"usage": {"include": True},
-                               "provider": {"require_parameters": True}}}
+                               "provider": {"require_parameters": True},
+                               "reasoning": {"enabled": False}}}
     if config.provider == "deepseek":
         return {"extra_body": {"thinking": {"type": "disabled"}}}
     return {}
